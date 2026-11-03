@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AgroShift Nexus | NASA Earth Intelligence Platform</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Plus Jakarta Sans, Outfit & Noto Sans Bengali -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22',
+            },
+            ambercrop: {
+              100: '#fef3c7',
+              300: '#fcd34d',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+            },
+            terraclay: {
+              100: '#ffedd5',
+              300: '#fdba74',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+            },
+            azurewater: {
+              100: '#e0f2fe',
+              300: '#7dd3fc',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+            },
+            darkearth: {
+              800: '#131d17',
+              850: '#0f1712',
+              900: '#0a100c',
+              950: '#050907',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans Bengali"', 'sans-serif'],
+            display: ['"Outfit"', '"Noto Sans Bengali"', 'sans-serif'],
+          },
+          boxShadow: {
+            'glow-emerald': '0 0 25px -4px rgba(16, 185, 129, 0.45)',
+            'glow-amber': '0 0 25px -4px rgba(245, 158, 11, 0.45)',
+            'card-light': '0 10px 25px -5px rgba(6, 78, 59, 0.08), 0 4px 6px -2px rgba(6, 78, 59, 0.04)',
+            'card-dark': '0 10px 30px -5px rgba(0, 0, 0, 0.55), 0 0 1px 1px rgba(16, 185, 129, 0.2)',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Theme transitions */
+    html, body {
+      transition: background-color 0.25s ease, color 0.25s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    /* Safe area padding for mobile bottom bar */
+    .pb-safe {
+      padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Vibrant Grid Background */
+    .bg-grid-light {
+      background-image: 
+        radial-gradient(#10b981 0.75px, transparent 0.75px),
+        radial-gradient(#f59e0b 0.75px, #f8faf8 0.75px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+    }
+
+    .dark .bg-grid-light {
+      background-image: 
+        radial-gradient(rgba(16, 185, 129, 0.3) 0.75px, transparent 0.75px),
+        radial-gradient(rgba(245, 158, 11, 0.2) 0.75px, #0a100c 0.75px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+    }
+
+    .glass-nav-light {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .dark .glass-nav-light {
+      background: rgba(10, 16, 12, 0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    /* Page Visibility Controller */
+    .app-page {
+      display: none;
+    }
+    .app-page.active-page {
+      display: block;
+      animation: fadeInPage 0.22s ease-out forwards;
+    }
+
+    @keyframes fadeInPage {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Satellite radar ping */
+    @keyframes pulseRing {
+      0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .satellite-node {
+      animation: pulseRing 2.4s infinite;
+    }
+
+    /* Voice button ripple */
+    @keyframes voicePulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+      70% { box-shadow: 0 0 0 16px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .voice-pulse-btn {
+      animation: voicePulse 2.2s infinite;
+    }
+
+    /* Animated voice wave */
+    @keyframes waveAnim {
+      0%, 100% { height: 6px; }
+      50% { height: 26px; }
+    }
+    .voice-wave-bar {
+      width: 4px;
+      border-radius: 4px;
+      animation: waveAnim 0.9s ease-in-out infinite;
+    }
+    .voice-wave-bar:nth-child(2) { animation-delay: 0.15s; }
+    .voice-wave-bar:nth-child(3) { animation-delay: 0.3s; }
+    .voice-wave-bar:nth-child(4) { animation-delay: 0.45s; }
+    .voice-wave-bar:nth-child(5) { animation-delay: 0.2s; }
+    .voice-wave-bar:nth-child(6) { animation-delay: 0.35s; }
+  </style>
+</head>
+<body class="bg-grid-light text-slate-800 dark:text-emerald-50 min-h-screen flex flex-col font-sans transition-colors duration-250 pb-safe">
+
+  <!-- TOP TELEMETRY RIBBON -->
+  <div class="bg-gradient-to-r from-brand-900 via-brand-800 to-emerald-950 text-white text-[11px] sm:text-xs px-3 sm:px-4 py-1.5 sm:py-2 border-b border-brand-700/60 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 font-medium">
+      <div class="flex items-center gap-2">
+        <span class="flex h-2.5 w-2.5 relative shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-ambercrop-300 opacity-80"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-400"></span>
+        </span>
+        <span class="font-bold tracking-wider uppercase text-[10px] sm:text-[11px] text-brand-200" data-i18n="top-mission">NASA Space Apps 2026:</span>
+        <span class="hidden md:inline text-emerald-100" data-i18n="top-desc">Field Shift: Adapting Farms with NASA Data (SMAP, Landsat 8/9, ECOSTRESS)</span>
+      </div>
+
+      <div class="flex items-center gap-3 text-[11px]">
+        <button onclick="toggleAmbience()" id="ambienceBtn" class="flex items-center gap-1.5 text-brand-200 hover:text-white transition px-2 py-1 rounded-md hover:bg-brand-700/50 min-h-[36px]">
+          <i class="fa-solid fa-wind" id="soundIcon"></i>
+          <span id="soundText" class="hidden xs:inline" data-i18n="top-sound">Wind Ambience</span>
+        </button>
+        <span class="text-brand-500">|</span>
+        <div class="flex items-center gap-1 text-emerald-200 font-mono text-[10px] sm:text-[11px]">
+          <i class="fa-solid fa-satellite text-ambercrop-400"></i>
+          <span data-i18n="top-sync">Live Orbit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION HEADER -->
+  <header class="glass-nav-light sticky top-0 z-40 transition-colors shadow-sm">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
+      
+      <!-- Brand Logo -->
+      <a href="#landing" onclick="navigateTo('landing'); return false;" class="flex items-center gap-2.5 sm:gap-3.5 group shrink-0">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-brand-600 via-brand-500 to-ambercrop-500 flex items-center justify-center text-white shadow-glow-emerald group-hover:scale-105 transition-transform duration-300">
+          <i class="fa-solid fa-wheat-awn text-lg sm:text-xl text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5 sm:gap-2">
+            <span class="font-display text-xl sm:text-2xl font-black tracking-tight text-brand-900 dark:text-white">AgroShift</span>
+            <span class="bg-gradient-to-r from-ambercrop-500 to-terraclay-600 text-white text-[9px] sm:text-[10px] font-extrabold px-1.5 sm:px-2 py-0.5 rounded-full uppercase tracking-widest shadow-sm">NEXUS</span>
+          </div>
+          <p class="text-[10px] sm:text-[11px] font-semibold text-brand-700 dark:text-brand-300 hidden sm:block" data-i18n="nav-tagline">NASA Earth Intelligence Adaptation</p>
+        </div>
+      </a>
+
+      <!-- Desktop Route Navigation Bar -->
+      <nav class="hidden xl:flex items-center gap-1 bg-brand-50/80 dark:bg-darkearth-800/80 p-1.5 rounded-full border border-brand-200 dark:border-brand-900 shadow-inner">
+        <a href="#landing" onclick="navigateTo('landing'); return false;" data-nav-target="landing" class="nav-btn px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-700 dark:text-slate-200 hover:text-brand-700 dark:hover:text-brand-400" data-i18n="nav-landing">Home</a>
+        <a href="#map-explorer" onclick="navigateTo('map-explorer'); return false;" data-nav-target="map-explorer" class="nav-btn px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-700 dark:text-slate-200 hover:text-brand-700 dark:hover:text-brand-400" data-i18n="nav-explorer">Earth Explorer</a>
+        <a href="#crop-recommender" onclick="navigateTo('crop-recommender'); return false;" data-nav-target="crop-recommender" class="nav-btn px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-700 dark:text-slate-200 hover:text-brand-700 dark:hover:text-brand-400" data-i18n="nav-recommender">Crop Shift Advisor</a>
+        <a href="#irrigation-alerts" onclick="navigateTo('irrigation-alerts'); return false;" data-nav-target="irrigation-alerts" class="nav-btn px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-700 dark:text-slate-200 hover:text-brand-700 dark:hover:text-brand-400" data-i18n="nav-irrigation">Irrigation & Alerts</a>
+        <a href="#dashboard" onclick="navigateTo('dashboard'); return false;" data-nav-target="dashboard" class="nav-btn px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-700 dark:text-slate-200 hover:text-brand-700 dark:hover:text-brand-400" data-i18n="nav-dashboard">Telemetry & Insights</a>
+        <a href="#resources" onclick="navigateTo('resources'); return false;" data-nav-target="resources" class="nav-btn px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-700 dark:text-slate-200 hover:text-brand-700 dark:hover:text-brand-400" data-i18n="nav-resources">NASA Resources</a>
+      </nav>
+
+      <!-- Utility Toggles: AgroBani Voice + Language + Dark Mode + Mobile Hamburger -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5">
+        
+        <!-- AgroBani Voice Assistant Launch Pill (Desktop) -->
+        <button onclick="openVoiceAssistant()" class="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-brand-400 bg-brand-500/10 text-brand-700 dark:text-brand-300 text-xs font-black hover:bg-brand-500/20 transition shadow-sm min-h-[44px]">
+          <i class="fa-solid fa-microphone-lines text-brand-600 dark:text-brand-400"></i>
+          <span data-i18n="nav-voice-assistant">AgroBani Voice</span>
+        </button>
+
+        <!-- English / বাংলা Switcher -->
+        <button onclick="toggleLanguage()" id="langToggleBtn" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-brand-300 dark:border-brand-700 bg-white dark:bg-darkearth-800 text-brand-900 dark:text-brand-200 text-xs font-extrabold hover:bg-brand-50 dark:hover:bg-brand-900/40 transition shadow-sm min-h-[44px] min-w-[44px]" title="Toggle English / বাংলা" aria-label="Toggle Language">
+          <i class="fa-solid fa-language text-sm text-brand-600 dark:text-brand-400"></i>
+          <span id="langLabel">বাংলা</span>
+        </button>
+
+        <!-- Theme Mode Switcher (Dark / Light) -->
+        <button onclick="toggleTheme()" id="themeToggleBtn" class="w-11 h-11 rounded-xl border border-brand-300 dark:border-brand-700 bg-white dark:bg-darkearth-800 text-brand-700 dark:text-ambercrop-400 hover:bg-brand-50 dark:hover:bg-brand-900/40 transition flex items-center justify-center text-sm shadow-sm" title="Toggle Theme" aria-label="Toggle Dark and Light Mode">
+          <i class="fa-solid fa-moon dark:hidden"></i>
+          <i class="fa-solid fa-sun hidden dark:inline"></i>
+        </button>
+
+        <!-- Mobile Drawer Menu Trigger -->
+        <button onclick="toggleMobileDrawer()" class="xl:hidden w-11 h-11 rounded-xl border border-brand-300 dark:border-brand-800 text-brand-900 dark:text-brand-100 bg-white dark:bg-darkearth-800 flex items-center justify-center" aria-label="Toggle Navigation Drawer">
+          <i class="fa-solid fa-bars text-base"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileDrawer" class="hidden xl:hidden border-t border-brand-200 dark:border-brand-900 bg-white/95 dark:bg-darkearth-900/95 backdrop-blur-xl px-4 py-4 space-y-2 max-h-[80vh] overflow-y-auto">
+      <a href="#landing" onclick="navigateTo('landing'); toggleMobileDrawer(); return false;" class="block px-3.5 py-3 rounded-xl font-bold text-sm text-slate-800 dark:text-emerald-100 hover:bg-brand-100 dark:hover:bg-brand-900/50" data-i18n="nav-landing">Home</a>
+      <a href="#map-explorer" onclick="navigateTo('map-explorer'); toggleMobileDrawer(); return false;" class="block px-3.5 py-3 rounded-xl font-bold text-sm text-slate-800 dark:text-emerald-100 hover:bg-brand-100 dark:hover:bg-brand-900/50" data-i18n="nav-explorer">Earth Explorer</a>
+      <a href="#crop-recommender" onclick="navigateTo('crop-recommender'); toggleMobileDrawer(); return false;" class="block px-3.5 py-3 rounded-xl font-bold text-sm text-slate-800 dark:text-emerald-100 hover:bg-brand-100 dark:hover:bg-brand-900/50" data-i18n="nav-recommender">Crop Shift Advisor</a>
+      <a href="#irrigation-alerts" onclick="navigateTo('irrigation-alerts'); toggleMobileDrawer(); return false;" class="block px-3.5 py-3 rounded-xl font-bold text-sm text-slate-800 dark:text-emerald-100 hover:bg-brand-100 dark:hover:bg-brand-900/50" data-i18n="nav-irrigation">Irrigation & Alerts</a>
+      <a href="#dashboard" onclick="navigateTo('dashboard'); toggleMobileDrawer(); return false;" class="block px-3.5 py-3 rounded-xl font-bold text-sm text-slate-800 dark:text-emerald-100 hover:bg-brand-100 dark:hover:bg-brand-900/50" data-i18n="nav-dashboard">Telemetry & Insights</a>
+      <a href="#resources" onclick="navigateTo('resources'); toggleMobileDrawer(); return false;" class="block px-3.5 py-3 rounded-xl font-bold text-sm text-slate-800 dark:text-emerald-100 hover:bg-brand-100 dark:hover:bg-brand-900/50" data-i18n="nav-resources">NASA Resources</a>
+      <button onclick="openVoiceAssistant(); toggleMobileDrawer();" class="w-full text-left px-3.5 py-3.5 rounded-xl font-black text-sm text-brand-700 dark:text-brand-300 bg-brand-50 dark:bg-brand-950/60 border border-brand-300 dark:border-brand-800 flex items-center justify-between min-h-[48px]">
+        <span class="flex items-center gap-2">
+          <i class="fa-solid fa-microphone-lines text-base"></i>
+          <span data-i18n="nav-voice-assistant">AgroBani Voice Assistant</span>
+        </span>
+        <span class="text-[10px] bg-brand-600 text-white px-2 py-0.5 rounded-full uppercase">বাংলা / EN</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN APP ROUTING PAGES CONTAINER -->
+  <main class="flex-grow">
+
+    <!-- =========================================================================
+         PAGE 1: LANDING OVERVIEW (#landing)
+         ========================================================================= -->
+    <section id="page-landing" class="app-page active-page">
+      
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden pt-10 pb-20 lg:pt-16 lg:pb-28">
+        
+        <!-- Glowing gradient backdrops -->
+        <div class="absolute -top-24 -left-20 w-96 h-96 bg-brand-400/25 dark:bg-brand-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 -right-24 w-96 h-96 bg-ambercrop-400/20 dark:bg-ambercrop-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-100 dark:bg-brand-950/80 border border-brand-300 dark:border-brand-700/80 text-brand-900 dark:text-brand-300 text-xs font-bold mb-6 shadow-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span data-i18n="hero-badge">Adapting Agriculture with NASA Earth Observation Telemetry</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7 space-y-6">
+              <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl text-slate-900 dark:text-white font-black leading-tight tracking-tight">
+                <span data-i18n="hero-title-1">Transform farm decisions with</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-emerald-500 to-ambercrop-500 dark:from-brand-400 dark:via-emerald-300 dark:to-ambercrop-400" data-i18n="hero-title-gradient"> NASA satellite intelligence.</span>
+              </h1>
+              
+              <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl font-normal leading-relaxed" data-i18n="hero-subtext">
+                Extreme weather, flash droughts, and depleted groundwater are disrupting planting cycles worldwide. AgroShift Nexus translates NASA SMAP root-zone moisture, Landsat vegetation vigour, and ECOSTRESS thermal data into practical, farm-scale crop shifts and precision irrigation schedules.
+              </p>
+
+              <!-- Hero Navigation CTAs (All directly call navigateTo) -->
+              <div class="flex flex-wrap items-center gap-4 pt-2">
+                <button onclick="navigateTo('map-explorer')" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-extrabold text-sm shadow-glow-emerald transition-all transform hover:-translate-y-0.5 flex items-center gap-2.5">
+                  <i class="fa-solid fa-satellite text-ambercrop-300"></i>
+                  <span data-i18n="hero-btn-explorer">Open Earth Explorer</span>
+                </button>
+
+                <button onclick="openVoiceAssistant()" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-ambercrop-500 to-terraclay-600 hover:from-ambercrop-400 hover:to-terraclay-500 text-white font-extrabold text-sm shadow-glow-amber transition-all transform hover:-translate-y-0.5 flex items-center gap-2.5">
+                  <i class="fa-solid fa-microphone-lines text-white"></i>
+                  <span data-i18n="hero-btn-voice">Ask AgroBani (Voice)</span>
+                </button>
+
+                <button onclick="navigateTo('crop-recommender')" class="px-6 py-3.5 rounded-2xl bg-white dark:bg-darkearth-800 hover:bg-brand-50 dark:hover:bg-darkearth-850 text-brand-900 dark:text-emerald-100 font-extrabold text-sm border-2 border-brand-500/40 dark:border-brand-700 transition-all transform hover:-translate-y-0.5 shadow-sm flex items-center gap-2">
+                  <i class="fa-solid fa-arrows-split-up-and-left text-brand-600 dark:text-brand-400"></i>
+                  <span data-i18n="hero-btn-shift">Explore Crop Shifts</span>
+                </button>
+              </div>
+
+              <!-- High-Vibrancy Metric Statistics Cards -->
+              <div class="pt-8 border-t border-brand-200 dark:border-brand-900/80 grid grid-cols-3 gap-4">
+                <div class="p-3 rounded-2xl bg-brand-500/10 border border-brand-500/20">
+                  <div class="font-display text-2xl sm:text-3xl font-black text-brand-800 dark:text-brand-300">1,850+</div>
+                  <div class="text-xs font-bold text-slate-600 dark:text-slate-400" data-i18n="stat-hectares">Hectares Monitored</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-azurewater-500/10 border border-azurewater-500/20">
+                  <div class="font-display text-2xl sm:text-3xl font-black text-azurewater-700 dark:text-azurewater-400">-38.5%</div>
+                  <div class="text-xs font-bold text-slate-600 dark:text-slate-400" data-i18n="stat-water">Water Saved via ET</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-ambercrop-500/10 border border-ambercrop-500/20">
+                  <div class="font-display text-2xl sm:text-3xl font-black text-ambercrop-700 dark:text-ambercrop-400">+26%</div>
+                  <div class="text-xs font-bold text-slate-600 dark:text-slate-400" data-i18n="stat-resilience">Climate Resilience</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Hero Live Parcel Card Graphic -->
+            <div class="lg:col-span-5">
+              <div class="bg-white/90 dark:bg-darkearth-850 p-6 rounded-3xl border-2 border-brand-500/30 dark:border-brand-700/60 shadow-card-light dark:shadow-card-dark relative group transition-all duration-300">
+                <div class="flex items-center justify-between pb-3 border-b border-brand-100 dark:border-brand-900">
+                  <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 satellite-node"></span>
+                    <span class="text-xs font-black uppercase tracking-wider text-slate-800 dark:text-white" data-i18n="hero-telemetry-title">Telemetry: East Ridge Parcel #02</span>
+                  </div>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-brand-100 dark:bg-brand-950 text-brand-800 dark:text-brand-300 font-bold border border-brand-300 dark:border-brand-800">ECOSTRESS + SMAP</span>
+                </div>
+
+                <!-- Graphic Preview -->
+                <div class="mt-4 rounded-2xl overflow-hidden relative aspect-[4/3] bg-gradient-to-br from-brand-900 to-emerald-950 border border-brand-700">
+                  <svg class="w-full h-full object-cover" viewBox="0 0 400 300">
+                    <defs>
+                      <linearGradient id="heroContour" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#059669"/>
+                        <stop offset="40%" stop-color="#10b981"/>
+                        <stop offset="75%" stop-color="#f59e0b"/>
+                        <stop offset="100%" stop-color="#ea580c"/>
+                      </linearGradient>
+                    </defs>
+                    <rect width="400" height="300" fill="url(#heroContour)" opacity="0.85"/>
+                    <path d="M 0,100 Q 150,50 300,120 T 400,90 L 400,300 L 0,300 Z" fill="#047857" opacity="0.6"/>
+                    <polygon points="40,50 200,40 180,160 50,170" fill="#059669" fill-opacity="0.85" stroke="#ffffff" stroke-width="2"/>
+                    <polygon points="210,40 370,55 350,180 190,165" fill="#ea580c" fill-opacity="0.85" stroke="#ffffff" stroke-width="2"/>
+                    <polygon points="50,180 200,175 190,280 40,270" fill="#10b981" fill-opacity="0.9" stroke="#ffffff" stroke-width="2"/>
+                    <polygon points="210,175 360,190 350,285 200,280" fill="#f59e0b" fill-opacity="0.9" stroke="#ffffff" stroke-width="2"/>
+                  </svg>
+
+                  <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20 text-white text-xs">
+                    <span class="text-ambercrop-400 font-bold">● High Water Deficit</span>
+                  </div>
+
+                  <div class="absolute bottom-3 left-3 right-3 bg-white/95 dark:bg-darkearth-900/95 p-3 rounded-xl border border-brand-200 dark:border-brand-800 flex items-center justify-between text-xs">
+                    <div>
+                      <div class="font-black text-slate-900 dark:text-white" data-i18n="hero-card-crop">Legacy Crop: Field Corn</div>
+                      <div class="text-terraclay-600 dark:text-terraclay-400 font-bold" data-i18n="hero-card-stress">Root Moisture: 14.2% (Severe Deficit)</div>
+                    </div>
+                    <button onclick="navigateTo('crop-recommender')" class="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs transition">
+                      <span data-i18n="hero-card-adapt">Shift Crop</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Reading Strip -->
+                <div class="grid grid-cols-3 gap-2 mt-4 text-center">
+                  <div class="bg-brand-50 dark:bg-darkearth-800 p-2.5 rounded-xl border border-brand-200 dark:border-brand-800">
+                    <div class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase" data-i18n="hero-stat-smap">SMAP Moisture</div>
+                    <div class="font-extrabold text-brand-700 dark:text-brand-300 text-sm">14.2% Deficit</div>
+                  </div>
+                  <div class="bg-ambercrop-50 dark:bg-darkearth-800 p-2.5 rounded-xl border border-ambercrop-200 dark:border-ambercrop-900/40">
+                    <div class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase" data-i18n="hero-stat-lst">Surface Temp</div>
+                    <div class="font-extrabold text-ambercrop-600 dark:text-ambercrop-400 text-sm">34.2°C High</div>
+                  </div>
+                  <div class="bg-azurewater-50 dark:bg-darkearth-800 p-2.5 rounded-xl border border-azurewater-200 dark:border-azurewater-900/40">
+                    <div class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase" data-i18n="hero-stat-rec">Recommended Shift</div>
+                    <div class="font-extrabold text-azurewater-600 dark:text-azurewater-400 text-sm">Sorghum</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CHALLENGE PILLARS SECTION -->
+      <div class="py-16 bg-white/70 dark:bg-darkearth-900/80 border-y border-brand-200 dark:border-brand-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div class="max-w-3xl mx-auto text-center space-y-3 mb-12">
+            <span class="text-xs uppercase font-black tracking-widest text-brand-600 dark:text-brand-400" data-i18n="pillar-badge">The Mission Framework</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white" data-i18n="pillar-heading">Translating Orbit Data into Ground Resilience</h2>
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="pillar-sub">
+              NASA’s Earth-observing satellites provide diagnostic metrics that take the guesswork out of drought survival and climate adaptation.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="p-6 rounded-3xl bg-brand-50/70 dark:bg-darkearth-800/80 border-2 border-brand-200 dark:border-brand-800 hover:border-brand-500 transition-all shadow-sm group">
+              <div class="w-12 h-12 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-droplet"></i>
+              </div>
+              <h3 class="font-display text-lg font-black text-slate-900 dark:text-white mb-2" data-i18n="pillar-1-title">SMAP Root Soil Moisture</h3>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4" data-i18n="pillar-1-desc">
+                Using spaceborne microwave radiometry to measure root-zone water content down to 100cm, pinpointing flash droughts days before crops show visual wilting.
+              </p>
+              <button onclick="navigateTo('map-explorer'); setMapLayer('smap');" class="text-xs font-extrabold text-brand-700 dark:text-brand-300 hover:underline flex items-center gap-1">
+                <span data-i18n="pillar-view-layer">Inspect Soil Layer</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </button>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-ambercrop-50/70 dark:bg-darkearth-800/80 border-2 border-ambercrop-200 dark:border-ambercrop-900/50 hover:border-ambercrop-500 transition-all shadow-sm group">
+              <div class="w-12 h-12 rounded-2xl bg-ambercrop-500 text-white flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-seedling"></i>
+              </div>
+              <h3 class="font-display text-lg font-black text-slate-900 dark:text-white mb-2" data-i18n="pillar-2-title">Predictive Crop Adaptation</h3>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4" data-i18n="pillar-2-desc">
+                Replacing vulnerable monocultures with climate-resilient alternatives (Sorghum, Pearl Millet, Quinoa) tailored specifically to regional rainfall variance.
+              </p>
+              <button onclick="navigateTo('crop-recommender')" class="text-xs font-extrabold text-ambercrop-700 dark:text-ambercrop-400 hover:underline flex items-center gap-1">
+                <span data-i18n="pillar-calc-shift">Calculate Shift</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </button>
+            </div>
+
+            <div class="p-6 rounded-3xl bg-azurewater-50/70 dark:bg-darkearth-800/80 border-2 border-azurewater-200 dark:border-azurewater-900/50 hover:border-azurewater-500 transition-all shadow-sm group">
+              <div class="w-12 h-12 rounded-2xl bg-azurewater-600 text-white flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                <i class="fa-solid fa-temperature-arrow-up"></i>
+              </div>
+              <h3 class="font-display text-lg font-black text-slate-900 dark:text-white mb-2" data-i18n="pillar-3-title">ECOSTRESS Evapotranspiration</h3>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4" data-i18n="pillar-3-desc">
+                Thermal infrared sensing from the International Space Station guides precise night-time drip cycles to eliminate up to 40% of daytime evaporative losses.
+              </p>
+              <button onclick="navigateTo('irrigation-alerts')" class="text-xs font-extrabold text-azurewater-700 dark:text-azurewater-400 hover:underline flex items-center gap-1">
+                <span data-i18n="pillar-calc-et">Calculate ET Budget</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DIRECT ACCESS MODULES SHORTCUTS -->
+      <div class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-8 gap-4">
+          <div>
+            <span class="text-xs font-black uppercase text-brand-600 dark:text-brand-400 tracking-wider" data-i18n="core-badge">Direct Access Modules</span>
+            <h2 class="font-display text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="core-title">All Farm Decision Tools Connected</h2>
+          </div>
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400" data-i18n="core-sub">Tap any system to transition instantly</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          <div onclick="navigateTo('map-explorer')" class="p-6 rounded-3xl bg-white dark:bg-darkearth-800 border-2 border-brand-200 dark:border-brand-800 hover:border-brand-500 hover:-translate-y-1 transition-all cursor-pointer shadow-sm group">
+            <div class="w-12 h-12 rounded-2xl bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 flex items-center justify-center text-xl mb-4 group-hover:bg-brand-600 group-hover:text-white transition">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </div>
+            <h4 class="font-display text-base font-black text-slate-900 dark:text-white mb-1" data-i18n="mod-1-title">Earth Explorer</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="mod-1-desc">
+              Inspect parcels across SMAP, Landsat NDVI, ECOSTRESS & GPM rainfall layers.
+            </p>
+          </div>
+
+          <div onclick="navigateTo('crop-recommender')" class="p-6 rounded-3xl bg-white dark:bg-darkearth-800 border-2 border-brand-200 dark:border-brand-800 hover:border-brand-500 hover:-translate-y-1 transition-all cursor-pointer shadow-sm group">
+            <div class="w-12 h-12 rounded-2xl bg-ambercrop-100 dark:bg-ambercrop-950 text-ambercrop-700 dark:text-ambercrop-300 flex items-center justify-center text-xl mb-4 group-hover:bg-ambercrop-500 group-hover:text-white transition">
+              <i class="fa-solid fa-wheat-awn"></i>
+            </div>
+            <h4 class="font-display text-base font-black text-slate-900 dark:text-white mb-1" data-i18n="mod-2-title">Crop Shift Advisor</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="mod-2-desc">
+              Evaluate drought-resilient crops with dynamic suitability and ROI scoring.
+            </p>
+          </div>
+
+          <div onclick="navigateTo('irrigation-alerts')" class="p-6 rounded-3xl bg-white dark:bg-darkearth-800 border-2 border-brand-200 dark:border-brand-800 hover:border-brand-500 hover:-translate-y-1 transition-all cursor-pointer shadow-sm group">
+            <div class="w-12 h-12 rounded-2xl bg-azurewater-100 dark:bg-azurewater-950 text-azurewater-700 dark:text-azurewater-300 flex items-center justify-center text-xl mb-4 group-hover:bg-azurewater-600 group-hover:text-white transition">
+              <i class="fa-solid fa-faucet-drip"></i>
+            </div>
+            <h4 class="font-display text-base font-black text-slate-900 dark:text-white mb-1" data-i18n="mod-3-title">Irrigation & Alerts</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="mod-3-desc">
+              Real-time heat stress notifications and daily ET depth budget calculators.
+            </p>
+          </div>
+
+          <div onclick="navigateTo('dashboard')" class="p-6 rounded-3xl bg-white dark:bg-darkearth-800 border-2 border-brand-200 dark:border-brand-800 hover:border-brand-500 hover:-translate-y-1 transition-all cursor-pointer shadow-sm group">
+            <div class="w-12 h-12 rounded-2xl bg-terraclay-100 dark:bg-terraclay-950 text-terraclay-700 dark:text-terraclay-300 flex items-center justify-center text-xl mb-4 group-hover:bg-terraclay-600 group-hover:text-white transition">
+              <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <h4 class="font-display text-base font-black text-slate-900 dark:text-white mb-1" data-i18n="mod-4-title">Telemetry & Insights</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="mod-4-desc">
+              Estate canopy health curves, seasonal checklists, and resilience scores.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================================
+         PAGE 2: NASA EARTH EXPLORER (#map-explorer)
+         ========================================================================= -->
+    <section id="page-map-explorer" class="app-page">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Header & Breadcrumb -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-brand-200 dark:border-brand-900 gap-4">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-bold text-brand-700 dark:text-brand-400 mb-1">
+              <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline" data-i18n="nav-landing">Home</a>
+              <span>/</span>
+              <span class="text-slate-900 dark:text-white" data-i18n="nav-explorer">Earth Explorer</span>
+            </div>
+            <h1 class="font-display text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" data-i18n="explorer-heading">NASA Satellite Parcel Intelligence</h1>
+          </div>
+
+          <!-- Dynamic Layer Switcher Bar -->
+          <div class="flex flex-wrap items-center gap-2 bg-brand-100/70 dark:bg-darkearth-800 p-1.5 rounded-2xl border border-brand-300 dark:border-brand-800">
+            <button onclick="setMapLayer('smap')" id="btn-layer-smap" class="layer-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-600 text-white shadow-sm transition">
+              <i class="fa-solid fa-droplet mr-1"></i> <span data-i18n="layer-smap">SMAP Soil Moisture</span>
+            </button>
+            <button onclick="setMapLayer('ndvi')" id="btn-layer-ndvi" class="layer-pill px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-brand-200 dark:hover:bg-brand-900/60 transition">
+              <i class="fa-solid fa-leaf mr-1"></i> <span data-i18n="layer-ndvi">Landsat NDVI</span>
+            </button>
+            <button onclick="setMapLayer('ecostress')" id="btn-layer-ecostress" class="layer-pill px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-brand-200 dark:hover:bg-brand-900/60 transition">
+              <i class="fa-solid fa-temperature-high mr-1"></i> <span data-i18n="layer-ecostress">ECOSTRESS Heat</span>
+            </button>
+            <button onclick="setMapLayer('gpm')" id="btn-layer-gpm" class="layer-pill px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-brand-200 dark:hover:bg-brand-900/60 transition">
+              <i class="fa-solid fa-cloud-showers-heavy mr-1"></i> <span data-i18n="layer-gpm">GPM Rainfall</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Explorer Layout: Interactive SVG Map (8 Cols) + Parcel Diagnostics (4 Cols) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+          
+          <div class="lg:col-span-8 flex flex-col gap-4">
+            
+            <div class="p-3 sm:p-4 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-card-light dark:shadow-card-dark relative overflow-hidden">
+              
+              <!-- Map Top Information -->
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3 px-1">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-emerald-500 satellite-node shrink-0"></span>
+                  <span id="active-layer-indicator" class="text-xs font-black text-slate-900 dark:text-white">Active Layer: NASA SMAP L3 9km Soil Moisture</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono font-bold text-brand-700 dark:text-brand-300 bg-brand-50 dark:bg-darkearth-800 px-2.5 py-1 rounded-xl border border-brand-200 dark:border-brand-800">
+                  <span class="hidden sm:inline">36.7783° N, 119.4179° W</span>
+                  <span class="hidden sm:inline text-brand-400">|</span>
+                  <span id="map-zoom-label">Zoom: 14x</span>
+                </div>
+              </div>
+
+              <!-- Interactive Farm Parcel SVG Viewport -->
+              <div class="relative w-full aspect-[4/3] sm:aspect-[16/10] bg-brand-950 rounded-2xl border-2 border-brand-600/50 overflow-hidden select-none touch-pan-x touch-pan-y" id="mapViewport">
+                
+                <svg id="farmSvg" class="w-full h-full object-cover transition-transform duration-300" viewBox="0 0 800 500">
+                  <defs>
+                    <radialGradient id="mapFieldBase" cx="50%" cy="50%" r="60%">
+                      <stop offset="0%" stop-color="#14281c"/>
+                      <stop offset="100%" stop-color="#07120c"/>
+                    </radialGradient>
+                    <linearGradient id="canalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#38bdf8"/>
+                      <stop offset="100%" stop-color="#0284c7"/>
+                    </linearGradient>
+                  </defs>
+
+                  <!-- Base Terrain -->
+                  <rect width="800" height="500" fill="url(#mapFieldBase)"/>
+
+                  <!-- Irrigation Feeder Canal -->
+                  <path d="M-10,390 C150,380 260,450 460,420 C610,400 700,460 810,450 L810,500 L-10,500 Z" fill="url(#canalGradient)" opacity="0.9"/>
+                  <text x="360" y="465" fill="#ffffff" font-size="12" font-weight="800" letter-spacing="2">MAIN WATER CANAL FEEDER</text>
+
+                  <!-- Parcel 1: North Orchard -->
+                  <g class="cursor-pointer" onclick="selectParcel('parcel-1')" id="svg-parcel-1">
+                    <polygon points="50,40 320,50 300,210 40,190" id="poly-parcel-1" fill="#059669" fill-opacity="0.8" stroke="#ffffff" stroke-width="2" class="hover:fill-opacity-95 transition-all"/>
+                    <text x="110" y="115" fill="#ffffff" font-size="14" font-weight="800">Parcel 1: North Orchard</text>
+                    <text x="110" y="138" fill="#d1fae5" font-size="11" font-weight="600">Almonds • 45 Hectares</text>
+                  </g>
+
+                  <!-- Parcel 2: East Ridge -->
+                  <g class="cursor-pointer" onclick="selectParcel('parcel-2')" id="svg-parcel-2">
+                    <polygon points="340,40 750,35 770,195 320,210" id="poly-parcel-2" fill="#ea580c" fill-opacity="0.85" stroke="#ffffff" stroke-width="3.5" class="hover:fill-opacity-95 transition-all"/>
+                    <text x="480" y="115" fill="#ffffff" font-size="14" font-weight="800">Parcel 2: East Ridge</text>
+                    <text x="480" y="138" fill="#ffedd5" font-size="11" font-weight="600">Grain Corn • 82 Hectares</text>
+                  </g>
+
+                  <!-- Parcel 3: Valley Lowland -->
+                  <g class="cursor-pointer" onclick="selectParcel('parcel-3')" id="svg-parcel-3">
+                    <polygon points="40,220 360,230 380,360 30,350" id="poly-parcel-3" fill="#10b981" fill-opacity="0.8" stroke="#ffffff" stroke-width="2" class="hover:fill-opacity-95 transition-all"/>
+                    <text x="120" y="285" fill="#ffffff" font-size="14" font-weight="800">Parcel 3: Valley Lowland</text>
+                    <text x="120" y="308" fill="#d1fae5" font-size="11" font-weight="600">Alfalfa Hay • 58 Hectares</text>
+                  </g>
+
+                  <!-- Parcel 4: Sunny Terrace -->
+                  <g class="cursor-pointer" onclick="selectParcel('parcel-4')" id="svg-parcel-4">
+                    <polygon points="380,230 760,210 740,380 400,370" id="poly-parcel-4" fill="#f59e0b" fill-opacity="0.8" stroke="#ffffff" stroke-width="2" class="hover:fill-opacity-95 transition-all"/>
+                    <text x="490" y="285" fill="#ffffff" font-size="14" font-weight="800">Parcel 4: Sunny Terrace</text>
+                    <text x="490" y="308" fill="#fef3c7" font-size="11" font-weight="600">Grain Sorghum Shift • 70 Ha</text>
+                  </g>
+
+                  <!-- Sensor Nodes Overlay -->
+                  <circle cx="160" cy="115" r="7" fill="#ffffff" class="satellite-node" stroke="#059669" stroke-width="2"/>
+                  <circle cx="530" cy="115" r="7" fill="#ffffff" class="satellite-node" stroke="#ea580c" stroke-width="2"/>
+                  <circle cx="180" cy="285" r="7" fill="#ffffff" class="satellite-node" stroke="#10b981" stroke-width="2"/>
+                  <circle cx="550" cy="285" r="7" fill="#ffffff" class="satellite-node" stroke="#f59e0b" stroke-width="2"/>
+                </svg>
+
+                <!-- Layer Dynamic Legend Overlay -->
+                <div class="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 bg-white/95 dark:bg-darkearth-900/95 p-2 sm:p-3 rounded-2xl border-2 border-brand-300 dark:border-brand-700 text-xs shadow-md max-w-[200px] sm:max-w-xs">
+                  <div class="font-extrabold text-[11px] sm:text-xs text-slate-900 dark:text-white mb-1" id="legend-title">SMAP Root Moisture Scale</div>
+                  <div class="w-full h-2.5 sm:h-3 rounded-full bg-gradient-to-r from-terraclay-500 via-ambercrop-500 to-brand-500 mb-1" id="legend-bar"></div>
+                  <div class="flex justify-between text-[9px] sm:text-[10px] font-bold text-slate-600 dark:text-slate-300" id="legend-labels">
+                    <span>Deficit (&lt;15%)</span>
+                    <span>Nominal (25%)</span>
+                    <span>Optimal (&gt;35%)</span>
+                  </div>
+                </div>
+
+                <!-- Map Floating Zoom Controls -->
+                <div class="absolute top-2 sm:top-4 right-2 sm:top-4 flex flex-col gap-2 z-10">
+                  <button onclick="zoomMap(1.15)" class="w-10 h-10 sm:w-9 sm:h-9 rounded-xl bg-white/90 dark:bg-darkearth-800 text-slate-900 dark:text-white font-extrabold shadow hover:scale-105 active:scale-95 transition flex items-center justify-center min-h-[40px] min-w-[40px]" aria-label="Zoom In">
+                    <i class="fa-solid fa-plus text-xs sm:text-sm"></i>
+                  </button>
+                  <button onclick="zoomMap(0.85)" class="w-10 h-10 sm:w-9 sm:h-9 rounded-xl bg-white/90 dark:bg-darkearth-800 text-slate-900 dark:text-white font-extrabold shadow hover:scale-105 active:scale-95 transition flex items-center justify-center min-h-[40px] min-w-[40px]" aria-label="Zoom Out">
+                    <i class="fa-solid fa-minus text-xs sm:text-sm"></i>
+                  </button>
+                  <button onclick="resetMap()" class="w-10 h-10 sm:w-9 sm:h-9 rounded-xl bg-white/90 dark:bg-darkearth-800 text-slate-900 dark:text-white font-bold shadow hover:scale-105 active:scale-95 transition flex items-center justify-center text-xs min-h-[40px] min-w-[40px]" title="Reset View" aria-label="Reset Map Zoom">
+                    <i class="fa-solid fa-rotate-left"></i>
+                  </button>
+                </div>
+
+              </div>
+
+              <!-- Time Scrubber Controller -->
+              <div class="mt-4 pt-3 border-t border-brand-100 dark:border-brand-900 flex flex-col sm:flex-row items-center gap-4">
+                <div class="flex items-center gap-2">
+                  <button id="playbackBtn" onclick="togglePlayback()" class="w-9 h-9 rounded-xl bg-brand-600 text-white flex items-center justify-center hover:bg-brand-500 transition shadow-sm">
+                    <i class="fa-solid fa-play text-xs" id="playIcon"></i>
+                  </button>
+                  <span class="text-xs font-black text-slate-900 dark:text-white whitespace-nowrap" data-i18n="time-playback-label">Satellite Scrubber:</span>
+                </div>
+                <input type="range" id="timeSlider" min="0" max="6" value="6" step="1" oninput="updateTimeSlider(this.value)" class="w-full accent-brand-600 cursor-pointer">
+                <span id="timeSliderLabel" class="text-xs font-mono font-black text-brand-800 dark:text-brand-300 bg-brand-100 dark:bg-darkearth-800 px-3 py-1.5 rounded-xl whitespace-nowrap">
+                  Current (Nov 2026)
+                </span>
+              </div>
+
+            </div>
+
+            <!-- Satellite Telemetry Badge Strip -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="p-3 rounded-2xl bg-white dark:bg-darkearth-850 border border-brand-200 dark:border-brand-800">
+                <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">SMAP Radiometer</span>
+                <p class="text-xs font-black text-brand-700 dark:text-brand-300 mt-0.5">Orbit Pass #41,209</p>
+              </div>
+              <div class="p-3 rounded-2xl bg-white dark:bg-darkearth-850 border border-brand-200 dark:border-brand-800">
+                <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">Landsat Resolution</span>
+                <p class="text-xs font-black text-brand-700 dark:text-brand-300 mt-0.5">30m Multispectral</p>
+              </div>
+              <div class="p-3 rounded-2xl bg-white dark:bg-darkearth-850 border border-brand-200 dark:border-brand-800">
+                <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">ECOSTRESS Thermal</span>
+                <p class="text-xs font-black text-ambercrop-600 dark:text-ambercrop-400 mt-0.5">70m ESI Precision</p>
+              </div>
+              <div class="p-3 rounded-2xl bg-white dark:bg-darkearth-850 border border-brand-200 dark:border-brand-800">
+                <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">GPM Rain Grid</span>
+                <p class="text-xs font-black text-azurewater-600 dark:text-azurewater-400 mt-0.5">0.1° IMERG Synced</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Parcel Inspector Diagnostics (4 Cols) -->
+          <div class="lg:col-span-4 flex flex-col gap-4" id="parcelInspectorContainer">
+            
+            <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-card-light dark:shadow-card-dark lg:sticky lg:top-24 space-y-5">
+              
+              <div class="flex items-center justify-between pb-3 border-b border-brand-100 dark:border-brand-900">
+                <div>
+                  <span class="text-[10px] font-black uppercase text-brand-600 dark:text-brand-400 tracking-wider" data-i18n="diag-title">Selected Parcel</span>
+                  <h3 id="panel-parcel-name" class="font-display text-lg font-black text-slate-900 dark:text-white">Parcel 2: East Ridge</h3>
+                </div>
+                <span id="panel-status-badge" class="px-2.5 py-1 rounded-full text-xs font-black bg-terraclay-100 dark:bg-terraclay-950 text-terraclay-700 dark:text-terraclay-300 border border-terraclay-300 dark:border-terraclay-800">
+                  Heat Stress Alert
+                </span>
+              </div>
+
+              <!-- Metrics -->
+              <div class="space-y-4">
+                
+                <div>
+                  <div class="flex justify-between text-xs font-bold text-slate-800 dark:text-slate-200 mb-1">
+                    <span data-i18n="diag-soil-moist">Root-Zone Soil Moisture</span>
+                    <span id="panel-moisture-val" class="text-terraclay-600 dark:text-terraclay-400 font-black">14.2% (Deficit)</span>
+                  </div>
+                  <div class="w-full h-3 bg-brand-100 dark:bg-brand-950 rounded-full overflow-hidden">
+                    <div id="panel-moisture-bar" class="h-full bg-terraclay-500 rounded-full transition-all duration-500" style="width: 28%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-bold text-slate-800 dark:text-slate-200 mb-1">
+                    <span data-i18n="diag-ndvi">Canopy Vigour (NDVI)</span>
+                    <span id="panel-ndvi-val" class="font-black text-slate-900 dark:text-white">0.48 (Dropping)</span>
+                  </div>
+                  <div class="w-full h-3 bg-brand-100 dark:bg-brand-950 rounded-full overflow-hidden">
+                    <div id="panel-ndvi-bar" class="h-full bg-ambercrop-500 rounded-full transition-all duration-500" style="width: 48%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs font-bold text-slate-800 dark:text-slate-200 mb-1">
+                    <span data-i18n="diag-et">Evapotranspiration Rate</span>
+                    <span id="panel-et-val" class="text-terraclay-600 dark:text-terraclay-400 font-black">6.8 mm / day</span>
+                  </div>
+                  <div class="w-full h-3 bg-brand-100 dark:bg-brand-950 rounded-full overflow-hidden">
+                    <div id="panel-et-bar" class="h-full bg-terraclay-600 rounded-full transition-all duration-500" style="width: 78%;"></div>
+                  </div>
+                </div>
+
+                <!-- Recommendation Insight Box -->
+                <div class="p-4 rounded-2xl bg-brand-50 dark:bg-brand-950/60 border border-brand-200 dark:border-brand-800">
+                  <div class="flex items-center gap-1.5 text-xs font-black text-brand-900 dark:text-brand-300 mb-1">
+                    <i class="fa-solid fa-lightbulb text-ambercrop-500"></i>
+                    <span data-i18n="diag-action-label">AgroShift Adaptive Action</span>
+                  </div>
+                  <p id="panel-recommendation" class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Corn is showing acute transpiration deficit in 32°C afternoon sun. Transitioning 50% of this slope to Sorghum or Pearl Millet will reduce water dependency by 40% next planting window.
+                  </p>
+                </div>
+
+                <!-- Quick Action Buttons -->
+                <div class="grid grid-cols-2 gap-2 pt-2">
+                  <button onclick="navigateTo('crop-recommender')" class="px-3 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-black transition flex items-center justify-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span data-i18n="diag-btn-test">Test Crops</span>
+                  </button>
+                  <button onclick="navigateTo('irrigation-alerts')" class="px-3 py-2.5 rounded-xl bg-white dark:bg-darkearth-800 hover:bg-brand-50 dark:hover:bg-brand-900 text-brand-900 dark:text-brand-200 text-xs font-black border border-brand-300 dark:border-brand-700 transition flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-clock"></i>
+                    <span data-i18n="diag-btn-plan">Plan Drip</span>
+                  </button>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         PAGE 3: CLIMATE CROP SHIFT RECOMMENDER (#crop-recommender)
+         ========================================================================= -->
+    <section id="page-crop-recommender" class="app-page">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <div class="max-w-3xl mb-8">
+          <div class="flex items-center gap-2 text-xs font-bold text-brand-700 dark:text-brand-400 mb-1">
+            <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline" data-i18n="nav-landing">Home</a>
+            <span>/</span>
+            <span class="text-slate-900 dark:text-white" data-i18n="nav-recommender">Crop Shift Advisor</span>
+          </div>
+          <h1 class="font-display text-3xl font-black text-slate-900 dark:text-white" data-i18n="recom-heading">NASA Climate Shift Crop Advisor</h1>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="recom-sub">
+            Simulate climate conditions, aquifer restrictions, and soil types to generate prioritized, drought-adapted crop candidates.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Parameters Form (4 Cols) -->
+          <div class="lg:col-span-4 space-y-5">
+            <div class="p-6 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-card-light dark:shadow-card-dark space-y-5">
+              
+              <h3 class="font-display text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-brand-600 dark:text-brand-400"></i>
+                <span data-i18n="form-profile-title">Farm Climate Parameters</span>
+              </h3>
+
+              <!-- Parameter 1: Biome -->
+              <div>
+                <label class="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5" data-i18n="form-biome-label">Ecological Biome</label>
+                <select id="filter-biome" onchange="runCropRecommendation()" class="w-full text-xs font-bold p-3 rounded-xl border-2 border-brand-200 dark:border-brand-800 bg-white dark:bg-darkearth-800 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500">
+                  <option value="semi-arid" selected>Semi-Arid Valley (Low Rain, High Sun)</option>
+                  <option value="temperate-plains">Temperate Plains (Seasonal Freeze/Warm)</option>
+                  <option value="mediterranean">Mediterranean Basin (Dry Summers)</option>
+                  <option value="subtropical">Humid Subtropical (Flash Drought Prone)</option>
+                </select>
+              </div>
+
+              <!-- Parameter 2: Climate Hazard -->
+              <div>
+                <label class="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5" data-i18n="form-hazard-label">Primary Satellite Climate Threat</label>
+                <select id="filter-hazard" onchange="runCropRecommendation()" class="w-full text-xs font-bold p-3 rounded-xl border-2 border-brand-200 dark:border-brand-800 bg-white dark:bg-darkearth-800 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500">
+                  <option value="flash-drought" selected>Flash Droughts (Rapid Root Desiccation)</option>
+                  <option value="groundwater-depletion">Aquifer Depletion (Irrigation Bans)</option>
+                  <option value="extreme-heat">Extreme Heatwaves (&gt;38°C Pollination Kill)</option>
+                  <option value="erratic-monsoon">Erratic / Delayed Monsoon Rainfall</option>
+                </select>
+              </div>
+
+              <!-- Parameter 3: Priority Goal -->
+              <div>
+                <label class="block text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5" data-i18n="form-priority-label">Optimization Priority</label>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <button type="button" onclick="setGoal('water', this)" class="goal-btn active p-2.5 rounded-xl border-2 border-brand-500 bg-brand-600 text-white font-black text-center transition">Max Water Save</button>
+                  <button type="button" onclick="setGoal('roi', this)" class="goal-btn p-2.5 rounded-xl border-2 border-brand-200 dark:border-brand-800 bg-brand-50 dark:bg-darkearth-800 text-slate-800 dark:text-slate-200 font-bold text-center hover:bg-brand-100 transition">Market Profit</button>
+                </div>
+              </div>
+
+              <button onclick="runCropRecommendation()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white text-xs font-black transition flex items-center justify-center gap-2 shadow-glow-emerald">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                <span data-i18n="btn-recalc">Recompute Suitability</span>
+              </button>
+
+            </div>
+
+            <!-- Satellite Correlation Card -->
+            <div class="p-4 rounded-2xl bg-brand-500/10 border border-brand-500/30 text-xs">
+              <div class="font-black text-brand-900 dark:text-brand-300 flex items-center gap-1.5 mb-1">
+                <i class="fa-solid fa-database text-brand-600"></i>
+                <span data-i18n="ref-dataset-title">NASA Calibration References</span>
+              </div>
+              <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]" data-i18n="ref-dataset-desc">
+                Suitability scores correlate NASA POWER solar irradiance, Landsat LST canopy temperatures, and SMAP root-depth moisture profiles.
+              </p>
+            </div>
+          </div>
+
+          <!-- Dynamic Recommendations Feed (8 Cols) -->
+          <div class="lg:col-span-8 space-y-4">
+            
+            <div class="flex items-center justify-between pb-2">
+              <span id="results-count" class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Showing 5 Climate Resilient Crop Candidates</span>
+              <span class="text-xs font-bold text-brand-700 dark:text-brand-400" data-i18n="recom-ranked">Ranked by NASA Resilience Index</span>
+            </div>
+
+            <div id="cropCardsContainer" class="space-y-4">
+              <!-- Rendered via JavaScript -->
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         PAGE 4: SMART IRRIGATION & EARLY ALERTS (#irrigation-alerts)
+         ========================================================================= -->
+    <section id="page-irrigation-alerts" class="app-page">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <div class="max-w-3xl mb-8">
+          <div class="flex items-center gap-2 text-xs font-bold text-brand-700 dark:text-brand-400 mb-1">
+            <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline" data-i18n="nav-landing">Home</a>
+            <span>/</span>
+            <span class="text-slate-900 dark:text-white" data-i18n="nav-irrigation">Irrigation & Alerts</span>
+          </div>
+          <h1 class="font-display text-3xl font-black text-slate-900 dark:text-white" data-i18n="irrig-heading">Hydrological ET Optimization & Early Alerts</h1>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="irrig-sub">
+            Balance parcel-specific evapotranspiration and radar moisture with night-cycle drip budgets to prevent acute water waste.
+          </p>
+        </div>
+
+        <!-- Alert Notification Feed Strip -->
+        <div class="space-y-3 mb-8">
+          
+          <div class="p-4 rounded-2xl bg-terraclay-100/90 dark:bg-darkearth-850 border-2 border-terraclay-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-terraclay-600 text-white flex items-center justify-center shrink-0 text-base mt-0.5">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="font-black text-xs text-slate-900 dark:text-white" data-i18n="alert-flash-title">NASA Flash Drought Advisory (Level 2 Warning)</h4>
+                  <span class="text-[10px] bg-terraclay-500 text-white font-extrabold px-2 py-0.5 rounded-full" data-i18n="alert-flash-time">Next 72 Hours</span>
+                </div>
+                <p class="text-xs text-slate-700 dark:text-slate-300 mt-0.5" data-i18n="alert-flash-desc">
+                  ECOSTRESS sensors detect canopy temperature anomaly (+4.1°C over 10-year mean). Soil vapor deficit will increase rapidly.
+                </p>
+              </div>
+            </div>
+            <button onclick="dismissAlert(this)" class="text-xs font-black px-3.5 py-1.5 rounded-xl bg-white dark:bg-darkearth-800 hover:bg-terraclay-50 dark:hover:bg-darkearth-900 text-terraclay-700 dark:text-terraclay-400 border border-terraclay-300 dark:border-terraclay-800 transition self-end sm:self-center shrink-0" data-i18n="btn-ack">
+              Acknowledge
+            </button>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-ambercrop-100/90 dark:bg-darkearth-850 border-2 border-ambercrop-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-ambercrop-500 text-white flex items-center justify-center shrink-0 text-base mt-0.5">
+                <i class="fa-solid fa-cloud-sun"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="font-black text-xs text-slate-900 dark:text-white" data-i18n="alert-stress-title">Canopy Water Stress Warning: Parcel 2</h4>
+                  <span class="text-[10px] bg-ambercrop-500 text-white font-extrabold px-2 py-0.5 rounded-full" data-i18n="alert-stress-tag">Moderate Alert</span>
+                </div>
+                <p class="text-xs text-slate-700 dark:text-slate-300 mt-0.5" data-i18n="alert-stress-desc">
+                  Evaporative Stress Index (ESI) has declined below 0.35 threshold. Transition irrigation cycle to late night drip window.
+                </p>
+              </div>
+            </div>
+            <button onclick="dismissAlert(this)" class="text-xs font-black px-3.5 py-1.5 rounded-xl bg-white dark:bg-darkearth-800 hover:bg-ambercrop-50 dark:hover:bg-darkearth-900 text-ambercrop-700 dark:text-ambercrop-400 border border-ambercrop-300 dark:border-ambercrop-800 transition self-end sm:self-center shrink-0" data-i18n="btn-ack">
+              Acknowledge
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Evapotranspiration Calculator & Scheduling -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Evapotranspiration Budget Calculator (5 Cols) -->
+          <div class="lg:col-span-5">
+            <div class="p-6 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-card-light dark:shadow-card-dark space-y-5">
+              <div>
+                <span class="text-[10px] uppercase font-black text-brand-600 dark:text-brand-400 tracking-wider" data-i18n="calc-title-tag">Dynamic Water Budgeting</span>
+                <h3 class="font-display text-lg font-black text-slate-900 dark:text-white" data-i18n="calc-title">Evapotranspiration Field Calculator</h3>
+              </div>
+
+              <!-- Inputs -->
+              <div class="space-y-4 text-xs">
+                <div>
+                  <label class="block font-black text-slate-800 dark:text-slate-200 mb-1" data-i18n="calc-crop-label">Target Crop</label>
+                  <select id="et-crop" onchange="calculateIrrigation()" class="w-full p-3 rounded-xl border-2 border-brand-200 dark:border-brand-800 bg-white dark:bg-darkearth-800 text-slate-900 dark:text-white font-bold">
+                    <option value="sorghum">Grain Sorghum (Low Water Need - Kc: 0.70)</option>
+                    <option value="corn">Field Corn (High Water Need - Kc: 1.15)</option>
+                    <option value="almonds">Almond Trees (High Need - Kc: 1.10)</option>
+                    <option value="millet">Pearl Millet (Very Low - Kc: 0.55)</option>
+                    <option value="soybeans">Soybean (Moderate - Kc: 0.90)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block font-black text-slate-800 dark:text-slate-200 mb-1" data-i18n="calc-area-label">Parcel Surface Area (Hectares)</label>
+                  <input type="number" id="et-area" value="50" min="1" max="1000" oninput="calculateIrrigation()" class="w-full p-3 rounded-xl border-2 border-brand-200 dark:border-brand-800 bg-white dark:bg-darkearth-800 text-slate-900 dark:text-white font-bold">
+                </div>
+
+                <div>
+                  <label class="block font-black text-slate-800 dark:text-slate-200 mb-1" data-i18n="calc-rad-label">NASA Solar Radiation (MJ/m²/day)</label>
+                  <input type="range" id="et-radiation" min="10" max="32" value="24" oninput="calculateIrrigation(); document.getElementById('rad-val').innerText = this.value + ' MJ/m²'" class="w-full">
+                  <div class="flex justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-0.5 font-bold">
+                    <span>Overcast (10)</span>
+                    <span id="rad-val" class="text-brand-700 dark:text-brand-300">24 MJ/m²</span>
+                    <span>High Sun (32)</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block font-black text-slate-800 dark:text-slate-200 mb-1" data-i18n="calc-moist-label">Current SMAP Root-zone Moisture (%)</label>
+                  <input type="range" id="et-moisture" min="8" max="40" value="18" oninput="calculateIrrigation(); document.getElementById('moist-val').innerText = this.value + '%'" class="w-full">
+                  <div class="flex justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-0.5 font-bold">
+                    <span>Parched (8%)</span>
+                    <span id="moist-val" class="text-brand-700 dark:text-brand-300">18%</span>
+                    <span>Optimal (40%)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Output Display -->
+              <div class="pt-4 border-t border-brand-100 dark:border-brand-900">
+                <div class="bg-brand-50 dark:bg-darkearth-800 p-4 rounded-2xl border-2 border-brand-200 dark:border-brand-800 space-y-2">
+                  <div class="flex justify-between items-baseline">
+                    <span class="text-xs text-slate-600 dark:text-slate-300 font-bold" data-i18n="calc-out-vol">Daily Irrigation Volume:</span>
+                    <span id="calc-volume" class="font-display text-xl font-black text-brand-900 dark:text-brand-200">185,000 L</span>
+                  </div>
+                  <div class="flex justify-between items-baseline">
+                    <span class="text-xs text-slate-600 dark:text-slate-300 font-bold" data-i18n="calc-out-depth">Depth Equivalent:</span>
+                    <span id="calc-depth" class="text-xs font-black text-slate-800 dark:text-slate-200">3.7 mm / m²</span>
+                  </div>
+                  <div class="flex justify-between items-baseline">
+                    <span class="text-xs text-slate-600 dark:text-slate-300 font-bold" data-i18n="calc-out-window">Optimum Drip Run Window:</span>
+                    <span id="calc-window" class="text-xs font-black text-azurewater-600 dark:text-azurewater-400">03:30 AM – 06:45 AM</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Suggested Weekly Scheduling (7 Cols) -->
+          <div class="lg:col-span-7 space-y-5">
+            <div class="p-6 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-card-light dark:shadow-card-dark">
+              
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <span class="text-[10px] uppercase font-black text-brand-600 dark:text-brand-400 tracking-wider" data-i18n="sched-title-tag">Optimized Dispatch</span>
+                  <h3 class="font-display text-lg font-black text-slate-900 dark:text-white" data-i18n="sched-title">7-Day Night Drip Schedule</h3>
+                </div>
+                <button onclick="downloadSchedule()" class="px-3.5 py-1.5 rounded-xl bg-brand-100 dark:bg-darkearth-800 hover:bg-brand-200 text-brand-900 dark:text-brand-200 text-xs font-black border border-brand-300 dark:border-brand-700 transition flex items-center gap-1.5 shadow-sm">
+                  <i class="fa-solid fa-file-arrow-down"></i>
+                  <span data-i18n="btn-export-plan">Export Plan</span>
+                </button>
+              </div>
+
+              <div class="space-y-3">
+                
+                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-brand-50/70 dark:bg-darkearth-800 border-2 border-brand-200 dark:border-brand-800">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex flex-col items-center justify-center text-xs font-black">
+                      <span>MON</span>
+                      <span class="text-[8px] font-bold">TODAY</span>
+                    </div>
+                    <div>
+                      <div class="text-xs font-black text-slate-900 dark:text-white">03:30 AM – 06:30 AM (3.0 hrs)</div>
+                      <div class="text-[11px] text-slate-600 dark:text-slate-400">Deep Root Pulse • Zone A & B</div>
+                    </div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-brand-200 dark:bg-brand-900 text-brand-900 dark:text-brand-200">Scheduled</span>
+                </div>
+
+                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-darkearth-900 border-2 border-brand-100 dark:border-brand-900">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-darkearth-800 text-slate-800 dark:text-slate-200 flex flex-col items-center justify-center text-xs font-black">
+                      <span>TUE</span>
+                    </div>
+                    <div>
+                      <div class="text-xs font-black text-slate-900 dark:text-white">Water Rest Cycle</div>
+                      <div class="text-[11px] text-slate-600 dark:text-slate-400">SMAP reading shows 24% residual storage</div>
+                    </div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-slate-200 dark:bg-darkearth-800 text-slate-700 dark:text-slate-300">Rest Day</span>
+                </div>
+
+                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-brand-50/70 dark:bg-darkearth-800 border-2 border-brand-200 dark:border-brand-800">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex flex-col items-center justify-center text-xs font-black">
+                      <span>WED</span>
+                    </div>
+                    <div>
+                      <div class="text-xs font-black text-slate-900 dark:text-white">04:00 AM – 06:15 AM (2.25 hrs)</div>
+                      <div class="text-[11px] text-slate-600 dark:text-slate-400">Low Evaporation Window • Zone C</div>
+                    </div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-brand-200 dark:bg-brand-900 text-brand-900 dark:text-brand-200">Scheduled</span>
+                </div>
+
+                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-terraclay-50/70 dark:bg-darkearth-800 border-2 border-terraclay-300 dark:border-terraclay-900">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-terraclay-600 text-white flex flex-col items-center justify-center text-xs font-black">
+                      <span>THU</span>
+                    </div>
+                    <div>
+                      <div class="text-xs font-black text-slate-900 dark:text-white">Heatwave Pre-soak Cycle (4.5 hrs)</div>
+                      <div class="text-[11px] text-terraclay-700 dark:text-terraclay-400">Mitigate forecasted 39°C ECOSTRESS heat dome</div>
+                    </div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-terraclay-200 dark:bg-terraclay-950 text-terraclay-800 dark:text-terraclay-300">Boost Surge</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         PAGE 5: FARM TELEMETRY DASHBOARD (#dashboard)
+         ========================================================================= -->
+    <section id="page-dashboard" class="app-page">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-brand-200 dark:border-brand-900 gap-4">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-bold text-brand-700 dark:text-brand-400 mb-1">
+              <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline" data-i18n="nav-landing">Home</a>
+              <span>/</span>
+              <span class="text-slate-900 dark:text-white" data-i18n="nav-dashboard">Telemetry & Insights</span>
+            </div>
+            <h1 class="font-display text-3xl font-black text-slate-900 dark:text-white" data-i18n="dash-heading">Farm Telemetry & NDVI Vigour Analytics</h1>
+          </div>
+          <button onclick="downloadReport()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-black text-xs shadow-glow-emerald transition flex items-center gap-2">
+            <i class="fa-solid fa-file-pdf"></i>
+            <span data-i18n="btn-export-pdf">Download Seasonal Summary</span>
+          </button>
+        </div>
+
+        <!-- Metric KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-6">
+          
+          <div class="p-5 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-sm">
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2 font-bold uppercase">
+              <span data-i18n="kpi-1-title">Average Vigour</span>
+              <i class="fa-solid fa-leaf text-brand-500"></i>
+            </div>
+            <div class="font-display text-3xl font-black text-slate-900 dark:text-white">0.68 NDVI</div>
+            <div class="flex items-center gap-1.5 text-xs text-brand-700 dark:text-brand-300 font-extrabold mt-2">
+              <i class="fa-solid fa-arrow-trend-up"></i>
+              <span>+0.04 vs last month</span>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-sm">
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2 font-bold uppercase">
+              <span data-i18n="kpi-2-title">Water Drawn</span>
+              <i class="fa-solid fa-faucet-drip text-azurewater-500"></i>
+            </div>
+            <div class="font-display text-3xl font-black text-slate-900 dark:text-white">1.24 ML</div>
+            <div class="flex items-center gap-1.5 text-xs text-brand-700 dark:text-brand-300 font-extrabold mt-2">
+              <i class="fa-solid fa-arrow-trend-down"></i>
+              <span>28% below permit cap</span>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-sm">
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2 font-bold uppercase">
+              <span data-i18n="kpi-3-title">Root Storage</span>
+              <i class="fa-solid fa-droplet text-terraclay-500"></i>
+            </div>
+            <div class="font-display text-3xl font-black text-slate-900 dark:text-white">22.4% Vol</div>
+            <div class="flex items-center gap-1.5 text-xs text-terraclay-600 dark:text-terraclay-400 font-extrabold mt-2">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <span>Deficit in Ridge Block</span>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-sm">
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2 font-bold uppercase">
+              <span data-i18n="kpi-4-title">Resilience Score</span>
+              <i class="fa-solid fa-seedling text-ambercrop-500"></i>
+            </div>
+            <div class="font-display text-3xl font-black text-slate-900 dark:text-white">88 / 100</div>
+            <div class="flex items-center gap-1.5 text-xs text-brand-700 dark:text-brand-300 font-extrabold mt-2">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>High Adaptation</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Comparative Chart Strip & Seasonal Checklist -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-8">
+          
+          <div class="lg:col-span-8 p-6 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-card-light dark:shadow-card-dark">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-brand-100 dark:border-brand-900 gap-2">
+              <div>
+                <h3 class="font-display text-lg font-black text-slate-900 dark:text-white" data-i18n="chart-title">Landsat 8/9 Canopy Vigour Curve (Past 6 Months)</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="chart-sub">Comparing Sorghum Shift Trial vs. Legacy Corn Parcel</p>
+              </div>
+              <div class="flex items-center gap-3 text-xs font-bold">
+                <span class="flex items-center gap-1.5 text-brand-700 dark:text-brand-300">
+                  <span class="w-3 h-3 rounded-full bg-brand-500 inline-block"></span> Sorghum Shift
+                </span>
+                <span class="flex items-center gap-1.5 text-terraclay-600 dark:text-terraclay-400">
+                  <span class="w-3 h-3 rounded-full bg-terraclay-500 inline-block"></span> Legacy Corn
+                </span>
+              </div>
+            </div>
+
+            <!-- SVG Chart -->
+            <div class="w-full aspect-[16/8] mt-4 relative">
+              <svg class="w-full h-full" viewBox="0 0 600 240">
+                <line x1="40" y1="20" x2="580" y2="20" stroke="#a7f3d0" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="4"/>
+                <line x1="40" y1="70" x2="580" y2="70" stroke="#a7f3d0" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="4"/>
+                <line x1="40" y1="120" x2="580" y2="120" stroke="#a7f3d0" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="4"/>
+                <line x1="40" y1="170" x2="580" y2="170" stroke="#a7f3d0" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="4"/>
+                <line x1="40" y1="210" x2="580" y2="210" stroke="#059669" stroke-width="2"/>
+
+                <text x="10" y="24" fill="#059669" font-size="10" font-weight="700">0.9</text>
+                <text x="10" y="74" fill="#059669" font-size="10" font-weight="700">0.7</text>
+                <text x="10" y="124" fill="#059669" font-size="10" font-weight="700">0.5</text>
+                <text x="10" y="174" fill="#059669" font-size="10" font-weight="700">0.3</text>
+                <text x="10" y="214" fill="#059669" font-size="10" font-weight="700">0.1</text>
+
+                <text x="70" y="230" fill="#059669" font-size="11" font-weight="800">JUN</text>
+                <text x="160" y="230" fill="#059669" font-size="11" font-weight="800">JUL</text>
+                <text x="250" y="230" fill="#059669" font-size="11" font-weight="800">AUG</text>
+                <text x="340" y="230" fill="#059669" font-size="11" font-weight="800">SEP</text>
+                <text x="430" y="230" fill="#059669" font-size="11" font-weight="800">OCT</text>
+                <text x="520" y="230" fill="#059669" font-size="11" font-weight="800">NOV</text>
+
+                <!-- Corn Line (Drops drastically in heat) -->
+                <path d="M70,160 Q160,110 250,150 T340,185 T430,195 T520,200" fill="none" stroke="#ea580c" stroke-width="3.5" stroke-linecap="round"/>
+                
+                <!-- Sorghum Line (Remains high) -->
+                <path d="M70,170 Q160,120 250,90 T340,75 T430,65 T520,70" fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+
+                <line x1="250" y1="30" x2="250" y2="210" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3"/>
+                <rect x="200" y="30" width="105" height="22" rx="6" fill="#fef3c7"/>
+                <text x="206" y="45" fill="#b45309" font-size="10" font-weight="800">HEAT DOME EVENT</text>
+              </svg>
+            </div>
+
+            <div class="mt-4 p-3.5 rounded-2xl bg-brand-50 dark:bg-darkearth-800 border border-brand-200 dark:border-brand-800 text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium" data-i18n="chart-note">
+              <strong>Observation Telemetry:</strong> While standard legacy corn dropped 38% in NDVI index during the August heatwave, the adapted Sorghum block maintained dense green canopy with 42% less applied irrigation.
+            </div>
+          </div>
+
+          <!-- Seasonal Checklist (4 Cols) -->
+          <div class="lg:col-span-4 p-6 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-card-light dark:shadow-card-dark">
+            <h3 class="font-display text-lg font-black text-slate-900 dark:text-white mb-1" data-i18n="checklist-title">Seasonal Action Checklist</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4" data-i18n="checklist-sub">NASA-driven action items for this farm cycle.</p>
+
+            <div class="space-y-3">
+              <label class="flex items-start gap-3 p-3 rounded-2xl bg-brand-50/70 dark:bg-darkearth-800 border border-brand-200 dark:border-brand-800 cursor-pointer">
+                <input type="checkbox" checked class="mt-1 rounded accent-brand-600">
+                <div>
+                  <span class="text-xs font-black text-slate-900 dark:text-white block" data-i18n="chk-1-title">Check SMAP sub-surface reading</span>
+                  <span class="text-[11px] text-slate-600 dark:text-slate-400" data-i18n="chk-1-sub">Calibrate probe with satellite pixel #204.</span>
+                </div>
+              </label>
+
+              <label class="flex items-start gap-3 p-3 rounded-2xl bg-brand-50/70 dark:bg-darkearth-800 border border-brand-200 dark:border-brand-800 cursor-pointer">
+                <input type="checkbox" checked class="mt-1 rounded accent-brand-600">
+                <div>
+                  <span class="text-xs font-black text-slate-900 dark:text-white block" data-i18n="chk-2-title">Night drip shift for Parcel 2</span>
+                  <span class="text-[11px] text-slate-600 dark:text-slate-400" data-i18n="chk-2-sub">Avoid 40% mid-day solar evaporation.</span>
+                </div>
+              </label>
+
+              <label class="flex items-start gap-3 p-3 rounded-2xl bg-brand-50/70 dark:bg-darkearth-800 border border-brand-200 dark:border-brand-800 cursor-pointer">
+                <input type="checkbox" class="mt-1 rounded accent-brand-600">
+                <div>
+                  <span class="text-xs font-black text-slate-900 dark:text-white block" data-i18n="chk-3-title">Mulching cover crops</span>
+                  <span class="text-[11px] text-slate-600 dark:text-slate-400" data-i18n="chk-3-sub">Reduce bare ground surface heating before Thursday.</span>
+                </div>
+              </label>
+
+              <label class="flex items-start gap-3 p-3 rounded-2xl bg-brand-50/70 dark:bg-darkearth-800 border border-brand-200 dark:border-brand-800 cursor-pointer">
+                <input type="checkbox" class="mt-1 rounded accent-brand-600">
+                <div>
+                  <span class="text-xs font-black text-slate-900 dark:text-white block" data-i18n="chk-4-title">Reserve Sorghum seed lot</span>
+                  <span class="text-[11px] text-slate-600 dark:text-slate-400" data-i18n="chk-4-sub">Lock in drought-tolerant hybrid grain lot.</span>
+                </div>
+              </label>
+            </div>
+
+            <button onclick="saveChecklist()" class="w-full mt-5 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-black text-xs transition shadow-sm" data-i18n="btn-save-chk">
+              Save Progress
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         PAGE 6: NASA DATA RESOURCES & GUIDES (#resources)
+         ========================================================================= -->
+    <section id="page-resources" class="app-page">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <div class="max-w-3xl mb-8">
+          <div class="flex items-center gap-2 text-xs font-bold text-brand-700 dark:text-brand-400 mb-1">
+            <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline" data-i18n="nav-landing">Home</a>
+            <span>/</span>
+            <span class="text-slate-900 dark:text-white" data-i18n="nav-resources">NASA Resources</span>
+          </div>
+          <h1 class="font-display text-3xl font-black text-slate-900 dark:text-white" data-i18n="res-heading">NASA Earth Science Data & Agronomy Guides</h1>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="res-sub">
+            Free and open public Earth observation assets translated into practical farm documentation, toolkits, and transition guides.
+          </p>
+        </div>
+
+        <!-- Search & Filter Bar -->
+        <div class="flex flex-col sm:flex-row items-center gap-3 mb-8">
+          <div class="relative w-full sm:w-96">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input type="text" id="resourceSearchInput" oninput="filterResources()" placeholder="Search NASA datasets, SMAP, ECOSTRESS, Guides..." class="w-full pl-9 pr-4 py-2.5 rounded-xl border-2 border-brand-200 dark:border-brand-800 bg-white dark:bg-darkearth-800 text-slate-900 dark:text-white text-xs font-bold focus:outline-none focus:border-brand-500">
+          </div>
+          <div class="flex items-center gap-2 overflow-x-auto w-full pb-1 sm:pb-0">
+            <button onclick="setResourceCategory('all')" class="res-cat-btn active px-3.5 py-1.5 rounded-xl text-xs font-black bg-brand-600 text-white">All</button>
+            <button onclick="setResourceCategory('datasets')" class="res-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-darkearth-800 text-slate-800 dark:text-slate-200 border border-brand-200 dark:border-brand-800">Datasets</button>
+            <button onclick="setResourceCategory('guides')" class="res-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-darkearth-800 text-slate-800 dark:text-slate-200 border border-brand-200 dark:border-brand-800">Guides</button>
+          </div>
+        </div>
+
+        <!-- Resource Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" id="resourceCardsGrid">
+          
+          <div class="res-card p-6 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-sm flex flex-col justify-between" data-cat="datasets" data-keywords="smap soil moisture microwave radar">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-satellite"></i>
+              </div>
+              <span class="text-[10px] font-black uppercase text-brand-600 dark:text-brand-400">NASA Earth Science</span>
+              <h3 class="font-display text-lg font-black text-slate-900 dark:text-white mb-2">SMAP L3 Global Soil Moisture</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                L-band microwave radiometer data offering 9 km volumetric root-zone moisture estimates every 2-3 days worldwide.
+              </p>
+            </div>
+            <button onclick="downloadResource('NASA_SMAP_L3_Specifications.pdf')" class="w-full py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-black transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i>
+              <span data-i18n="btn-download-spec">Download Specs (2.4 MB)</span>
+            </button>
+          </div>
+
+          <div class="res-card p-6 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-sm flex flex-col justify-between" data-cat="datasets" data-keywords="landsat ndvi multispectral optical canopy">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-ambercrop-100 dark:bg-ambercrop-950 text-ambercrop-700 dark:text-ambercrop-300 flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-leaf"></i>
+              </div>
+              <span class="text-[10px] font-black uppercase text-ambercrop-600 dark:text-ambercrop-400">USGS & NASA Asset</span>
+              <h3 class="font-display text-lg font-black text-slate-900 dark:text-white mb-2">Landsat 8 & 9 Operational Land Imager</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                30-meter multispectral surface reflectance bands enabling Normalized Difference Vegetation Index (NDVI) field vigour mapping.
+              </p>
+            </div>
+            <button onclick="downloadResource('Landsat_Agro_Vigour_Guide.pdf')" class="w-full py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-black transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i>
+              <span data-i18n="btn-download-spec">Download Specs (3.1 MB)</span>
+            </button>
+          </div>
+
+          <div class="res-card p-6 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-sm flex flex-col justify-between" data-cat="guides" data-keywords="crop shift sorghum millet quinoa playbook">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-terraclay-100 dark:bg-terraclay-950 text-terraclay-700 dark:text-terraclay-300 flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-wheat-awn"></i>
+              </div>
+              <span class="text-[10px] font-black uppercase text-terraclay-600 dark:text-terraclay-400">Extension Handbook</span>
+              <h3 class="font-display text-lg font-black text-slate-900 dark:text-white mb-2">Alternative Grain Playbook 2026</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                Full agronomic conversion blueprints for Grain Sorghum, Pearl Millet, and Quinoa, including planting depth and market grain buyers.
+              </p>
+            </div>
+            <button onclick="downloadResource('Alternative_Grain_Playbook_2026.pdf')" class="w-full py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-black transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i>
+              <span data-i18n="btn-download-guide">Download Handbook (4.2 MB)</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- FAQ Accordion -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-200 dark:border-brand-800 shadow-card-light dark:shadow-card-dark">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white mb-6" data-i18n="faq-title">Frequently Asked Questions</h2>
+
+          <div class="space-y-4">
+            
+            <div class="border-2 border-brand-100 dark:border-brand-900 rounded-2xl overflow-hidden bg-brand-50/40 dark:bg-darkearth-800">
+              <button onclick="toggleFaq(1)" class="w-full p-4 text-left font-black text-xs sm:text-sm text-slate-900 dark:text-white flex justify-between items-center focus:outline-none">
+                <span data-i18n="faq-q1">How frequently does NASA update soil moisture (SMAP) and vegetation (Landsat)?</span>
+                <i class="fa-solid fa-chevron-down text-xs text-brand-600 dark:text-brand-400 transition-transform duration-300" id="faq-icon-1"></i>
+              </button>
+              <div id="faq-body-1" class="hidden px-4 pb-4 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-brand-100 dark:border-brand-900 pt-3" data-i18n="faq-a1">
+                NASA SMAP updates global root moisture every 2 to 3 days using passive L-band microwave radiometry. Landsat 8 and Landsat 9 together image each location every 8 days at 30-meter multispectral resolution. AgroShift Nexus combines these with ECOSTRESS daily thermal tracks.
+              </div>
+            </div>
+
+            <div class="border-2 border-brand-100 dark:border-brand-900 rounded-2xl overflow-hidden bg-brand-50/40 dark:bg-darkearth-800">
+              <button onclick="toggleFaq(2)" class="w-full p-4 text-left font-black text-xs sm:text-sm text-slate-900 dark:text-white flex justify-between items-center focus:outline-none">
+                <span data-i18n="faq-q2">Are all NASA datasets completely free and open for growers?</span>
+                <i class="fa-solid fa-chevron-down text-xs text-brand-600 dark:text-brand-400 transition-transform duration-300" id="faq-icon-2"></i>
+              </button>
+              <div id="faq-body-2" class="hidden px-4 pb-4 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-brand-100 dark:border-brand-900 pt-3" data-i18n="faq-a2">
+                Yes. Under NASA's Open-Source Science Initiative (OSSI), all Earth observation data including SMAP, Landsat, ECOSTRESS, and GPM are completely free to the global public without subscription fees or licenses.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CUSTOM MODAL DIALOG (Safe alert replacement) -->
+  <div id="messageModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="p-6 rounded-3xl bg-white dark:bg-darkearth-850 border-2 border-brand-500 max-w-sm w-full text-center shadow-card-dark transform transition-all">
+      <div id="modalIcon" class="w-12 h-12 rounded-2xl bg-brand-100 dark:bg-brand-950 text-brand-600 dark:text-brand-400 mx-auto flex items-center justify-center text-xl mb-3">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <h3 id="modalTitle" class="font-display text-lg font-black text-slate-900 dark:text-white mb-1">Notice</h3>
+      <p id="modalBody" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-5">Description</p>
+      <button onclick="closeModal()" class="w-full py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-black transition">
+        Dismiss
+      </button>
+    </div>
+  </div>
+
+  <!-- FLOATING VOICE ASSISTANT LAUNCHER (DESKTOP / TABLET) -->
+  <div class="hidden sm:flex fixed bottom-6 right-6 z-40 flex-col items-end gap-2">
+    <div id="voiceHintBubble" class="bg-white dark:bg-darkearth-800 border-2 border-brand-400 px-3.5 py-1.5 rounded-2xl text-[11px] font-black text-brand-900 dark:text-brand-200 shadow-xl flex items-center gap-1.5 animate-bounce">
+      <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+      <span data-i18n="voice-bubble-hint">Speak with AgroBani (বাংলা / English)</span>
+    </div>
+    
+    <button onclick="openVoiceAssistant()" class="voice-pulse-btn w-16 h-16 rounded-full bg-gradient-to-tr from-brand-600 via-brand-500 to-ambercrop-500 hover:from-brand-500 hover:to-ambercrop-400 text-white flex items-center justify-center shadow-glow-emerald hover:scale-105 active:scale-95 transition-transform" aria-label="Open AgroBani Voice Assistant">
+      <i class="fa-solid fa-microphone-lines text-2xl"></i>
+    </button>
+  </div>
+
+  <!-- FIXED BOTTOM NAVIGATION BAR FOR MOBILE PHONES -->
+  <nav class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-darkearth-900/95 backdrop-blur-xl border-t border-brand-200 dark:border-brand-800 px-2 py-1 shadow-2xl flex items-center justify-around pb-[max(env(safe-area-inset-bottom),8px)]">
+    <a href="#landing" onclick="navigateTo('landing'); return false;" data-mobile-nav="landing" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-brand-700 dark:text-brand-400 transition min-w-[56px] min-h-[46px]">
+      <i class="fa-solid fa-house text-base"></i>
+      <span class="text-[9px] font-black mt-0.5" data-i18n="nav-landing">Home</span>
+    </a>
+    
+    <a href="#map-explorer" onclick="navigateTo('map-explorer'); return false;" data-mobile-nav="map-explorer" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-brand-600 transition min-w-[56px] min-h-[46px]">
+      <i class="fa-solid fa-map-location-dot text-base"></i>
+      <span class="text-[9px] font-bold mt-0.5" data-i18n="nav-explorer">Map</span>
+    </a>
+
+    <!-- Center Floating Action Button (Voice Assistant) -->
+    <button onclick="openVoiceAssistant()" class="flex flex-col items-center justify-center -mt-5" aria-label="Open AgroBani Voice Assistant">
+      <div class="w-13 h-13 p-3.5 rounded-full bg-gradient-to-tr from-brand-600 to-ambercrop-500 text-white shadow-glow-emerald flex items-center justify-center text-lg active:scale-90 transition-transform">
+        <i class="fa-solid fa-microphone"></i>
+      </div>
+      <span class="text-[9px] font-extrabold text-brand-800 dark:text-brand-300 mt-1">AgroBani</span>
+    </button>
+
+    <a href="#crop-recommender" onclick="navigateTo('crop-recommender'); return false;" data-mobile-nav="crop-recommender" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-brand-600 transition min-w-[56px] min-h-[46px]">
+      <i class="fa-solid fa-wheat-awn text-base"></i>
+      <span class="text-[9px] font-bold mt-0.5" data-i18n="nav-recommender">Crops</span>
+    </a>
+
+    <a href="#irrigation-alerts" onclick="navigateTo('irrigation-alerts'); return false;" data-mobile-nav="irrigation-alerts" class="mobile-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-brand-600 transition min-w-[56px] min-h-[46px]">
+      <i class="fa-solid fa-bell text-base"></i>
+      <span class="text-[9px] font-bold mt-0.5" data-i18n="nav-irrigation">Alerts</span>
+    </a>
+  </nav>
+
+  <!-- AGROBANI VOICE ASSISTANT DIALOG MODAL -->
+  <div id="voiceAssistantModal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-end sm:items-center justify-center p-0 sm:p-5 hidden">
+    <div class="bg-white dark:bg-darkearth-850 border-t-2 sm:border-2 border-brand-500 rounded-t-3xl sm:rounded-3xl max-w-2xl w-full shadow-2xl flex flex-col max-h-[90vh] sm:max-h-[92vh] overflow-hidden pb-safe">
+      
+      <!-- Voice Assistant Header -->
+      <div class="p-4 sm:p-5 border-b border-brand-100 dark:border-brand-900 bg-gradient-to-r from-brand-50 via-white to-ambercrop-50 dark:from-darkearth-900 dark:via-darkearth-850 dark:to-darkearth-900 flex items-center justify-between">
+        <div class="flex items-center gap-2.5 sm:gap-3">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-ambercrop-500 text-white flex items-center justify-center text-lg sm:text-xl shadow-glow-emerald shrink-0">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <h3 class="font-display text-base sm:text-xl font-black text-slate-900 dark:text-white">AgroBani (এগ্রো-বাণী)</h3>
+              <span class="bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-[9px] sm:text-[10px] font-extrabold px-1.5 sm:px-2 py-0.5 rounded-full border border-emerald-500/30">NASA AI</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-brand-700 dark:text-brand-300 font-semibold" data-i18n="voice-modal-subtitle">Satellite-guided advice in বাংলা & English</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <!-- Voice Output Mute/Unmute Toggle -->
+          <button onclick="toggleVoiceSpeechMute()" id="voiceSpeechMuteBtn" class="p-2.5 rounded-xl border border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-300 hover:bg-brand-50 dark:hover:bg-darkearth-800 text-xs transition min-h-[44px] min-w-[44px] flex items-center justify-center" title="Toggle Audio Voice Response" aria-label="Toggle Voice Response">
+            <i class="fa-solid fa-volume-high" id="voiceMuteIcon"></i>
+          </button>
+          <!-- Assistant Language Toggle (BN / EN) -->
+          <button onclick="toggleVoiceAssistantLang()" id="voiceAssistantLangBtn" class="px-2.5 py-2 rounded-xl border border-brand-300 dark:border-brand-700 bg-brand-100 dark:bg-darkearth-800 text-brand-900 dark:text-brand-200 text-xs font-black min-h-[44px]">
+            <span id="voiceLangBadge">বাংলা</span>
+          </button>
+          <!-- Close Modal -->
+          <button onclick="closeVoiceAssistant()" class="p-2.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:white transition min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Close Assistant">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Assistant Content Area -->
+      <div class="p-5 flex-1 overflow-y-auto space-y-4">
+        
+        <!-- Live Waveform Visualizer Banner -->
+        <div class="p-4 rounded-2xl bg-gradient-to-b from-brand-50/80 to-white dark:from-darkearth-900 dark:to-darkearth-850 border-2 border-brand-200 dark:border-brand-800 flex flex-col items-center justify-center text-center relative overflow-hidden">
+          
+          <!-- Animated Waveform Bars -->
+          <div id="voiceWaveform" class="h-10 flex items-center justify-center gap-1.5 mb-2 hidden">
+            <span class="voice-wave-bar bg-brand-500"></span>
+            <span class="voice-wave-bar bg-ambercrop-500"></span>
+            <span class="voice-wave-bar bg-brand-600"></span>
+            <span class="voice-wave-bar bg-terraclay-500"></span>
+            <span class="voice-wave-bar bg-azurewater-500"></span>
+            <span class="voice-wave-bar bg-brand-400"></span>
+          </div>
+
+          <!-- Status Indicator Label -->
+          <div id="voiceStatusLabel" class="text-xs font-black text-slate-800 dark:text-slate-200 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-400" id="voiceStatusDot"></span>
+            <span id="voiceStatusText">Press the mic button or choose a question below...</span>
+          </div>
+
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 max-w-md" id="voiceStatusSub">
+            Example: "মাটিতে কি সেচ দিতে হবে?" or "Which crop is best for flash drought?"
+          </p>
+
+          <!-- Large Mic Push-to-Talk Button -->
+          <div class="mt-4">
+            <button id="micCaptureBtn" onclick="toggleSpeechRecording()" class="w-16 h-16 rounded-full bg-gradient-to-tr from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-600 text-white flex items-center justify-center text-2xl shadow-glow-emerald transition-all transform active:scale-90">
+              <i class="fa-solid fa-microphone" id="micCaptureIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Question Chips -->
+        <div>
+          <span class="text-[10px] font-black uppercase text-slate-500 dark:text-slate-400 tracking-wider block mb-2" data-i18n="voice-quick-ask">One-Tap Farmer Questions:</span>
+          <div class="flex flex-wrap gap-2" id="quickPromptChips">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Diagnostic & Satellite Advisory Response Box -->
+        <div id="assistantResponseArea" class="space-y-3">
+          <div class="p-4 rounded-2xl bg-brand-50 dark:bg-darkearth-800/90 border-2 border-brand-300 dark:border-brand-700">
+            <div class="flex items-center justify-between pb-2 border-b border-brand-200 dark:border-brand-900">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-satellite-dish text-brand-600 dark:text-brand-400 text-sm"></i>
+                <span class="text-xs font-black text-slate-900 dark:text-white" id="responseHeader">NASA Satellite Field Diagnosis</span>
+              </div>
+              <span id="responseTimestamp" class="text-[10px] font-mono text-slate-500 dark:text-slate-400 font-bold">Synced Live</span>
+            </div>
+
+            <div class="mt-3 space-y-3 text-xs leading-relaxed" id="responseContent">
+              <p class="text-slate-700 dark:text-slate-300 font-medium">
+                নমস্কার / Hello! I am your <strong>AgroBani Voice Assistant</strong>. Ask about drought warnings, soil moisture levels, or crop alternatives. I correlate your query with NASA SMAP and ECOSTRESS satellite passes.
+              </p>
+            </div>
+
+            <!-- Action buttons inside response -->
+            <div class="mt-3 pt-3 border-t border-brand-200 dark:border-brand-900 flex flex-wrap items-center justify-between gap-2" id="responseActionButtons">
+              <button onclick="readAloudCurrentResponse()" class="px-3 py-1.5 rounded-xl bg-white dark:bg-darkearth-700 border border-brand-300 dark:border-brand-700 text-brand-800 dark:text-brand-300 text-xs font-black hover:bg-brand-50 flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-volume-high"></i>
+                <span data-i18n="btn-read-aloud">Read Aloud</span>
+              </button>
+
+              <button onclick="navigateTo('map-explorer'); closeVoiceAssistant();" class="text-xs font-black text-brand-700 dark:text-brand-400 hover:underline flex items-center gap-1">
+                <span data-i18n="btn-inspect-map-voice">View in Earth Explorer</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer: Typed Input Fallback -->
+      <div class="p-4 border-t border-brand-100 dark:border-brand-900 bg-slate-50 dark:bg-darkearth-900">
+        <form onsubmit="handleVoiceAssistantTextSubmit(event)" class="flex items-center gap-2">
+          <input type="text" id="voiceTextInput" placeholder="Or type your question here in Bangla or English..." class="flex-1 px-4 py-2.5 rounded-xl border-2 border-brand-200 dark:border-brand-800 bg-white dark:bg-darkearth-800 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-brand-500">
+          <button type="submit" class="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-black transition flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span data-i18n="btn-voice-send">Ask</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white dark:bg-darkearth-950 border-t border-brand-200 dark:border-brand-900 py-12 mt-16 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="md:col-span-2 space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-brand-600 flex items-center justify-center text-white text-sm">
+              <i class="fa-solid fa-wheat-awn"></i>
+            </div>
+            <span class="font-display text-xl font-black text-slate-900 dark:text-white">AgroShift Nexus</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400 max-w-sm leading-relaxed" data-i18n="footer-desc">
+            Bridging spaceborne NASA Earth data with adaptive agronomy, soil stewardship, and drought survival.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-black text-xs uppercase text-slate-900 dark:text-white tracking-wider mb-3" data-i18n="footer-nav">Navigation</h4>
+          <ul class="space-y-2 text-xs font-bold text-slate-600 dark:text-slate-400">
+            <li><a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:text-brand-600 dark:hover:text-brand-400" data-i18n="nav-landing">Home</a></li>
+            <li><a href="#map-explorer" onclick="navigateTo('map-explorer'); return false;" class="hover:text-brand-600 dark:hover:text-brand-400" data-i18n="nav-explorer">Earth Explorer</a></li>
+            <li><a href="#crop-recommender" onclick="navigateTo('crop-recommender'); return false;" class="hover:text-brand-600 dark:hover:text-brand-400" data-i18n="nav-recommender">Crop Shift Advisor</a></li>
+            <li><a href="#irrigation-alerts" onclick="navigateTo('irrigation-alerts'); return false;" class="hover:text-brand-600 dark:hover:text-brand-400" data-i18n="nav-irrigation">Irrigation & Alerts</a></li>
+            <li><a href="#dashboard" onclick="navigateTo('dashboard'); return false;" class="hover:text-brand-600 dark:hover:text-brand-400" data-i18n="nav-dashboard">Telemetry & Insights</a></li>
+            <li><a href="#resources" onclick="navigateTo('resources'); return false;" class="hover:text-brand-600 dark:hover:text-brand-400" data-i18n="nav-resources">NASA Resources</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-black text-xs uppercase text-slate-900 dark:text-white tracking-wider mb-3">Challenge Mission</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3" data-i18n="footer-challenge">
+            NASA International Space Apps Challenge 2026: Field Shift — Adapting Farms with NASA Data.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="border-t border-brand-200 dark:border-brand-900 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-2 font-bold">
+        <p>© 2026 AgroShift Nexus. Open Science for Global Agriculture.</p>
+        <p>Built with vibrant Tailwind CSS & Earth Observation APIs.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT ENGINE: BULLETPROOF NAVIGATION, SATELLITE LAYERS, VOICE ASSISTANT & LOCALIZATION -->
+  <script>
+    /* =========================================================================
+       1. ROUTING SYSTEM (RELIABLE PAGE SWITCHER)
+       ========================================================================= */
+    const validPages = ['landing', 'map-explorer', 'crop-recommender', 'irrigation-alerts', 'dashboard', 'resources'];
+
+    function navigateTo(pageId) {
+      if (!validPages.includes(pageId)) {
+        pageId = 'landing';
+      }
+
+      // Hide all page sections and reveal target
+      validPages.forEach(p => {
+        const pageEl = document.getElementById('page-' + p);
+        if (pageEl) {
+          if (p === pageId) {
+            pageEl.classList.add('active-page');
+            pageEl.style.display = 'block';
+          } else {
+            pageEl.classList.remove('active-page');
+            pageEl.style.display = 'none';
+          }
+        }
+      });
+
+      // Update Desktop Nav Highlight
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const target = btn.getAttribute('data-nav-target');
+        if (target === pageId) {
+          btn.className = 'nav-btn px-4 py-2 rounded-full text-xs font-black transition-all bg-brand-600 text-white shadow-sm';
+        } else {
+          btn.className = 'nav-btn px-4 py-2 rounded-full text-xs font-bold transition-all text-slate-700 dark:text-slate-200 hover:text-brand-700 dark:hover:text-brand-400';
+        }
+      });
+
+      // Update Mobile Bottom Bar Highlight
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        const target = btn.getAttribute('data-mobile-nav');
+        if (target === pageId) {
+          btn.classList.add('text-brand-600', 'dark:text-brand-400');
+          btn.classList.remove('text-slate-500', 'dark:text-slate-400');
+        } else {
+          btn.classList.remove('text-brand-600', 'dark:text-brand-400');
+          btn.classList.add('text-slate-500', 'dark:text-slate-400');
+        }
+      });
+
+      // Update URL hash cleanly
+      try {
+        if (window.location.hash !== '#' + pageId) {
+          window.history.pushState(null, null, '#' + pageId);
+        }
+      } catch (err) {
+        // Safe fallback for restricted iframe contexts
+      }
+
+      // Ensure layout redraw for SVG map when opening earth explorer
+      if (pageId === 'map-explorer') {
+        setTimeout(() => {
+          updateParcelColors();
+          updateInspectorPanel(currentSelectedParcel);
+        }, 50);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Listen to window hashchange
+    window.addEventListener('hashchange', () => {
+      const targetHash = (window.location.hash || '').replace('#', '') || 'landing';
+      navigateTo(targetHash);
+    });
+
+    function toggleMobileDrawer() {
+      const drawer = document.getElementById('mobileDrawer');
+      if (drawer) drawer.classList.toggle('hidden');
+    }
+
+
+    /* =========================================================================
+       2. BILINGUAL TRANSLATION ENGINE (ENGLISH <-> BANGLA)
+       ========================================================================= */
+    const translations = {
+      en: {
+        "top-mission": "NASA Space Apps 2026:",
+        "top-desc": "Field Shift: Adapting Farms with NASA Data (SMAP, Landsat 8/9, ECOSTRESS)",
+        "top-sound": "Wind Ambience",
+        "top-sync": "Live Orbit Synced",
+        "nav-tagline": "NASA Earth Intelligence Adaptation",
+        "nav-landing": "Home",
+        "nav-explorer": "Earth Explorer",
+        "nav-recommender": "Crop Shift Advisor",
+        "nav-irrigation": "Irrigation & Alerts",
+        "nav-dashboard": "Telemetry & Insights",
+        "nav-resources": "NASA Resources",
+        "nav-voice-assistant": "AgroBani Voice",
+        "hero-badge": "Adapting Agriculture with NASA Earth Observation Telemetry",
+        "hero-title-1": "Transform farm decisions with",
+        "hero-title-gradient": " NASA satellite intelligence.",
+        "hero-subtext": "Extreme weather, flash droughts, and depleted groundwater are disrupting planting cycles worldwide. AgroShift Nexus translates NASA SMAP root-zone moisture, Landsat vegetation vigour, and ECOSTRESS thermal data into practical, farm-scale crop shifts and precision irrigation schedules.",
+        "hero-btn-explorer": "Open Earth Explorer",
+        "hero-btn-voice": "Ask AgroBani (Voice)",
+        "hero-btn-shift": "Explore Crop Shifts",
+        "stat-hectares": "Hectares Monitored",
+        "stat-water": "Water Saved via ET",
+        "stat-resilience": "Climate Resilience",
+        "hero-telemetry-title": "Telemetry: East Ridge Parcel #02",
+        "hero-card-crop": "Legacy Crop: Field Corn",
+        "hero-card-stress": "Root Moisture: 14.2% (Severe Deficit)",
+        "hero-card-adapt": "Shift Crop",
+        "hero-stat-smap": "SMAP Moisture",
+        "hero-stat-lst": "Surface Temp",
+        "hero-stat-rec": "Recommended Shift",
+        "pillar-badge": "The Mission Framework",
+        "pillar-heading": "Translating Orbit Data into Ground Resilience",
+        "pillar-sub": "NASA’s Earth-observing satellites provide diagnostic metrics that take the guesswork out of drought survival and climate adaptation.",
+        "pillar-1-title": "SMAP Root Soil Moisture",
+        "pillar-1-desc": "Using spaceborne microwave radiometry to measure root-zone water content down to 100cm, pinpointing flash droughts days before crops show visual wilting.",
+        "pillar-view-layer": "Inspect Soil Layer",
+        "pillar-2-title": "Predictive Crop Adaptation",
+        "pillar-2-desc": "Replacing vulnerable monocultures with climate-resilient alternatives (Sorghum, Pearl Millet, Quinoa) tailored specifically to regional rainfall variance.",
+        "pillar-calc-shift": "Calculate Shift",
+        "pillar-3-title": "ECOSTRESS Evapotranspiration",
+        "pillar-3-desc": "Thermal infrared sensing from the International Space Station guides precise night-time drip cycles to eliminate up to 40% of daytime evaporative losses.",
+        "pillar-calc-et": "Calculate ET Budget",
+        "core-badge": "Direct Access Modules",
+        "core-title": "All Farm Decision Tools Connected",
+        "core-sub": "Tap any system to transition instantly",
+        "mod-1-title": "Earth Explorer",
+        "mod-1-desc": "Inspect parcels across SMAP, Landsat NDVI, ECOSTRESS & GPM rainfall layers.",
+        "mod-2-title": "Crop Shift Advisor",
+        "mod-2-desc": "Evaluate drought-resilient crops with dynamic suitability and ROI scoring.",
+        "mod-3-title": "Irrigation & Alerts",
+        "mod-3-desc": "Real-time heat stress notifications and daily ET depth budget calculators.",
+        "mod-4-title": "Telemetry & Insights",
+        "mod-4-desc": "Estate canopy health curves, seasonal checklists, and resilience scores.",
+        "explorer-heading": "NASA Satellite Parcel Intelligence",
+        "layer-smap": "SMAP Soil Moisture",
+        "layer-ndvi": "Landsat NDVI",
+        "layer-ecostress": "ECOSTRESS Heat",
+        "layer-gpm": "GPM Rainfall",
+        "time-playback-label": "Satellite Scrubber:",
+        "diag-title": "Selected Parcel",
+        "diag-soil-moist": "Root-Zone Soil Moisture",
+        "diag-ndvi": "Canopy Vigour (NDVI)",
+        "diag-et": "Evapotranspiration Rate",
+        "diag-action-label": "AgroShift Adaptive Action",
+        "diag-btn-test": "Test Crops",
+        "diag-btn-plan": "Plan Drip",
+        "recom-heading": "NASA Climate Shift Crop Advisor",
+        "recom-sub": "Simulate climate conditions, aquifer restrictions, and soil types to generate prioritized, drought-adapted crop candidates.",
+        "form-profile-title": "Farm Climate Parameters",
+        "form-biome-label": "Ecological Biome",
+        "form-hazard-label": "Primary Satellite Climate Threat",
+        "form-priority-label": "Optimization Priority",
+        "btn-recalc": "Recompute Suitability",
+        "ref-dataset-title": "NASA Calibration References",
+        "ref-dataset-desc": "Suitability scores correlate NASA POWER solar irradiance, Landsat LST canopy temperatures, and SMAP root-depth moisture profiles.",
+        "recom-ranked": "Ranked by NASA Resilience Index",
+        "irrig-heading": "Hydrological ET Optimization & Early Alerts",
+        "irrig-sub": "Balance parcel-specific evapotranspiration and radar moisture with night-cycle drip budgets to prevent acute water waste.",
+        "alert-flash-title": "NASA Flash Drought Advisory (Level 2 Warning)",
+        "alert-flash-time": "Next 72 Hours",
+        "alert-flash-desc": "ECOSTRESS sensors detect canopy temperature anomaly (+4.1°C over 10-year mean). Soil vapor deficit will increase rapidly.",
+        "btn-ack": "Acknowledge",
+        "alert-stress-title": "Canopy Water Stress Warning: Parcel 2",
+        "alert-stress-tag": "Moderate Alert",
+        "alert-stress-desc": "Evaporative Stress Index (ESI) has declined below 0.35 threshold. Transition irrigation cycle to late night drip window.",
+        "calc-title-tag": "Dynamic Water Budgeting",
+        "calc-title": "Evapotranspiration Field Calculator",
+        "calc-crop-label": "Target Crop",
+        "calc-area-label": "Parcel Surface Area (Hectares)",
+        "calc-rad-label": "NASA Solar Radiation (MJ/m²/day)",
+        "calc-moist-label": "Current SMAP Root-zone Moisture (%)",
+        "calc-out-vol": "Daily Irrigation Volume:",
+        "calc-out-depth": "Depth Equivalent:",
+        "calc-out-window": "Optimum Drip Run Window:",
+        "sched-title-tag": "Optimized Dispatch",
+        "sched-title": "7-Day Night Drip Schedule",
+        "btn-export-plan": "Export Plan",
+        "dash-heading": "Farm Telemetry & NDVI Vigour Analytics",
+        "btn-export-pdf": "Download Seasonal Summary",
+        "kpi-1-title": "Average Vigour",
+        "kpi-2-title": "Water Drawn",
+        "kpi-3-title": "Root Storage",
+        "kpi-4-title": "Resilience Score",
+        "chart-title": "Landsat 8/9 Canopy Vigour Curve (Past 6 Months)",
+        "chart-sub": "Comparing Sorghum Shift Trial vs. Legacy Corn Parcel",
+        "chart-note": "While standard legacy corn dropped 38% in NDVI index during the August heatwave, the adapted Sorghum block maintained dense green canopy with 42% less applied irrigation.",
+        "checklist-title": "Seasonal Action Checklist",
+        "checklist-sub": "NASA-driven action items for this farm cycle.",
+        "chk-1-title": "Check SMAP sub-surface reading",
+        "chk-1-sub": "Calibrate probe with satellite pixel #204.",
+        "chk-2-title": "Night drip shift for Parcel 2",
+        "chk-2-sub": "Avoid 40% mid-day solar evaporation.",
+        "chk-3-title": "Mulching cover crops",
+        "chk-3-sub": "Reduce bare ground surface heating before Thursday.",
+        "chk-4-title": "Reserve Sorghum seed lot",
+        "chk-4-sub": "Lock in drought-tolerant hybrid grain lot.",
+        "btn-save-chk": "Save Progress",
+        "res-heading": "NASA Earth Science Data & Agronomy Guides",
+        "res-sub": "Free and open public Earth observation assets translated into practical farm documentation, toolkits, and transition guides.",
+        "btn-download-spec": "Download Specs",
+        "btn-download-guide": "Download Handbook",
+        "faq-title": "Frequently Asked Questions",
+        "faq-q1": "How frequently does NASA update soil moisture (SMAP) and vegetation (Landsat)?",
+        "faq-a1": "NASA SMAP updates global root moisture every 2 to 3 days using passive L-band microwave radiometry. Landsat 8 and Landsat 9 together image each location every 8 days at 30-meter multispectral resolution. AgroShift Nexus combines these with ECOSTRESS daily thermal tracks.",
+        "faq-q2": "Are all NASA datasets completely free and open for growers?",
+        "faq-a2": "Yes. Under NASA's Open-Source Science Initiative (OSSI), all Earth observation data including SMAP, Landsat, ECOSTRESS, and GPM are completely free to the global public without subscription fees or licenses.",
+        "footer-desc": "Bridging spaceborne NASA Earth data with adaptive agronomy, soil stewardship, and drought survival.",
+        "footer-nav": "Navigation",
+        "footer-challenge": "NASA International Space Apps Challenge 2026: Field Shift — Adapting Farms with NASA Data.",
+        "voice-bubble-hint": "Speak with AgroBani (বাংলা / English)",
+        "voice-modal-subtitle": "Satellite-guided advice in বাংলা & English",
+        "voice-quick-ask": "One-Tap Farmer Questions:",
+        "btn-read-aloud": "Read Aloud",
+        "btn-inspect-map-voice": "View in Earth Explorer",
+        "btn-voice-send": "Ask"
+      },
+      bn: {
+        "top-mission": "নাসা স্পেস অ্যাপস ২০২৬:",
+        "top-desc": "ফিল্ড শিফট: নাসার উপাত্ত দিয়ে জলবায়ু উপযোগী কৃষি (SMAP, Landsat 8/9, ECOSTRESS)",
+        "top-sound": "বাতাসের শব্দ",
+        "top-sync": "সরাসরি উপগ্রহ সংযুক্ত",
+        "nav-tagline": "নাসার ভূ-পর্যবেক্ষণ কৃষি অভিযোজন প্ল্যাটফর্ম",
+        "nav-landing": "হোম",
+        "nav-explorer": "আর্থ এক্সপ্লোরার",
+        "nav-recommender": "ফসল শিফট পরামর্শক",
+        "nav-irrigation": "সেচ ও সতর্কবার্তা",
+        "nav-dashboard": "টেলিমেট্রি ও ইনসাইটস",
+        "nav-resources": "নাসা রিসোর্সসমূহ",
+        "nav-voice-assistant": "এগ্রো-বাণী ভয়েস",
+        "hero-badge": "নাসার স্যাটেলাইট উপাত্ত দিয়ে জলবায়ু সহনশীল কৃষি",
+        "hero-title-1": "কৃষি সিদ্ধান্ত রূপান্তর করুন",
+        "hero-title-gradient": " নাসার উপগ্রহ বুদ্ধিমত্তার মাধ্যমে।",
+        "hero-subtext": "তীব্র তাপমাত্রা, হঠাৎ খরা ও ভূগর্ভস্থ পানির ঘাটতি ফসল উৎপাদন বিঘ্নিত করছে। এগ্রোশিফট নেক্সাস নাসার SMAP মাটির আর্দ্রতা, Landsat ফসলের সতেজতা ও ECOSTRESS বাষ্পীভবন উপাত্ত ব্যবহার করে কার্যকর ফসল রূপান্তর ও পানির সাশ্রয়ী সেচ পরিকল্পনা প্রদান করে।",
+        "hero-btn-explorer": "আর্থ এক্সপ্লোরার খুলুন",
+        "hero-btn-voice": "এগ্রো-বাণীকে জিজ্ঞেস করুন",
+        "hero-btn-shift": "ফসল শিফট দেখুন",
+        "stat-hectares": "পর্যবেক্ষণাধীন হেক্টর",
+        "stat-water": "সেচের পানি সাশ্রয়",
+        "stat-resilience": "জলবায়ু সহনশীলতা বৃদ্ধি",
+        "hero-telemetry-title": "টেলিমেট্রি: পূর্ব রিজ পার্সেল #০২",
+        "hero-card-crop": "পূর্বের ফসল: ভুট্টা",
+        "hero-card-stress": "মূলের আর্দ্রতা: ১৪.২% (তীব্র ঘাটতি)",
+        "hero-card-adapt": "ফসল শিফট করুন",
+        "hero-stat-smap": "মাটির আর্দ্রতা (SMAP)",
+        "hero-stat-lst": "পৃষ্ঠের তাপমাত্রা",
+        "hero-stat-rec": "প্রস্তাবিত ফসল",
+        "pillar-badge": "মিশনের রূপরেখা",
+        "pillar-heading": "মহাকাশের উপাত্ত দিয়ে মাঠপর্যায়ের সহনশীলতা",
+        "pillar-sub": "নাসার ভূ-পর্যবেক্ষক উপগ্রহগুলো নির্ভুল তথ্য প্রদান করে যা কৃষকদের খরা মোকাবেলা ও সঠিক ফসল নির্বাচনে সাহায্য করে।",
+        "pillar-1-title": "SMAP মূল অঞ্চলের আর্দ্রতা",
+        "pillar-1-desc": "মাইক্রোওয়েভ রেডিওমেট্রি দিয়ে মাটির ১০০ সেমি গভীরের আর্দ্রতা নির্ণয় করা হয়, যা ফসল শুকিয়ে যাওয়ার আগেই খরার পূর্বাভাস দেয়।",
+        "pillar-view-layer": "মাটির স্তর দেখুন",
+        "pillar-2-title": "ভবিষ্যদ্বাণীমূলক ফসল অভিযোজন",
+        "pillar-2-desc": "ঝুঁকিপূর্ণ ফসলের পরিবর্তে খরা ও তাপ সহনশীল ফসল (যেমন: জোয়ার, বাজরা, কিনোয়া) নির্বাচন করুন যা কম পানিতে অধিক ফলন দেয়।",
+        "pillar-calc-shift": "শিফট গণনা করুন",
+        "pillar-3-title": "ECOSTRESS বাষ্পীভবন (ET)",
+        "pillar-3-desc": "মহাকাশ স্টেশন থেকে থার্মাল ইনফ্রারেড পরিমাপের মাধ্যমে রাতের বেলার ড্রিপ সেচ নির্ধারণ করে দিনের ৪০% অপচয় রোধ করা যায়।",
+        "pillar-calc-et": "পানির বাজেট হিসাব",
+        "core-badge": "প্রধান মডিউলসমূহ",
+        "core-title": "সবগুলো কৃষি সিদ্ধান্ত টুল একত্রিত",
+        "core-sub": "যেকোনো টুলে প্রবেশ করতে ক্লিক করুন",
+        "mod-1-title": "আর্থ এক্সপ্লোরার",
+        "mod-1-desc": "SMAP, Landsat NDVI, ECOSTRESS ও বৃষ্টির লেয়ার সরাসরি পর্যবেক্ষণ করুন।",
+        "mod-2-title": "ফসল শিফট পরামর্শক",
+        "mod-2-desc": "খরা-সহনশীল ফসলের উপযোগিতা ও মুনাফা যাচাই করুন।",
+        "mod-3-title": "সেচ ও সতর্কবার্তা",
+        "mod-3-desc": "তাপপ্রবাহের লাইভ সতর্কবার্তা এবং দৈনিক সেচ গণনাকারী ক্যালকুলেটর।",
+        "mod-4-title": "টেলিমেট্রি ও ইনসাইটস",
+        "mod-4-desc": "ফসলের সুস্থতার গ্রাফ, মৌসুমী চেকলিস্ট এবং সহনশীলতা স্কোর।",
+        "explorer-heading": "নাসা উপগ্রহভিত্তিক পার্সেল পর্যবেক্ষণ",
+        "layer-smap": "SMAP মাটির আর্দ্রতা",
+        "layer-ndvi": "Landsat NDVI স্বাস্থ্য",
+        "layer-ecostress": "ECOSTRESS তাপপ্রবাহ",
+        "layer-gpm": "GPM বৃষ্টিপাত",
+        "time-playback-label": "স্যাটেলাইট টাইম স্ক্রাবার:",
+        "diag-title": "নির্বাচিত পার্সেল",
+        "diag-soil-moist": "মূল অঞ্চলের মাটির আর্দ্রতা",
+        "diag-ndvi": "ফসলের সতেজতা (NDVI)",
+        "diag-et": "বাষ্পীভবন হার (ET)",
+        "diag-action-label": "এগ্রোশিফট অভিযোজন পরামর্শ",
+        "diag-btn-test": "ফসল পরীক্ষা",
+        "diag-btn-plan": "সেচ পরিকল্পনা",
+        "recom-heading": "নাসা ক্লাইমেট শিফট ফসল পরামর্শক",
+        "recom-sub": "আপনার অঞ্চলের জলবায়ু, পানির স্তর ও মাটির ধরন অনুযায়ী সেরা সহনশীল ফসল নির্বাচন করুন।",
+        "form-profile-title": "খামারের জলবায়ু পরামিতি",
+        "form-biome-label": "ভৌগোলিক পরিবেশ",
+        "form-hazard-label": "প্রধান জলবায়ু ঝুঁকি",
+        "form-priority-label": "অপটিমাইজেশন অগ্রাধিকার",
+        "btn-recalc": "পুনরায় উপযোগিতা গণনা",
+        "ref-dataset-title": "নাসার রেফারেন্স উপাত্ত",
+        "ref-dataset-desc": "নাসা POWER সৌর বিকিরণ, Landsat পৃষ্ঠের তাপমাত্রা এবং SMAP আর্দ্রতা দ্বারা স্কোর নির্ধারিত হয়।",
+        "recom-ranked": "নাসা সহনশীলতা সূচক অনুযায়ী সাজানো",
+        "irrig-heading": "বাষ্পীভবন ভিত্তিক সেচ ও আগাম সতর্কবার্তা",
+        "irrig-sub": "স্যাটেলাইট উপাত্তের সাহায্যে রাতের বেলার ড্রিপ সেচ নিয়ন্ত্রণ করে অপচয় রোধ করুন।",
+        "alert-flash-title": "নাসা ফ্ল্যাশ খরা সতর্কতা (লেভেল ২)",
+        "alert-flash-time": "আগামী ৭২ ঘণ্টা",
+        "alert-flash-desc": "ECOSTRESS সেন্সর ফসলের তাপমাত্রায় স্বাভাবিকের চেয়ে +৪.১°C বৃদ্ধি পেয়েছে। বাষ্পীভবন দ্রুত বাড়বে।",
+        "btn-ack": "স্বীকৃতি দিন",
+        "alert-stress-title": "পানি স্বল্পতা সতর্কতা: পার্সেল ২",
+        "alert-stress-tag": "মাঝারি ঝুঁকি",
+        "alert-stress-desc": "বাষ্পীভবন চাপ সূচক (ESI) কমে গেছে। সেচের সময়সূচি গভীর রাতে নির্ধারণ করুন।",
+        "calc-title-tag": "ডায়নামিক ওয়াটার বাজেট",
+        "calc-title": "বাষ্পীভবন ফিল্ড ক্যালকুলেটর",
+        "calc-crop-label": "উদ্দিষ্ট ফসল",
+        "calc-area-label": "পার্সেলের আয়তন (হেক্টর)",
+        "calc-rad-label": "সৌর বিকিরণ (MJ/m²/দিন)",
+        "calc-moist-label": "বর্তমান মাটির আর্দ্রতা (%)",
+        "calc-out-vol": "দৈনিক প্রয়োজনীয় সেচ:",
+        "calc-out-depth": "পানির গভীরতা সমতুল্য:",
+        "calc-out-window": "সেরা ড্রিপ সেচের সময়:",
+        "sched-title-tag": "স্বয়ংক্রিয় সময়সূচি",
+        "sched-title": "৭ দিনের রাতের সেচ ক্যালেন্ডার",
+        "btn-export-plan": "প্ল্যান এক্সপোর্ট",
+        "dash-heading": "খামার টেলিমেট্রি ও NDVI ফসল বিশ্লেষণ",
+        "btn-export-pdf": "মৌসুমী সারসংক্ষেপ ডাউনলোড",
+        "kpi-1-title": "গড় সতেজতা",
+        "kpi-2-title": "ব্যবহৃত পানি",
+        "kpi-3-title": "মাটির আর্দ্রতা",
+        "kpi-4-title": "সহনশীলতা স্কোর",
+        "chart-title": "Landsat 8/9 ফসলের সতেজতা কার্ভ (বিগত ৬ মাস)",
+        "chart-sub": "জোয়ার শিফট ট্রায়াল বনাম সনাতন ভুট্টার তুলনা",
+        "chart-note": "আগস্টের প্রচণ্ড তাপপ্রবাহে ভুট্টার উৎপাদন মারাত্মক ব্যাহত হলেও জোয়ার ফসল ৪২% কম পানিতেও সতেজ ছিল।",
+        "checklist-title": "মৌসুমী করণীয় চেকলিস্ট",
+        "checklist-sub": "নাসার উপাত্তের ভিত্তিতে কৃষকদের জন্য তৈরি অ্যাকশন আইটেম।",
+        "chk-1-title": "SMAP মাটির রিডিং পরীক্ষা",
+        "chk-1-sub": "স্যাটেলাইট পিক্সেল #২০৪ এর সাথে সেন্সর মিলিয়ে নিন।",
+        "chk-2-title": "পার্সেল ২ এর জন্য রাতের সেচ",
+        "chk-2-sub": "দিনের ৪০% বাষ্পীভবন ক্ষতি এড়াতে রাতের সেচ দিন।",
+        "chk-3-title": "মাটিতে মালচিং প্রদান",
+        "chk-3-sub": "বৃহস্পতিবারের পূর্বেই মাটির উষ্ণতা রোধে ঢেকে দিন।",
+        "chk-4-title": "জোয়ারের বীজ সংরক্ষণ",
+        "chk-4-sub": "খরা-সহনশীল হাইব্রিড জাতের বীজ সংগ্রহ নিশ্চিত করুন।",
+        "btn-save-chk": "সংরক্ষণ করুন",
+        "res-heading": "নাসা আর্থ সায়েন্স উপাত্ত ও হ্যান্ডবুক",
+        "res-sub": "কৃষকদের সহজে ব্যবহারের জন্য প্রস্তুতকৃত নাসার উন্মুক্ত বৈজ্ঞানিক নির্দেশিকা ও উপাত্ত।",
+        "btn-download-spec": "স্পেক্স ডাউনলোড",
+        "btn-download-guide": "হ্যান্ডবুক ডাউনলোড",
+        "faq-title": "সাধারণ জিজ্ঞাসা (FAQ)",
+        "faq-q1": "নাসা কত ঘন ঘন মাটির আর্দ্রতা ও ফসলের উপাত্ত আপডেট করে?",
+        "faq-a1": "নাসা SMAP প্রতি ২-৩ দিনে বিশ্বব্যাপী মাটির উপাত্ত হালনাগাদ করে। Landsat ৮ ও ৯ প্রতি ৮ দিনে ৩০ মিটার রেজোলিউশনের রঙিন ছবি প্রদান করে।",
+        "faq-q2": "নাসার এই বৈজ্ঞানিক উপাত্তগুলো কি কৃষকদের জন্য সম্পূর্ণ বিনামূল্যে?",
+        "faq-a2": "হ্যাঁ। নাসার ওপেন সায়েন্স পলিসির অধীনে SMAP, Landsat, ECOSTRESS ও GPM-এর সকল উপাত্ত বিশ্বব্যাপী সবার জন্য সম্পূর্ণ বিনামূল্যে উন্মুক্ত।",
+        "footer-desc": "নাসার উপগ্রহ উপাত্ত দিয়ে আধুনিক ও খরা-সহনশীল কৃষি গড়ার অঙ্গীকার।",
+        "footer-nav": "নেভিগেশন",
+        "footer-challenge": "নাসা আন্তর্জাতিক স্পেস অ্যাপস চ্যালেঞ্জ ২০২৬: ফিল্ড শিফট — অ্যাডাপ্টিং ফার্মস উইথ নাসা ডাটা।",
+        "voice-bubble-hint": "এগ্রো-বাণীর সাথে কথা বলুন (বাংলা / ইংরেজি)",
+        "voice-modal-subtitle": "বাংলা ও ইংরেজিতে স্যাটেলাইট ভিত্তিক কৃষি পরামর্শ",
+        "voice-quick-ask": "কৃষকদের জন্য এক ক্লিকে সাধারণ প্রশ্ন:",
+        "btn-read-aloud": "পড়ে শোনান",
+        "btn-inspect-map-voice": "আর্থ এক্সপ্লোরারে দেখুন",
+        "btn-voice-send": "জিজ্ঞেস করুন"
+      }
+    };
+
+    let currentLang = 'en';
+
+    function toggleLanguage() {
+      currentLang = (currentLang === 'en') ? 'bn' : 'en';
+      const label = document.getElementById('langLabel');
+      if (label) label.innerText = (currentLang === 'en') ? 'বাংলা' : 'English';
+      applyTranslations();
+      runCropRecommendation();
+      renderQuickPromptChips();
+    }
+
+    function applyTranslations() {
+      const bundle = translations[currentLang] || translations.en;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (bundle[key]) {
+          el.innerText = bundle[key];
+        }
+      });
+    }
+
+
+    /* =========================================================================
+       3. DARK / LIGHT THEME TOGGLER
+       ========================================================================= */
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      try {
+        localStorage.setItem('agroshift_theme', isDark ? 'dark' : 'light');
+      } catch(e) {}
+    }
+
+    // Auto load theme preference
+    (function initTheme() {
+      try {
+        const saved = localStorage.getItem('agroshift_theme');
+        if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch(e) {}
+    })();
+
+
+    /* =========================================================================
+       4. INTERACTIVE PARCEL MAP & SATELLITE LAYERS
+       ========================================================================= */
+    const parcelsData = {
+      'parcel-1': {
+        name: 'Parcel 1: North Orchard',
+        area: '45 Hectares',
+        smap: { moisture: '26.4% (Optimal)', color: '#059669', badge: 'Normal', bar: '68%' },
+        ndvi: { score: '0.74 (Dense Canopy)', color: '#047857', badge: 'Vigorous', bar: '74%' },
+        ecostress: { et: '4.8 mm/day', color: '#059669', badge: 'Optimal', bar: '45%' },
+        gpm: { rain: '32 mm / month', color: '#0284c7', badge: 'Adequate', bar: '60%' },
+        advice: 'Canopy is healthy. Maintain standard subsurface drip cycles to safeguard perennial rootstocks.'
+      },
+      'parcel-2': {
+        name: 'Parcel 2: East Ridge',
+        area: '82 Hectares',
+        smap: { moisture: '14.2% (Deficit)', color: '#ea580c', badge: 'Heat Stress Alert', bar: '28%' },
+        ndvi: { score: '0.48 (Declining)', color: '#f59e0b', badge: 'Stressed', bar: '48%' },
+        ecostress: { et: '6.8 mm/day', color: '#ea580c', badge: 'High Heat Evaporation', bar: '78%' },
+        gpm: { rain: '8 mm / month', color: '#ea580c', badge: 'Severe Deficit', bar: '20%' },
+        advice: 'Corn showing high water deficit in 32°C afternoon sun. Transitioning 50% of this slope to Sorghum or Pearl Millet will reduce water dependency by 40% next planting window.'
+      },
+      'parcel-3': {
+        name: 'Parcel 3: Valley Lowland',
+        area: '58 Hectares',
+        smap: { moisture: '31.0% (Saturated)', color: '#10b981', badge: 'Optimal Moisture', bar: '82%' },
+        ndvi: { score: '0.81 (Peak Vigour)', color: '#047857', badge: 'Excellent', bar: '81%' },
+        ecostress: { et: '3.9 mm/day', color: '#10b981', badge: 'Cool Microclimate', bar: '35%' },
+        gpm: { rain: '36 mm / month', color: '#0284c7', badge: 'Good Reserve', bar: '70%' },
+        advice: 'Moisture drainage is sound along low canal boundary. Good candidate for rotational winter legumes.'
+      },
+      'parcel-4': {
+        name: 'Parcel 4: Sunny Terrace',
+        area: '70 Hectares',
+        smap: { moisture: '19.5% (Nominal)', color: '#f59e0b', badge: 'Adapted Resilient', bar: '52%' },
+        ndvi: { score: '0.67 (Steady)', color: '#059669', badge: 'Resilient', bar: '67%' },
+        ecostress: { et: '3.2 mm/day', color: '#f59e0b', badge: 'Conserving Water', bar: '38%' },
+        gpm: { rain: '12 mm / month', color: '#f59e0b', badge: 'Moderate Drought', bar: '30%' },
+        advice: 'Sorghum is thriving with reduced water requirement. Transpiration index shows low stress despite reduced canal delivery.'
+      }
+    };
+
+    let activeLayer = 'smap';
+    let currentSelectedParcel = 'parcel-2';
+    let currentZoom = 1.0;
+
+    function setMapLayer(layer) {
+      activeLayer = layer;
+      
+      document.querySelectorAll('.layer-pill').forEach(btn => {
+        btn.className = 'layer-pill px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-brand-200 dark:hover:bg-brand-900/60 transition';
+      });
+      const activeBtn = document.getElementById('btn-layer-' + layer);
+      if (activeBtn) {
+        activeBtn.className = 'layer-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-600 text-white shadow-sm transition';
+      }
+
+      const layerTitle = document.getElementById('active-layer-indicator');
+      const legendTitle = document.getElementById('legend-title');
+      const legendBar = document.getElementById('legend-bar');
+      const legendLabels = document.getElementById('legend-labels');
+
+      if (layer === 'smap') {
+        if (layerTitle) layerTitle.innerText = "Active Layer: NASA SMAP L3 9km Soil Moisture";
+        if (legendTitle) legendTitle.innerText = "SMAP Root Moisture Scale";
+        if (legendBar) legendBar.className = "w-full h-3 rounded-full bg-gradient-to-r from-terraclay-500 via-ambercrop-500 to-brand-500 mb-1";
+        if (legendLabels) legendLabels.innerHTML = '<span>Deficit (&lt;15%)</span><span>Nominal (25%)</span><span>Optimal (&gt;35%)</span>';
+      } else if (layer === 'ndvi') {
+        if (layerTitle) layerTitle.innerText = "Active Layer: Landsat 8/9 NDVI Vegetation Health (30m)";
+        if (legendTitle) legendTitle.innerText = "NDVI Canopy Vigour (0.0 – 1.0)";
+        if (legendBar) legendBar.className = "w-full h-3 rounded-full bg-gradient-to-r from-ambercrop-500 via-brand-400 to-brand-700 mb-1";
+        if (legendLabels) legendLabels.innerHTML = '<span>Sparse (0.2)</span><span>Moderate (0.5)</span><span>Dense (0.85)</span>';
+      } else if (layer === 'ecostress') {
+        if (layerTitle) layerTitle.innerText = "Active Layer: ECOSTRESS Thermal Evapotranspiration (ESI)";
+        if (legendTitle) legendTitle.innerText = "Thermal Canopy Evapotranspiration";
+        if (legendBar) legendBar.className = "w-full h-3 rounded-full bg-gradient-to-r from-brand-500 via-ambercrop-500 to-terraclay-600 mb-1";
+        if (legendLabels) legendLabels.innerHTML = '<span>Cool / Normal</span><span>Elevated</span><span>Severe Heat Scorch</span>';
+      } else if (layer === 'gpm') {
+        if (layerTitle) layerTitle.innerText = "Active Layer: NASA GPM IMERG Rainfall Multi-Satellite";
+        if (legendTitle) legendTitle.innerText = "Accumulated Rainfall (mm/month)";
+        if (legendBar) legendBar.className = "w-full h-3 rounded-full bg-gradient-to-r from-terraclay-400 via-brand-400 to-azurewater-600 mb-1";
+        if (legendLabels) legendLabels.innerHTML = '<span>Drought (&lt;10mm)</span><span>Average (30mm)</span><span>Surplus (&gt;60mm)</span>';
+      }
+
+      updateParcelColors();
+      updateInspectorPanel(currentSelectedParcel);
+    }
+
+    function updateParcelColors() {
+      Object.keys(parcelsData).forEach(id => {
+        const poly = document.getElementById('poly-' + id);
+        if (!poly) return;
+
+        const p = parcelsData[id];
+        let color = '#059669';
+        if (activeLayer === 'smap') color = p.smap.color;
+        else if (activeLayer === 'ndvi') color = p.ndvi.color;
+        else if (activeLayer === 'ecostress') color = p.ecostress.color;
+        else if (activeLayer === 'gpm') color = p.gpm.color;
+
+        poly.setAttribute('fill', color);
+      });
+    }
+
+    function selectParcel(parcelId) {
+      currentSelectedParcel = parcelId;
+      Object.keys(parcelsData).forEach(id => {
+        const poly = document.getElementById('poly-' + id);
+        if (poly) {
+          if (id === parcelId) {
+            poly.setAttribute('stroke-width', '3.5');
+            poly.setAttribute('stroke', '#ffffff');
+          } else {
+            poly.setAttribute('stroke-width', '2');
+            poly.setAttribute('stroke', '#ffffff');
+          }
+        }
+      });
+      updateInspectorPanel(parcelId);
+
+      // On mobile devices, smoothly scroll to inspector details
+      if (window.innerWidth < 1024) {
+        const inspector = document.getElementById('parcelInspectorContainer');
+        if (inspector) {
+          inspector.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }
+
+    function stopSpeechRecording() {
+      isListening = false;
+      setWaveformActive(false);
+      const dot = document.getElementById('voiceStatusDot');
+      if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-400';
+      const micBtn = document.getElementById('micCaptureBtn');
+      if (micBtn) {
+        micBtn.className = 'w-16 h-16 rounded-full bg-gradient-to-tr from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-600 text-white flex items-center justify-center text-2xl shadow-glow-emerald transition-all transform active:scale-90';
+      }
+      if (recognitionInstance) {
+        try { recognitionInstance.stop(); } catch(e){}
+      }
+    }
+
+    function handleVoiceAssistantTextSubmit(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('voiceTextInput');
+      if (!input) return;
+      const val = input.value.trim();
+      if (val) {
+        processFarmerQuery(val);
+        input.value = '';
+      }
+    }
+
+    function processFarmerQuery(rawQuery) {
+      const q = (rawQuery || '').toLowerCase();
+      stopSpeechRecording();
+      setWaveformActive(true);
+
+      const isBangla = /[\u0980-\u09FF]/.test(rawQuery) || (voiceAssistantLang === 'bn-BD');
+      let diagnosis = {};
+
+      if (q.includes('খরা') || q.includes('গরম') || q.includes('তাপ') || q.includes('drought') || q.includes('heat') || q.includes('scorch') || q.includes('wilting')) {
+        if (isBangla) {
+          diagnosis = {
+            title: "নাসা উপগ্রহ রোগনির্ণয়: তীব্র তাপপ্রবাহ ও পানির অভাব",
+            spoken: "নাসার ইকোস্ট্রেস স্যাটেলাইট অনুযায়ী আপনার জমিতে তাপমাত্রা চার দশমিক এক ডিগ্রি সেলসিয়াস বেশি রয়েছে। মূলের আর্দ্রতা মাত্র চৌদ্দ শতাংশ। দুপুর ১২টা থেকে বিকেল ৪টায় সেচ বন্ধ রাখুন এবং রাত ৩টা থেকে ভোর ৬টায় ড্রিপ সেচ দিন।",
+            sats: "NASA ECOSTRESS (ESI: 0.31) + SMAP Root Deficit (14.2%)",
+            nowAction: "দিনের তীব্র রোদে সেচ দিলে ৪০% পানি বাষ্পীভূত হয়ে নষ্ট হয়। আজ রাত ৩:৩০ থেকে ভোর ৬:০০ টার মধ্যে গভীর ড্রিপ সেচ পরিচালনা করুন।",
+            shiftAdvice: "ঝুঁকিপূর্ণ সনাতন ভুট্টার বদলে উচ্চ তাপ ও খরা-সহনশীল **দানা জোয়ার (Sorghum)** বা **বাজরা (Pearl Millet)** নির্বাচন করুন। এতে ৪২% পানি সাশ্রয় হবে।"
+          };
+        } else {
+          diagnosis = {
+            title: "NASA Telemetry Diagnosis: Acute Heat Stress & Soil Deficit",
+            spoken: "NASA ECOSTRESS detects thermal canopy anomaly of plus 4.1 degrees Celsius over mean. SMAP root-zone moisture is down to 14.2 percent. Avoid midday sprinkler cycles and switch to night drip between 3:30 AM and 6 AM.",
+            sats: "NASA ECOSTRESS (ESI: 0.31) + SMAP Root-zone Moisture (14.2%)",
+            nowAction: "Evaporative losses reach 40% between 11 AM and 4 PM. Shift all irrigation valves to the low-wind night window (03:30 AM – 06:00 AM).",
+            shiftAdvice: "Plan a shift from water-hungry monoculture crops to drought-elite **Grain Sorghum** or **Pearl Millet**, slashing seasonal water demand by 42%."
+          };
+        }
+      } else if (q.includes('আর্দ্রতা') || q.includes('সেচ') || q.includes('পানি') || q.includes('moisture') || q.includes('irrigate') || q.includes('water') || q.includes('soil')) {
+        if (isBangla) {
+          diagnosis = {
+            title: "নাসা SMAP আর্দ্রতা বিশ্লেষণ: পার্সেল-ভিত্তিক সেচ পরামর্শ",
+            spoken: "নাসার এস-ম্যাপ স্যাটেলাইট অনুযায়ী আপনার জমিতে গড়ে ১৮.৫ শতাংশ আর্দ্রতা রয়েছে। পূর্ব অংশে ঘাটতি থাকায় আজ রাতে ৩.৭ মিলিমিটার সমপরিমাণ হালকা সেচ দিন।",
+            sats: "NASA SMAP L3 9km Microwave Radiometer (18.5% Mean)",
+            nowAction: "আজকের জন্য দৈনিক প্রতি বর্গমিটারে ৩.৭ মিমি পানি প্রয়োজন। অতিরিক্ত জলাবদ্ধতা মূলের অক্সিজেন হ্রাস করে, তাই পরিমিত পানি দিন।",
+            shiftAdvice: "মাটির আর্দ্রতা ধরে রাখতে ফসলের গোড়ায় খড় বা মালচিং ব্যবহার করুন, যা মাটির বাষ্পীভবন ২৫% কমায়।"
+          };
+        } else {
+          diagnosis = {
+            title: "NASA SMAP Soil Analysis: Precision Irrigation Schedule",
+            spoken: "NASA SMAP radiometer measures root-zone soil moisture at 18.5 percent. Parcel 2 is experiencing deficit. We recommend a depth equivalent of 3.7 millimeters tonight.",
+            sats: "NASA SMAP L3 9km Microwave Radiometer (18.5% Volumetric)",
+            nowAction: "Target run volume: 185,000 Litres for 50 hectares. Avoid over-watering to prevent root hypoxia.",
+            shiftAdvice: "Apply organic stubble mulching around crop rows to trap ground moisture and lower topsoil temperature by 3°C."
+          };
+        }
+      } else if (q.includes('ফসল') || q.includes('লাভ') || q.includes('বিকল্প') || q.includes('crop') || q.includes('shift') || q.includes('alternative') || q.includes('profit') || q.includes('yield')) {
+        if (isBangla) {
+          diagnosis = {
+            title: "কৃষি অভিযোজন ইঞ্জিনের সুপারিশ: সর্বোচ্চ লাভজনক ফসল",
+            spoken: "আপনার মাটির ধরন ও বৃষ্টিপাতের পূর্বাভাস অনুযায়ী দানা জোয়ার এবং কিনোয়া সবচেয়ে উপযোগী। এগুলোতে সনাতন ফসলের চেয়ে অর্ধেক পানি লাগে এবং বাজারে ভালো দাম পাওয়া যায়।",
+            sats: "NASA POWER Solar Radiation + Landsat 8/9 Phenology Matching",
+            nowAction: "আসন্ন রোপণ মৌসুমের জন্য খরা-সহনশীল হাইব্রিড জোয়ার বা কিনোয়ার প্রত্যয়িত বীজ বুকিং করুন।",
+            shiftAdvice: "**কিনোয়া (Quinoa)** চাষে প্রতি কিউবিক মিটার পানিতে সর্বোচ্চ বাজার মূল্য পাওয়া যায়। বেলে দোআঁশ মাটিতে এটি চমৎকার ফলন দেয়।"
+          };
+        } else {
+          diagnosis = {
+            title: "Adaptation Engine: Highest Resilience & ROI Crops",
+            spoken: "Based on solar irradiance and aquifer constraints, Grain Sorghum and High-Altitude Quinoa achieve a 96% NASA suitability index, reducing water demand by up to 55%.",
+            sats: "NASA POWER Solar Radiation + Landsat 8/9 Phenology Index",
+            nowAction: "Reserve certified hybrid seed stock early before regional monsoon delay risks increase.",
+            shiftAdvice: "**Quinoa** provides superior economic margin per cubic meter of water with export-grade demand and high drought hardiness."
+          };
+        }
+      } else {
+        if (isBangla) {
+          diagnosis = {
+            title: "এগ্রো-বাণী স্যাটেলাইট কৃষি সমন্বয় কেন্দ্র",
+            spoken: "আমি আপনার প্রশ্নের জন্য নাসার উপগ্রহ উপাত্ত বিশ্লেষণ করেছি। খরা প্রতিরোধে মাটির আর্দ্রতা পরীক্ষা করুন এবং কম পানিতে ফলনশীল বিকল্প ফসল বিবেচনা করুন।",
+            sats: "NASA SMAP + Landsat 8/9 + ECOSTRESS Unified Feed",
+            nowAction: "আজকের জন্য মাটির আর্দ্রতা ১৮% এর উপরে রাখতে ড্রিপ লাইন সক্রিয় করুন।",
+            shiftAdvice: "আমাদের 'ফসল শিফট পরামর্শক' পেজ থেকে আপনার অঞ্চলের জন্য উপযুক্ত ফসল তালিকাটি দেখে নিন।"
+          };
+        } else {
+          diagnosis = {
+            title: "AgroBani Unified Earth Intelligence Advisory",
+            spoken: "Analyzing your farm parameters against NASA SMAP and Landsat observations. Soil moisture remains stable but root-zone deficit is forecasted to rise this week.",
+            sats: "NASA SMAP + Landsat 8/9 + ECOSTRESS Unified Telemetry",
+            nowAction: "Check subsurface drip emitters on Parcel 2 and confirm night irrigation timers.",
+            shiftAdvice: "Explore the 'Crop Shift Advisor' tab to model profit and water savings for your specific acreage."
+          };
+        }
+      }
+
+      currentSpeechText = diagnosis.spoken;
+      displayAssistantDiagnosis(diagnosis, isBangla);
+
+      if (!isVoiceMuted) {
+        speakResponseText(diagnosis.spoken, isBangla ? 'bn-BD' : 'en-US');
+      } else {
+        setWaveformActive(false);
+      }
+    }
+
+    function displayAssistantDiagnosis(d, isBangla) {
+      const header = document.getElementById('responseHeader');
+      const timeEl = document.getElementById('responseTimestamp');
+      const content = document.getElementById('responseContent');
+
+      if (header) header.innerText = d.title;
+      if (timeEl) timeEl.innerText = new Date().toLocaleTimeString();
+
+      if (content) {
+        content.innerHTML = `
+          <div class="p-2.5 rounded-xl bg-white dark:bg-darkearth-900 border border-brand-200 dark:border-brand-800 text-[11px] font-mono text-brand-700 dark:text-brand-300">
+            <i class="fa-solid fa-satellite mr-1 text-ambercrop-500"></i> ${d.sats}
+          </div>
+          <div class="space-y-2 mt-2">
+            <div>
+              <span class="font-black text-slate-900 dark:text-white block text-xs">
+                ${isBangla ? '১. তাৎক্ষণিক ২৪-৪৮ ঘণ্টার করণীয়:' : '1. Immediate 24–48h Field Action:'}
+              </span>
+              <p class="text-slate-700 dark:text-slate-300">${d.nowAction}</p>
+            </div>
+            <div>
+              <span class="font-black text-ambercrop-700 dark:text-ambercrop-400 block text-xs">
+                ${isBangla ? '২. দীর্ঘমেয়াদী জলবায়ু সহনশীল বিকল্প:' : '2. Long-term Climate Resilient Shift:'}
+              </span>
+              <p class="text-slate-700 dark:text-slate-300">${d.shiftAdvice}</p>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function speakResponseText(text, langCode) {
+      try {
+        if (!('speechSynthesis' in window)) {
+          setWaveformActive(false);
+          return;
+        }
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = langCode;
+        utterance.rate = 0.95;
+
+        utterance.onstart = () => setWaveformActive(true);
+        utterance.onend = () => setWaveformActive(false);
+        utterance.onerror = () => setWaveformActive(false);
+
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        setWaveformActive(false);
+      }
+    }
+
+    function readAloudCurrentResponse() {
+      if (currentSpeechText) {
+        speakResponseText(currentSpeechText, voiceAssistantLang);
+      }
+    }
+
+
+    /* =========================================================================
+       10. APPLICATION INITIALIZATION
+       ========================================================================= */
+    window.addEventListener('DOMContentLoaded', () => {
+      const initialHash = (window.location.hash || '').replace('#', '') || 'landing';
+      navigateTo(initialHash);
+      runCropRecommendation();
+      calculateIrrigation();
+      applyTranslations();
+      renderQuickPromptChips();
+    });
+  </script>
+</body>
+</html>
