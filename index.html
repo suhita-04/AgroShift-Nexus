@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="bn" class="scroll-smooth">
+<html lang="bn" class="scroll-smooth overflow-x-hidden">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>AgroShift Nexus</title>
-
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome 6 Icons -->
@@ -16,7 +15,6 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
     rel="stylesheet">
-
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -41,7 +39,6 @@
       }
     };
   </script>
-
   <style>
     body {
       transition: background-color 0.2s ease, color 0.2s ease;
@@ -64,7 +61,7 @@
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(5px);
+        transform: translateY(4px);
       }
 
       to {
@@ -147,11 +144,11 @@
 </head>
 
 <body
-  class="bg-earth-50 text-slate-800 dark:bg-earth-950 dark:text-slate-100 min-h-screen flex flex-col font-sans pb-safe">
+  class="bg-earth-50 text-slate-800 dark:bg-earth-950 dark:text-slate-100 min-h-screen flex flex-col font-sans pb-safe overflow-x-hidden">
 
   <!-- TOP BANNER: NASA SATELLITE STATUS -->
   <div
-    class="bg-gradient-to-r from-leaf-900 via-leaf-800 to-emerald-950 text-white text-xs px-4 py-2 border-b border-leaf-700/60 shadow-sm">
+    class="bg-gradient-to-r from-leaf-900 via-leaf-800 to-emerald-950 text-white text-xs px-3 sm:px-4 py-2 border-b border-leaf-700/60 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center gap-2">
         <span class="flex h-2.5 w-2.5 relative shrink-0">
@@ -162,13 +159,14 @@
         <span class="text-white font-bold" data-i18n="topDesc">কৃষক ভাইদের সহজ বন্ধু — নাসা স্যাটেলাইট দিয়ে নিরাপদ
           চাষাবাদ</span>
       </div>
-      <div class="flex items-center gap-3 text-[11px]">
+      <div class="flex items-center gap-2 sm:gap-3 text-[11px]">
         <button onclick="toggleAmbience()"
-          class="flex items-center gap-1.5 text-emerald-200 hover:text-white px-2 py-1 rounded-xl bg-white/10 transition">
+          class="flex items-center gap-1.5 text-emerald-200 hover:text-white px-2 py-1 rounded-xl bg-white/10 transition touch-target min-h-0">
           <i class="fa-solid fa-wind" id="soundIcon"></i>
           <span id="soundText" data-i18n="topWind">মাঠের বাতাস</span>
         </button>
-        <span class="text-harvest-300 font-mono font-black flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded-lg">
+        <span
+          class="text-harvest-300 font-mono font-black flex items-center gap-1 bg-black/30 px-2 py-0.5 rounded-lg whitespace-nowrap">
           <i class="fa-solid fa-satellite text-leaf-400"></i> <span data-i18n="topLiveRadar">SMAP + GPM লাইভ</span>
         </span>
       </div>
@@ -178,26 +176,26 @@
   <!-- MAIN HEADER -->
   <header
     class="sticky top-0 z-40 bg-white/95 dark:bg-earth-900/95 backdrop-blur-md border-b border-earth-200 dark:border-earth-700 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-18 sm:h-20 flex items-center justify-between gap-3">
-
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-3">
       <!-- Brand Logo -->
-      <a href="#landing" onclick="navigateTo('landing'); return false;" class="flex items-center gap-3 shrink-0">
+      <a href="#landing" onclick="navigateTo('landing'); return false;"
+        class="flex items-center gap-2.5 sm:gap-3 shrink-0">
         <div
-          class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-leaf-600 via-leaf-500 to-harvest-500 flex items-center justify-center text-white shadow-glow-leaf">
-          <i class="fa-solid fa-wheat-awn text-2xl"></i>
+          class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-leaf-600 via-leaf-500 to-harvest-500 flex items-center justify-center text-white shadow-glow-leaf shrink-0">
+          <i class="fa-solid fa-wheat-awn text-xl sm:text-2xl"></i>
         </div>
         <div>
-          <div class="flex items-center gap-1.5">
-            <span class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">AgroShift</span>
+          <div class="flex items-center gap-1 sm:gap-1.5">
+            <span class="text-lg sm:text-2xl font-black text-slate-900 dark:text-white">AgroShift</span>
             <span
-              class="bg-gradient-to-r from-harvest-500 to-terracotta-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full uppercase">NEXUS</span>
+              class="bg-gradient-to-r from-harvest-500 to-terracotta-500 text-white text-[9px] sm:text-[10px] font-black px-1.5 sm:px-2 py-0.5 rounded-full uppercase">NEXUS</span>
           </div>
-          <p class="text-xs font-black text-leaf-700 dark:text-leaf-400" data-i18n="navSub">কৃষক ভাইদের সহজ ডিজিটাল
-            বন্ধু</p>
+          <p class="text-[11px] sm:text-xs font-black text-leaf-700 dark:text-leaf-400 truncate max-w-[170px] sm:max-w-none"
+            data-i18n="navSub">কৃষক ভাইদের সহজ ডিজিটাল বন্ধু</p>
         </div>
       </a>
 
-      <!-- Desktop Nav Tabs (All 6 Pages Connected) -->
+      <!-- Desktop Nav Tabs -->
       <nav
         class="hidden lg:flex items-center gap-1 bg-earth-100 dark:bg-earth-800 p-1.5 rounded-full border border-earth-200 dark:border-earth-700">
         <button onclick="navigateTo('landing')" data-nav="landing"
@@ -227,30 +225,26 @@
       </nav>
 
       <!-- Utility Controls -->
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1.5 sm:gap-2">
         <button onclick="openVoiceModal()"
-          class="flex items-center gap-2 bg-leaf-600 hover:bg-leaf-700 text-white px-4 py-2.5 rounded-2xl font-black text-xs sm:text-sm shadow-glow-leaf transition pulse-mic touch-target">
+          class="flex items-center gap-1.5 sm:gap-2 bg-leaf-600 hover:bg-leaf-700 text-white px-3 sm:px-4 py-2.5 rounded-2xl font-black text-xs sm:text-sm shadow-glow-leaf transition pulse-mic touch-target">
           <i class="fa-solid fa-microphone text-harvest-300"></i>
-          <span data-i18n="navVoice">মুখে বলুন</span>
+          <span class="hidden sm:inline" data-i18n="navVoice">মুখে বলুন</span>
         </button>
-
         <button id="langToggleBtn" onclick="toggleLanguage()"
-          class="px-3.5 py-2.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-800 dark:text-slate-200 text-xs font-black transition flex items-center gap-1.5 touch-target shadow-sm">
-          <i class="fa-solid fa-language text-leaf-600 text-base"></i>
+          class="px-2.5 sm:px-3.5 py-2.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-800 dark:text-slate-200 text-xs font-black transition flex items-center gap-1.5 touch-target shadow-sm">
+          <i class="fa-solid fa-language text-leaf-600 text-sm sm:text-base"></i>
           <span id="currentLangLabel">English</span>
         </button>
-
-        <button onclick="toggleDarkMode()"
-          class="w-12 h-12 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-700 dark:text-harvest-400 transition flex items-center justify-center text-base touch-target shadow-sm">
+        <button onclick="toggleDarkMode()" aria-label="Toggle theme"
+          class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-700 dark:text-harvest-400 transition flex items-center justify-center text-sm sm:text-base touch-target shadow-sm">
           <i id="themeIcon" class="fa-solid fa-moon"></i>
         </button>
-
-        <button onclick="toggleMobileDrawer()"
-          class="lg:hidden w-12 h-12 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-800 dark:text-white flex items-center justify-center touch-target">
-          <i class="fa-solid fa-bars text-lg"></i>
+        <button onclick="toggleMobileDrawer()" aria-label="Menu"
+          class="lg:hidden w-10 h-10 sm:w-12 sm:h-12 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-800 dark:text-white flex items-center justify-center touch-target">
+          <i class="fa-solid fa-bars text-base sm:text-lg"></i>
         </button>
       </div>
-
     </div>
 
     <!-- Mobile Drawer -->
@@ -284,64 +278,62 @@
   </header>
 
   <!-- MAIN APP ROUTING CONTAINER -->
-  <main class="flex-grow">
+  <main class="flex-grow pb-24 md:pb-8">
 
     <!-- PAGE 1: LANDING -->
     <section id="page-landing" class="page-view active-page">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
         <!-- Hero Banner with Farmer Photo -->
         <div
           class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-900 via-leaf-900 to-emerald-950 text-white shadow-xl border-2 border-leaf-700/50">
           <div class="grid grid-cols-1 lg:grid-cols-12 items-center">
-            <div class="p-6 sm:p-10 lg:col-span-7 space-y-4">
+            <div class="p-5 sm:p-8 lg:p-10 lg:col-span-7 space-y-4">
               <div
-                class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-leaf-500/20 text-emerald-300 border border-leaf-400/30 text-xs font-black">
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-leaf-500/20 text-emerald-300 border border-leaf-400/30 text-xs font-black">
                 <i class="fa-solid fa-satellite text-harvest-400"></i>
                 <span data-i18n="heroBadge">নাসা উপগ্রহের সরাসরি তথ্য</span>
               </div>
               <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black leading-tight" data-i18n="heroTitle">
                 আপনার জমির খবর জানুন সহজেই — কোন ফসল বুনবেন, কখন সেচ দেবেন!
               </h1>
-              <p class="text-emerald-100 text-sm sm:text-base leading-relaxed font-medium" data-i18n="heroSub">
+              <p class="text-emerald-100 text-xs sm:text-base leading-relaxed font-medium" data-i18n="heroSub">
                 অতিরিক্ত রোদ বা অনাবৃষ্টিতেও ফসলের ক্ষতি হবে না। নাসা স্যাটেলাইটের মাটির রস ও তাপমাত্রার খবর নিয়ে তৈরি
                 এই সহজ অ্যাপ। মুখে প্রশ্ন করলেই এগ্রো-বাণী সঙ্গে সঙ্গে মুখের ভাষায় সমাধান বলে দেবে।
               </p>
-
-              <div class="flex flex-wrap items-center gap-3 pt-2">
+              <div class="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
                 <button onclick="openVoiceModal()"
-                  class="bg-harvest-500 hover:bg-harvest-600 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-glow-sun transition flex items-center gap-2.5 text-base pulse-mic touch-target">
-                  <i class="fa-solid fa-microphone text-xl text-terracotta-600"></i>
+                  class="w-full sm:w-auto bg-harvest-500 hover:bg-harvest-600 text-slate-950 font-black px-5 sm:px-6 py-3.5 rounded-2xl shadow-glow-sun transition flex items-center justify-center gap-2.5 text-sm sm:text-base pulse-mic touch-target">
+                  <i class="fa-solid fa-microphone text-lg sm:text-xl text-terracotta-600"></i>
                   <span data-i18n="heroBtnVoice">মুখে বলুন (এগ্রো-বাণী)</span>
                 </button>
                 <button onclick="navigateTo('map-explorer')"
-                  class="bg-white/10 hover:bg-white/20 border-2 border-white/20 text-white font-black px-5 py-3.5 rounded-2xl transition flex items-center gap-2 text-sm touch-target">
-                  <i class="fa-solid fa-map-location-dot text-emerald-400 text-lg"></i>
+                  class="flex-1 sm:flex-initial bg-white/10 hover:bg-white/20 border-2 border-white/20 text-white font-black px-4 sm:px-5 py-3.5 rounded-2xl transition flex items-center justify-center gap-2 text-xs sm:text-sm touch-target">
+                  <i class="fa-solid fa-map-location-dot text-emerald-400 text-base sm:text-lg"></i>
                   <span data-i18n="heroBtnMap">জমির নকশা</span>
                 </button>
                 <button onclick="navigateTo('crop-recommender')"
-                  class="bg-leaf-600 hover:bg-leaf-700 text-white font-black px-5 py-3.5 rounded-2xl transition flex items-center gap-2 text-sm touch-target">
-                  <i class="fa-solid fa-seedling text-harvest-300 text-lg"></i>
+                  class="flex-1 sm:flex-initial bg-leaf-600 hover:bg-leaf-700 text-white font-black px-4 sm:px-5 py-3.5 rounded-2xl transition flex items-center justify-center gap-2 text-xs sm:text-sm touch-target">
+                  <i class="fa-solid fa-seedling text-harvest-300 text-base sm:text-lg"></i>
                   <span data-i18n="heroBtnCrops">লাভজনক ফসল</span>
                 </button>
               </div>
 
-              <!-- High Contrast Stats -->
-              <div class="pt-6 border-t border-emerald-800/80 grid grid-cols-3 gap-3">
-                <div class="p-3.5 rounded-2xl bg-white/10 border border-white/15">
-                  <div class="flex items-center gap-1.5 text-emerald-300 mb-1 text-[11px] font-black">
+              <!-- High Contrast Stats: Stacks cleanly on mobile -->
+              <div class="pt-5 border-t border-emerald-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div class="p-3 sm:p-3.5 rounded-2xl bg-white/10 border border-white/15">
+                  <div class="flex items-center gap-1.5 text-emerald-300 mb-0.5 text-[11px] font-black">
                     <i class="fa-solid fa-circle-check"></i> <span data-i18n="stat1Lbl">সুরক্ষিত জমি</span>
                   </div>
                   <div class="text-xl sm:text-2xl font-black text-white" data-i18n="stat1Val">১,৮৫০+ হেক্টর</div>
                 </div>
-                <div class="p-3.5 rounded-2xl bg-white/10 border border-white/15">
-                  <div class="flex items-center gap-1.5 text-harvest-300 mb-1 text-[11px] font-black">
+                <div class="p-3 sm:p-3.5 rounded-2xl bg-white/10 border border-white/15">
+                  <div class="flex items-center gap-1.5 text-harvest-300 mb-0.5 text-[11px] font-black">
                     <i class="fa-solid fa-droplet"></i> <span data-i18n="stat2Lbl">সেচ সাশ্রয়</span>
                   </div>
                   <div class="text-xl sm:text-2xl font-black text-harvest-400" data-i18n="stat2Val">৩৮.৫%</div>
                 </div>
-                <div class="p-3.5 rounded-2xl bg-white/10 border border-white/15">
-                  <div class="flex items-center gap-1.5 text-emerald-300 mb-1 text-[11px] font-black">
+                <div class="p-3 sm:p-3.5 rounded-2xl bg-white/10 border border-white/15">
+                  <div class="flex items-center gap-1.5 text-emerald-300 mb-0.5 text-[11px] font-black">
                     <i class="fa-solid fa-hand-holding-dollar"></i> <span data-i18n="stat3Lbl">ব্যবহার খরচ</span>
                   </div>
                   <div class="text-xl sm:text-2xl font-black text-emerald-300" data-i18n="stat3Val">১০০% ফ্রি</div>
@@ -351,21 +343,21 @@
 
             <!-- Farmer Photo Card -->
             <div
-              class="lg:col-span-5 h-72 sm:h-96 lg:h-full relative overflow-hidden flex items-center justify-center p-4">
+              class="lg:col-span-5 h-64 sm:h-80 lg:h-full relative overflow-hidden flex items-center justify-center p-4">
               <img src="https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=1000&q=80"
                 alt="Farmer checking wheat crops"
                 class="w-full h-full object-cover rounded-2xl shadow-md border-2 border-white/20" />
               <div
-                class="absolute bottom-6 left-6 right-6 bg-slate-950/85 backdrop-blur-md p-4 rounded-2xl text-xs text-white border border-white/20 flex items-center gap-3">
+                class="absolute bottom-6 left-6 right-6 bg-slate-950/85 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl text-xs text-white border border-white/20 flex items-center gap-3">
                 <div
-                  class="w-12 h-12 rounded-2xl bg-leaf-600 text-white flex items-center justify-center text-xl shrink-0">
+                  class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-leaf-600 text-white flex items-center justify-center text-lg sm:text-xl shrink-0">
                   <i class="fa-solid fa-hand-holding-droplet"></i>
                 </div>
                 <div>
-                  <strong class="text-harvest-400 block text-sm font-black" data-i18n="heroCapTitle">মাটির গভীরে কতটা রস
-                    আছে?</strong>
-                  <span class="text-slate-200 font-medium" data-i18n="heroCapSub">নাসার এসএমএপি (SMAP) উপগ্রহ মাটির ১০০
-                    সেমি গভীরের পানি পরীক্ষা করে।</span>
+                  <strong class="text-harvest-400 block text-xs sm:text-sm font-black" data-i18n="heroCapTitle">মাটির
+                    গভীরে কতটা রস আছে?</strong>
+                  <span class="text-slate-200 text-[11px] sm:text-xs font-medium" data-i18n="heroCapSub">নাসার এসএমএপি
+                    (SMAP) উপগ্রহ মাটির ১০০ সেমি গভীরের পানি পরীক্ষা করে।</span>
                 </div>
               </div>
             </div>
@@ -374,12 +366,12 @@
 
         <!-- 3-DAY SATELLITE RAIN FORECAST (NASA GPM RADAR) -->
         <div
-          class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm space-y-4">
+          class="bg-white dark:bg-earth-900 p-4 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm space-y-4">
           <div
             class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-earth-100 dark:border-earth-800 pb-3">
             <div class="flex items-center gap-2.5">
               <div
-                class="w-10 h-10 rounded-2xl bg-canal-100 dark:bg-canal-950 text-canal-600 flex items-center justify-center text-lg">
+                class="w-10 h-10 rounded-2xl bg-canal-100 dark:bg-canal-950 text-canal-600 flex items-center justify-center text-lg shrink-0">
                 <i class="fa-solid fa-cloud-sun-rain"></i>
               </div>
               <div>
@@ -395,18 +387,15 @@
                 লাইভ</span>
             </span>
           </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="forecastCardsContainer">
-            <!-- Rendered dynamically via JS for 100% strict language isolation -->
-          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="forecastCardsContainer"></div>
         </div>
 
         <!-- 3 CORE PILLARS -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
           <div onclick="navigateTo('map-explorer')"
-            class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-leaf-500 transition cursor-pointer flex flex-col justify-between group touch-target">
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-leaf-500 transition cursor-pointer flex flex-col justify-between group touch-target">
             <div class="space-y-3">
-              <div class="h-44 rounded-2xl overflow-hidden relative">
+              <div class="h-40 sm:h-44 rounded-2xl overflow-hidden relative">
                 <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=800&q=80"
                   alt="Soil moisture checking"
                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
@@ -415,8 +404,8 @@
                   <i class="fa-solid fa-droplet"></i> <span data-i18n="pillar1Badge">মাটির রস</span>
                 </span>
               </div>
-              <h3 class="font-black text-lg text-slate-900 dark:text-white" data-i18n="pillar1Title">মাটিতে কতটা পানি
-                আছে?</h3>
+              <h3 class="font-black text-base sm:text-lg text-slate-900 dark:text-white" data-i18n="pillar1Title">মাটিতে
+                কতটা পানি আছে?</h3>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium" data-i18n="pillar1Desc">
                 নাসার SMAP স্যাটেলাইট বলে দেবে কোন জমিতে রস কমে গেছে আর কোথায় পানি দিতে হবে। খরায় গাছ শুকিয়ে যাওয়ার আগেই
                 সতর্ক হোন।
@@ -430,9 +419,9 @@
           </div>
 
           <div onclick="navigateTo('crop-recommender')"
-            class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-harvest-500 transition cursor-pointer flex flex-col justify-between group touch-target">
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-harvest-500 transition cursor-pointer flex flex-col justify-between group touch-target">
             <div class="space-y-3">
-              <div class="h-44 rounded-2xl overflow-hidden relative">
+              <div class="h-40 sm:h-44 rounded-2xl overflow-hidden relative">
                 <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=800&q=80"
                   alt="Millet field" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
                 <span
@@ -440,8 +429,8 @@
                   <i class="fa-solid fa-wheat-awn"></i> <span data-i18n="pillar2Badge">কম পানির ফসল</span>
                 </span>
               </div>
-              <h3 class="font-black text-lg text-slate-900 dark:text-white" data-i18n="pillar2Title">অনাবৃষ্টিতে কোন ফসল
-                লাগাবেন?</h3>
+              <h3 class="font-black text-base sm:text-lg text-slate-900 dark:text-white" data-i18n="pillar2Title">
+                অনাবৃষ্টিতে কোন ফসল লাগাবেন?</h3>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium" data-i18n="pillar2Desc">
                 বৃষ্টি কম হলে ধানের পেছনে অতিরিক্ত ডিজেল না পুড়িয়ে বাজরা, জোয়ার বা ডাল চাষ করুন। অল্প পানিতে কম খরচে
                 বেশি লাভ পান।
@@ -455,9 +444,9 @@
           </div>
 
           <div onclick="navigateTo('irrigation-alerts')"
-            class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-terracotta-500 transition cursor-pointer flex flex-col justify-between group touch-target">
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-terracotta-500 transition cursor-pointer flex flex-col justify-between group touch-target">
             <div class="space-y-3">
-              <div class="h-44 rounded-2xl overflow-hidden relative">
+              <div class="h-40 sm:h-44 rounded-2xl overflow-hidden relative">
                 <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=800&q=80"
                   alt="Proud farmer in sunlight"
                   class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
@@ -466,8 +455,8 @@
                   <i class="fa-solid fa-gas-pump"></i> <span data-i18n="pillar3Badge">সেচ ও ডিজেল হিসাব</span>
                 </span>
               </div>
-              <h3 class="font-black text-lg text-slate-900 dark:text-white" data-i18n="pillar3Title">কখন সেচ দিলে টাকা
-                বাঁচবে?</h3>
+              <h3 class="font-black text-base sm:text-lg text-slate-900 dark:text-white" data-i18n="pillar3Title">কখন
+                সেচ দিলে টাকা বাঁচবে?</h3>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium" data-i18n="pillar3Desc">
                 দুপুরের কড়া রোদে সেচ দিলে পানি উবে নষ্ট হয়। রাত ৩টা থেকে ভোর ৬টায় সেচ দিলে পানি শিকড়ে থাকে এবং পাম্পের
                 ডিজেল খরচ অনেক কমে।
@@ -480,14 +469,12 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
     <!-- PAGE 2: NASA EARTH EXPLORER MAP -->
     <section id="page-map-explorer" class="page-view">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
         <div
           class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white dark:bg-earth-900 p-5 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm">
           <div>
@@ -505,22 +492,22 @@
           </div>
 
           <div
-            class="flex flex-wrap items-center gap-2 bg-earth-100 dark:bg-earth-800 p-1.5 rounded-2xl border border-earth-200 dark:border-earth-700">
+            class="flex flex-wrap items-center gap-1.5 sm:gap-2 bg-earth-100 dark:bg-earth-800 p-1.5 rounded-2xl border border-earth-200 dark:border-earth-700">
             <button onclick="setMapLayer('smap')" id="layer-btn-smap"
-              class="layer-pill px-3.5 py-2.5 rounded-xl text-xs font-black bg-leaf-600 text-white shadow-sm transition touch-target">
+              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-black bg-leaf-600 text-white shadow-sm transition touch-target text-center">
               <i class="fa-solid fa-droplet mr-1"></i> <span data-i18n="layerSmap">মাটির রস (SMAP)</span>
             </button>
             <button onclick="setMapLayer('ndvi')" id="layer-btn-ndvi"
-              class="layer-pill px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target">
+              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
               <i class="fa-solid fa-leaf mr-1"></i> <span data-i18n="layerNdvi">গাছের স্বাস্থ্য (NDVI)</span>
             </button>
             <button onclick="setMapLayer('ecostress')" id="layer-btn-ecostress"
-              class="layer-pill px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target">
+              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
               <i class="fa-solid fa-temperature-high mr-1"></i> <span data-i18n="layerEcostress">রোদের তাপ
                 (ECOSTRESS)</span>
             </button>
             <button onclick="setMapLayer('gpm')" id="layer-btn-gpm"
-              class="layer-pill px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target">
+              class="layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center">
               <i class="fa-solid fa-cloud-showers-heavy mr-1"></i> <span data-i18n="layerGpm">বৃষ্টির মেঘ (GPM)</span>
             </button>
           </div>
@@ -534,20 +521,21 @@
                 class="flex items-center justify-between pb-3 mb-2 border-b border-earth-100 dark:border-earth-800 text-xs">
                 <div class="flex items-center gap-2">
                   <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span id="activeLayerIndicator" class="font-black text-slate-900 dark:text-white">নাসা SMAP
+                  <span id="activeLayerIndicator"
+                    class="font-black text-slate-900 dark:text-white truncate max-w-[200px] sm:max-w-none">নাসা SMAP
                     স্যাটেলাইট</span>
                 </div>
                 <div
-                  class="flex items-center gap-2 text-[11px] font-mono font-bold text-leaf-700 dark:text-leaf-300 bg-earth-50 dark:bg-earth-800 px-2.5 py-1 rounded-xl">
+                  class="flex items-center gap-2 text-[11px] font-mono font-bold text-leaf-700 dark:text-leaf-300 bg-earth-50 dark:bg-earth-800 px-2.5 py-1 rounded-xl shrink-0">
                   <span data-i18n="orbitPass">পাস #৪১২০৯</span>
                   <span>|</span>
                   <span id="zoomLevelDisplay">১৪x</span>
                 </div>
               </div>
 
-              <!-- Farm Parcels SVG Canvas -->
+              <!-- Farm Parcels SVG Canvas (Responsive viewBox) -->
               <div
-                class="relative w-full aspect-[4/3] sm:aspect-[16/10] bg-earth-950 rounded-2xl border-2 border-leaf-700/40 overflow-hidden select-none">
+                class="relative w-full max-w-full aspect-[4/3] sm:aspect-[16/10] bg-earth-950 rounded-2xl border-2 border-leaf-700/40 overflow-hidden select-none">
                 <svg id="farmParcelsSvg" class="w-full h-full object-cover transition-transform duration-300"
                   viewBox="0 0 800 500">
                   <rect width="800" height="500" fill="#09140e" />
@@ -600,29 +588,28 @@
                   </g>
                 </svg>
 
+                <!-- Map Legend -->
                 <div
-                  class="absolute bottom-3 left-3 bg-white/95 dark:bg-earth-900/95 p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 text-xs shadow-md max-w-xs">
-                  <div class="font-black text-slate-900 dark:text-white mb-1.5" id="mapLegendTitle">মাটির রস নির্দেশক
+                  class="absolute bottom-3 left-3 bg-white/95 dark:bg-earth-900/95 p-2.5 sm:p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 text-xs shadow-md max-w-[200px] sm:max-w-xs">
+                  <div class="font-black text-slate-900 dark:text-white mb-1" id="mapLegendTitle">মাটির রস নির্দেশক
                     স্কেল</div>
-                  <div
-                    class="w-full h-3.5 rounded-full bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 mb-1.5"
+                  <div class="w-full h-3 rounded-full bg-gradient-to-r from-rose-500 via-amber-500 to-emerald-500 mb-1"
                     id="mapLegendBar"></div>
-                  <div class="flex justify-between text-[10px] font-black" id="mapLegendLabels">
-                    <!-- Populated dynamically -->
-                  </div>
+                  <div class="flex justify-between text-[9px] sm:text-[10px] font-black" id="mapLegendLabels"></div>
                 </div>
 
+                <!-- Zoom Controls -->
                 <div class="absolute top-3 right-3 flex flex-col gap-2 z-10">
-                  <button onclick="zoomMap(1.15)"
-                    class="w-12 h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
+                  <button onclick="zoomMap(1.15)" aria-label="Zoom in"
+                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
                     <i class="fa-solid fa-plus"></i>
                   </button>
-                  <button onclick="zoomMap(0.85)"
-                    class="w-12 h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
+                  <button onclick="zoomMap(0.85)" aria-label="Zoom out"
+                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
                     <i class="fa-solid fa-minus"></i>
                   </button>
-                  <button onclick="resetMap()"
-                    class="w-12 h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
+                  <button onclick="resetMap()" aria-label="Reset map"
+                    class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black shadow-md hover:scale-105 transition flex items-center justify-center touch-target">
                     <i class="fa-solid fa-rotate-left"></i>
                   </button>
                 </div>
@@ -631,9 +618,9 @@
               <!-- 7-Day Timeline -->
               <div
                 class="mt-4 pt-3 border-t border-earth-100 dark:border-earth-800 flex flex-col sm:flex-row items-center gap-3">
-                <div class="flex items-center gap-2">
-                  <button id="playbackToggleBtn" onclick="toggleMapPlayback()"
-                    class="w-11 h-11 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white flex items-center justify-center transition shadow-sm touch-target">
+                <div class="flex items-center gap-2 self-start sm:self-auto">
+                  <button id="playbackToggleBtn" onclick="toggleMapPlayback()" aria-label="Play timeline"
+                    class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white flex items-center justify-center transition shadow-sm touch-target">
                     <i class="fa-solid fa-play text-sm" id="playBtnIcon"></i>
                   </button>
                   <span class="text-xs font-black text-slate-900 dark:text-white whitespace-nowrap"
@@ -642,31 +629,35 @@
                 <input type="range" id="timeScrubber" min="0" max="6" value="6" step="1"
                   oninput="handleTimeScrubber(this.value)" class="w-full accent-leaf-600 cursor-pointer h-3 rounded-lg">
                 <span id="timeScrubberLabel"
-                  class="text-xs font-mono font-black text-leaf-800 dark:text-leaf-300 bg-earth-100 dark:bg-earth-800 px-3.5 py-2 rounded-xl whitespace-nowrap">
+                  class="text-xs font-mono font-black text-leaf-800 dark:text-leaf-300 bg-earth-100 dark:bg-earth-800 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl whitespace-nowrap self-stretch sm:self-auto text-center">
                   আজকের লাইভ ছবি (Nov 2026)
                 </span>
               </div>
             </div>
 
-            <!-- Satellite Sensor Specs -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div class="p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
-                <span class="text-[11px] font-black text-canal-600 block mb-1">SMAP</span>
+            <!-- Satellite Sensor Specs: Responsive grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div
+                class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
+                <span class="text-[11px] font-black text-canal-600 block mb-0.5">SMAP</span>
                 <p class="text-xs font-black text-slate-900 dark:text-white" data-i18n="specSmap">মাটির ১০০ সেমি গভীরে
                   রস</p>
               </div>
-              <div class="p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
-                <span class="text-[11px] font-black text-leaf-600 block mb-1">Landsat 8/9</span>
+              <div
+                class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
+                <span class="text-[11px] font-black text-leaf-600 block mb-0.5">Landsat 8/9</span>
                 <p class="text-xs font-black text-slate-900 dark:text-white" data-i18n="specLandsat">গাছের পাতার সবুজ
                   সতেজতা</p>
               </div>
-              <div class="p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
-                <span class="text-[11px] font-black text-harvest-600 block mb-1">ECOSTRESS</span>
+              <div
+                class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
+                <span class="text-[11px] font-black text-harvest-600 block mb-0.5">ECOSTRESS</span>
                 <p class="text-xs font-black text-slate-900 dark:text-white" data-i18n="specEcostress">রোদে পানি উবে
                   যাওয়া</p>
               </div>
-              <div class="p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
-                <span class="text-[11px] font-black text-canal-600 block mb-1">GPM</span>
+              <div
+                class="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700">
+                <span class="text-[11px] font-black text-canal-600 block mb-0.5">GPM</span>
                 <p class="text-xs font-black text-slate-900 dark:text-white" data-i18n="specGpm">মেঘ ও বৃষ্টির পূর্বাভাস
                 </p>
               </div>
@@ -676,58 +667,58 @@
           <!-- Inspector Panel -->
           <div class="lg:col-span-4" id="parcelInspectorSection">
             <div
-              class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-xl space-y-5 lg:sticky lg:top-24">
+              class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-xl space-y-4 sm:space-y-5 lg:sticky lg:top-24">
               <div class="flex items-center justify-between pb-3 border-b border-earth-100 dark:border-earth-800">
                 <div>
                   <span class="text-[10px] font-black uppercase text-leaf-600 dark:text-leaf-400"
                     data-i18n="diagSelected">নির্বাচিত জমি</span>
-                  <h3 id="inspectorParcelName" class="text-lg font-black text-slate-900 dark:text-white">২ নম্বর জমি:
-                    পূর্ব উঁচু ক্ষেত</h3>
+                  <h3 id="inspectorParcelName" class="text-base sm:text-lg font-black text-slate-900 dark:text-white">২
+                    নম্বর জমি: পূর্ব উঁচু ক্ষেত</h3>
                 </div>
                 <span id="inspectorStatusBadge"
-                  class="px-3 py-1 rounded-full text-xs font-black border flex items-center gap-1"></span>
+                  class="px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-black border flex items-center gap-1"></span>
               </div>
 
-              <div class="space-y-4">
+              <div class="space-y-3.5 sm:space-y-4">
                 <div>
-                  <div class="flex justify-between text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5">
+                  <div class="flex justify-between text-xs font-black text-slate-800 dark:text-slate-200 mb-1">
                     <span class="flex items-center gap-1.5"><i class="fa-solid fa-droplet text-canal-500"></i> <span
                         data-i18n="diagMoistLbl">মাটির শিকড়ের রস</span></span>
                     <span id="inspectorMoistVal" class="text-rose-600 font-black"></span>
                   </div>
-                  <div class="w-full h-3.5 bg-earth-100 dark:bg-earth-800 rounded-full overflow-hidden">
+                  <div class="w-full h-3 bg-earth-100 dark:bg-earth-800 rounded-full overflow-hidden">
                     <div id="inspectorMoistBar" class="h-full bg-rose-500 rounded-full transition-all duration-500">
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <div class="flex justify-between text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5">
+                  <div class="flex justify-between text-xs font-black text-slate-800 dark:text-slate-200 mb-1">
                     <span class="flex items-center gap-1.5"><i class="fa-solid fa-leaf text-leaf-500"></i> <span
                         data-i18n="diagNdviLbl">গাছের সতেজতা ও পাতা</span></span>
                     <span id="inspectorNdviVal" class="font-black text-amber-600"></span>
                   </div>
-                  <div class="w-full h-3.5 bg-earth-100 dark:bg-earth-800 rounded-full overflow-hidden">
+                  <div class="w-full h-3 bg-earth-100 dark:bg-earth-800 rounded-full overflow-hidden">
                     <div id="inspectorNdviBar" class="h-full bg-amber-500 rounded-full transition-all duration-500">
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <div class="flex justify-between text-xs font-black text-slate-800 dark:text-slate-200 mb-1.5">
+                  <div class="flex justify-between text-xs font-black text-slate-800 dark:text-slate-200 mb-1">
                     <span class="flex items-center gap-1.5"><i
                         class="fa-solid fa-temperature-arrow-up text-rose-500"></i> <span data-i18n="diagHeatLbl">রোদে
                         পানি উবে যাওয়ার চাপ</span></span>
                     <span id="inspectorEtVal" class="text-rose-600 font-black"></span>
                   </div>
-                  <div class="w-full h-3.5 bg-earth-100 dark:bg-earth-800 rounded-full overflow-hidden">
+                  <div class="w-full h-3 bg-earth-100 dark:bg-earth-800 rounded-full overflow-hidden">
                     <div id="inspectorEtBar" class="h-full bg-rose-600 rounded-full transition-all duration-500"></div>
                   </div>
                 </div>
 
                 <div
-                  class="p-4 rounded-2xl bg-emerald-50 dark:bg-earth-800/90 border-2 border-emerald-200 dark:border-earth-700">
-                  <div class="flex items-center gap-2 text-xs font-black text-emerald-900 dark:text-emerald-300 mb-1.5">
+                  class="p-3.5 sm:p-4 rounded-2xl bg-emerald-50 dark:bg-earth-800/90 border-2 border-emerald-200 dark:border-earth-700">
+                  <div class="flex items-center gap-2 text-xs font-black text-emerald-900 dark:text-emerald-300 mb-1">
                     <i class="fa-solid fa-lightbulb text-harvest-500 text-sm"></i>
                     <span data-i18n="diagAdviceTitle">কৃষক ভাইয়ের জন্য সহজ করণীয়</span>
                   </div>
@@ -735,7 +726,7 @@
                     class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium"></p>
                 </div>
 
-                <div class="grid grid-cols-2 gap-2 pt-1">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                   <button onclick="navigateTo('crop-recommender')"
                     class="px-4 py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white text-xs font-black transition flex items-center justify-center gap-2 touch-target shadow-sm">
                     <i class="fa-solid fa-wheat-awn"></i> <span data-i18n="btnTestCrops">ফসল পরীক্ষা</span>
@@ -755,15 +746,13 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
     <!-- PAGE 3: ADAPTIVE CROP SHIFT ADVISOR -->
     <section id="page-crop-recommender" class="page-view">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-
-        <div class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+        <div class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
           <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
             <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
               data-i18n="navHome">প্রথম পাতা</a>
@@ -781,7 +770,7 @@
 
         <!-- SIDE-BY-SIDE QUICK COMPARISON PILLS MATRIX -->
         <div
-          class="bg-gradient-to-r from-emerald-950 via-leaf-950 to-earth-900 text-white p-6 sm:p-7 rounded-3xl border-2 border-leaf-700/60 shadow-md space-y-5">
+          class="bg-gradient-to-r from-emerald-950 via-leaf-950 to-earth-900 text-white p-5 sm:p-7 rounded-3xl border-2 border-leaf-700/60 shadow-md space-y-4 sm:space-y-5">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-leaf-800/80 pb-3">
             <div>
               <span class="text-[10px] font-black uppercase text-harvest-400" data-i18n="compBadge">এক নজরে তুলনা</span>
@@ -793,10 +782,7 @@
               💧 পানি সাশ্রয় ও খরচের হিসাব
             </span>
           </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="cropComparisonGrid">
-            <!-- Rendered dynamically for 100% language isolation -->
-          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="cropComparisonGrid"></div>
         </div>
 
         <!-- Filter & Feed Grid -->
@@ -816,7 +802,7 @@
                   class="w-full text-xs font-bold p-3.5 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white focus:outline-none touch-target">
                   <option value="drought" data-i18n="optDrought">তীব্র খরা / বৃষ্টির অভাব</option>
                   <option value="groundwater" data-i18n="optGroundwater">ভূগর্ভস্থ পানির স্তর নেমে যাওয়া</option>
-                  <option value="heat" data-i18n="optHeat">প্রচণ্ড গরম ও তাপপ্রবাহ (&gt;৩৮°C)</option>
+                  <option value="heat" data-i18n="optHeat">প্রচণ্ড গরম ও তাপপ্রবাহ (>৩৮°C)</option>
                 </select>
               </div>
 
@@ -859,26 +845,21 @@
           <!-- Dynamic Crop Feed -->
           <div class="lg:col-span-8 space-y-4">
             <div class="flex items-center justify-between pb-1 text-xs">
-              <span class="font-black text-slate-900 dark:text-white uppercase" id="cropMatchCount">৩টি খরা-সহনশীল
-                বিকল্প ফসল</span>
+              <span class="font-black text-slate-900 dark:text-white uppercase" id="cropMatchCount">৩টি উপযুক্ত বিকল্প
+                ফসল</span>
               <span class="text-leaf-600 dark:text-leaf-400 font-black" data-i18n="cropSortBadge">খরা সহনশীলতায়
                 সাজানো</span>
             </div>
-
-            <div class="space-y-4" id="cropCardsContainer">
-              <!-- Rendered dynamically via JS for 100% strict language isolation -->
-            </div>
+            <div class="space-y-4" id="cropCardsContainer"></div>
           </div>
         </div>
-
       </div>
     </section>
 
     <!-- PAGE 4: IRRIGATION & PUMP COST CALCULATOR -->
     <section id="page-irrigation-alerts" class="page-view">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-
-        <div class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+        <div class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
           <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
             <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
               data-i18n="navHome">প্রথম পাতা</a>
@@ -900,7 +881,7 @@
             class="p-4 sm:p-5 rounded-3xl border-2 border-rose-500 bg-rose-50 dark:bg-earth-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
             <div class="flex items-start gap-3.5">
               <div
-                class="w-12 h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-xl shrink-0 shadow-md">
+                class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-md">
                 <i class="fa-solid fa-triangle-exclamation"></i>
               </div>
               <div class="space-y-0.5">
@@ -920,7 +901,7 @@
               </div>
             </div>
             <button onclick="dismissBanner(this)"
-              class="px-4 py-2.5 rounded-2xl bg-white dark:bg-earth-800 text-rose-700 dark:text-rose-300 border-2 border-rose-300 font-black text-xs shrink-0 touch-target"
+              class="px-4 py-2.5 rounded-2xl bg-white dark:bg-earth-800 text-rose-700 dark:text-rose-300 border-2 border-rose-300 font-black text-xs shrink-0 touch-target self-stretch sm:self-auto text-center"
               data-i18n="btnDismiss">
               বুঝতে পেরেছি
             </button>
@@ -930,16 +911,16 @@
         <!-- PUMP CALCULATOR -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div
-            class="lg:col-span-6 bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
+            class="lg:col-span-6 bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
             <div class="flex items-center justify-between border-b border-earth-100 dark:border-earth-800 pb-3">
               <div>
                 <span class="text-xs font-black uppercase text-leaf-600 dark:text-leaf-400"
                   data-i18n="calcTitleBadge">সহজ কৃষি ক্যালকুলেটর</span>
-                <h3 class="text-lg font-black text-slate-900 dark:text-white" data-i18n="calcHeading">পাম্পের সময় ও
-                  তেলের খরচ হিসাব</h3>
+                <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white" data-i18n="calcHeading">
+                  পাম্পের সময় ও তেলের খরচ হিসাব</h3>
               </div>
               <span
-                class="w-10 h-10 rounded-2xl bg-leaf-100 dark:bg-leaf-950 text-leaf-600 flex items-center justify-center text-lg">
+                class="w-10 h-10 rounded-2xl bg-leaf-100 dark:bg-leaf-950 text-leaf-600 flex items-center justify-center text-lg shrink-0">
                 <i class="fa-solid fa-gas-pump"></i>
               </span>
             </div>
@@ -948,7 +929,8 @@
               <div>
                 <label class="font-black text-slate-800 dark:text-slate-200 block mb-1.5" data-i18n="calcLandLbl">১.
                   আপনার জমির পরিমাণ</label>
-                <div class="grid grid-cols-4 gap-2 mb-2">
+                <!-- Quick presets: responsive 2x2 on mobile, 4 in row on sm+ -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2">
                   <button type="button" onclick="setBighaPreset(1)"
                     class="bigha-preset-btn p-2 rounded-xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 font-black text-xs text-center touch-target">1
                     <span data-i18n="unitBighaShort">বিঘা</span></button>
@@ -1019,7 +1001,7 @@
                     class="w-full p-3 rounded-2xl border-2 border-earth-200 dark:border-earth-700 bg-white dark:bg-earth-800 text-slate-900 dark:text-white font-black touch-target">
                     <option value="0.85" data-i18n="optWeatherMild">মেঘলা আকাশ / শীতল</option>
                     <option value="1.0" selected data-i18n="optWeatherNormal">স্বাভাবিক রোদ</option>
-                    <option value="1.25" data-i18n="optWeatherHot">প্রচণ্ড তাপদাহ (&gt;৩৫°C)</option>
+                    <option value="1.25" data-i18n="optWeatherHot">প্রচণ্ড তাপদাহ (>৩৫°C)</option>
                   </select>
                 </div>
               </div>
@@ -1027,7 +1009,7 @@
 
             <!-- Result Box -->
             <div class="p-4 rounded-3xl bg-leaf-500/10 border-2 border-leaf-500/30 space-y-3 mt-3">
-              <div class="grid grid-cols-2 gap-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div
                   class="p-3.5 rounded-2xl bg-white dark:bg-earth-800 border-2 border-earth-200 dark:border-earth-700">
                   <span class="text-[11px] font-black text-slate-500 block mb-0.5" data-i18n="resRuntimeLbl">⏱️ পাম্প
@@ -1050,12 +1032,12 @@
                 </div>
                 <div class="flex justify-between text-slate-700 dark:text-slate-300">
                   <span data-i18n="resBreakdownLbl">জ্বালানি / পাওয়ার খরচ:</span>
-                  <span id="resFuelBreakdown" class="font-black text-slate-900 dark:text-white"></span>
+                  <span id="resFuelBreakdown" class="font-black text-slate-900 dark:text-white text-right"></span>
                 </div>
                 <div class="flex justify-between text-slate-700 dark:text-slate-300">
                   <span data-i18n="resBestTimeLbl">পানি দেওয়ার সেরা সময়:</span>
-                  <span class="font-black text-canal-600 dark:text-canal-400" data-i18n="resBestTimeVal">রাত ৩:৩০ – ভোর
-                    ৬:০০ (পানি বাঁচে)</span>
+                  <span class="font-black text-canal-600 dark:text-canal-400 text-right" data-i18n="resBestTimeVal">রাত
+                    ৩:৩০ – ভোর ৬:০০ (পানি বাঁচে)</span>
                 </div>
               </div>
 
@@ -1069,35 +1051,30 @@
 
           <!-- Schedule Calendar -->
           <div
-            class="lg:col-span-6 bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
+            class="lg:col-span-6 bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
             <div class="flex items-center justify-between border-b border-earth-100 dark:border-earth-800 pb-3">
               <div>
                 <span class="text-xs font-black uppercase text-leaf-600 dark:text-leaf-400" data-i18n="schedBadge">৭
                   দিনের সেচ দিনপঞ্জি</span>
-                <h3 class="text-lg font-black text-slate-900 dark:text-white" data-i18n="schedHeading">কখন কখন পাম্প
-                  চালাবেন?</h3>
+                <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white" data-i18n="schedHeading">কখন
+                  কখন পাম্প চালাবেন?</h3>
               </div>
               <button onclick="window.print()"
                 class="px-3.5 py-2 rounded-2xl bg-earth-100 dark:bg-earth-800 hover:bg-earth-200 text-slate-900 dark:text-white text-xs font-black border border-earth-200 dark:border-earth-700 transition flex items-center gap-1.5 touch-target">
                 <i class="fa-solid fa-print"></i> <span data-i18n="btnPrint">প্রিন্ট</span>
               </button>
             </div>
-
-            <div class="space-y-3" id="calendarDaysContainer">
-              <!-- Rendered dynamically for 100% strict bilingual isolation -->
-            </div>
+            <div class="space-y-3" id="calendarDaysContainer"></div>
           </div>
         </div>
-
       </div>
     </section>
 
     <!-- PAGE 5: DASHBOARD -->
     <section id="page-dashboard" class="page-view">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
         <div
-          class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
+          class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
           <div>
             <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
               <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
@@ -1112,24 +1089,22 @@
             </p>
           </div>
           <button onclick="downloadReportPdf()"
-            class="px-5 py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white font-black text-xs shadow-glow-leaf transition flex items-center gap-2 self-start sm:self-center touch-target">
+            class="px-5 py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white font-black text-xs shadow-glow-leaf transition flex items-center justify-center gap-2 self-stretch sm:self-center touch-target">
             <i class="fa-solid fa-file-pdf text-base"></i>
             <span data-i18n="btnPdf">রিপোর্ট ডাউনলোড / প্রিন্ট</span>
           </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="dashKpiCards">
-          <!-- Rendered dynamically for 100% bilingual isolation -->
-        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="dashKpiCards"></div>
 
         <!-- Landsat 8/9 NDVI Comparison Curve Chart -->
         <div
-          class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
+          class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-4">
           <div
             class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-earth-100 dark:border-earth-800 gap-2">
             <div>
-              <h3 class="text-lg font-black text-slate-900 dark:text-white" data-i18n="chartTitle">গত ৬ মাসে ফসলের সবুজ
-                সতেজতার তুলনামূলক চিত্র</h3>
+              <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white" data-i18n="chartTitle">গত ৬
+                মাসে ফসলের সবুজ সতেজতার তুলনামূলক চিত্র</h3>
               <p class="text-xs text-slate-500 font-medium" data-i18n="chartSub">সনাতন ভুট্টা বনাম খরা-সহনশীল বাজরা শিফট
               </p>
             </div>
@@ -1143,7 +1118,7 @@
             </div>
           </div>
 
-          <div class="w-full aspect-[16/7] relative">
+          <div class="w-full aspect-[16/7] relative overflow-hidden">
             <svg class="w-full h-full" viewBox="0 0 600 220">
               <line x1="40" y1="20" x2="580" y2="20" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
                 stroke-dasharray="4" />
@@ -1154,14 +1129,12 @@
               <line x1="40" y1="170" x2="580" y2="170" stroke="#cbd7cb" stroke-opacity="0.3" stroke-width="1"
                 stroke-dasharray="4" />
               <line x1="40" y1="190" x2="580" y2="190" stroke="#059669" stroke-width="2" />
-
               <text x="60" y="210" fill="#047857" font-size="12" font-weight="800" id="m1">জুন</text>
               <text x="160" y="210" fill="#047857" font-size="12" font-weight="800" id="m2">জুলাই</text>
               <text x="260" y="210" fill="#047857" font-size="12" font-weight="800" id="m3">আগস্ট</text>
               <text x="360" y="210" fill="#047857" font-size="12" font-weight="800" id="m4">সেপ্টেম্বর</text>
               <text x="460" y="210" fill="#047857" font-size="12" font-weight="800" id="m5">অক্টোবর</text>
               <text x="540" y="210" fill="#047857" font-size="12" font-weight="800" id="m6">নভেম্বর</text>
-
               <path d="M60,140 Q160,90 260,150 T360,175 T460,180 T540,185" fill="none" stroke="#EA580C" stroke-width="4"
                 stroke-linecap="round" />
               <path d="M60,150 Q160,100 260,70 T360,60 T460,55 T540,60" fill="none" stroke="#10B981" stroke-width="4.5"
@@ -1170,21 +1143,19 @@
           </div>
 
           <div
-            class="p-4 rounded-2xl bg-earth-50 dark:bg-earth-800 text-xs text-slate-700 dark:text-slate-300 font-medium"
+            class="p-3.5 sm:p-4 rounded-2xl bg-earth-50 dark:bg-earth-800 text-xs text-slate-700 dark:text-slate-300 font-medium"
             data-i18n="chartProof">
             <strong>স্যাটেলাইট প্রমাণ:</strong> আগস্ট মাসের তীব্র তাপদাহে সাধারণ ভুট্টা শুকিয়ে গেলেও নতুন রোপণ করা বাজরা
             ক্ষেত শতকরা ৪২ ভাগ কম পানিতেও ভরপুর সবুজ সতেজ ছিল।
           </div>
         </div>
-
       </div>
     </section>
 
     <!-- PAGE 6: NASA SCIENCE RESOURCES -->
     <section id="page-resources" class="page-view">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-
-        <div class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+        <div class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700">
           <div class="flex items-center gap-2 text-xs font-bold text-leaf-600 dark:text-leaf-400 mb-1">
             <a href="#landing" onclick="navigateTo('landing'); return false;" class="hover:underline"
               data-i18n="navHome">প্রথম পাতা</a>
@@ -1200,21 +1171,23 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
           <div
-            class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-3 flex flex-col justify-between">
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-3 flex flex-col justify-between">
             <div class="space-y-2">
-              <div class="w-12 h-12 rounded-2xl bg-canal-100 text-canal-600 flex items-center justify-center text-xl"><i
-                  class="fa-solid fa-satellite-dish"></i></div>
+              <div
+                class="w-12 h-12 rounded-2xl bg-canal-100 text-canal-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-satellite-dish"></i>
+              </div>
               <span class="text-[10px] font-black uppercase text-canal-600">NASA Earth Science</span>
-              <h3 class="font-extrabold text-lg text-slate-900 dark:text-white" data-i18n="smapCardTitle">NASA SMAP
-                স্যাটেলাইট</h3>
+              <h3 class="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white" data-i18n="smapCardTitle">
+                NASA SMAP স্যাটেলাইট</h3>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium"
                 data-i18n="smapCardDesc">
                 মাটির ১০০ সেমি গভীরে উদ্ভিদের মূলের পানির পরিমাণ পরিমাপকারী গ্লোবাল মাইক্রোওয়েভ রেডিওমিটার।
               </p>
             </div>
-            <a href="https://smap.jpl.nasa.gov/" target="_blank"
+            <a href="https://smap.jpl.nasa.gov/" target="_blank" rel="noopener noreferrer"
               class="w-full py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white text-xs font-black transition flex items-center justify-center gap-2 touch-target">
               <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="btnVisitSmap">নাসা SMAP
                 ওয়েবসাইট</span>
@@ -1222,19 +1195,21 @@
           </div>
 
           <div
-            class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-3 flex flex-col justify-between">
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-3 flex flex-col justify-between">
             <div class="space-y-2">
-              <div class="w-12 h-12 rounded-2xl bg-leaf-100 text-leaf-600 flex items-center justify-center text-xl"><i
-                  class="fa-solid fa-earth-americas"></i></div>
+              <div
+                class="w-12 h-12 rounded-2xl bg-leaf-100 text-leaf-600 flex items-center justify-center text-xl shrink-0">
+                <i class="fa-solid fa-earth-americas"></i>
+              </div>
               <span class="text-[10px] font-black uppercase text-leaf-600">USGS & NASA Mission</span>
-              <h3 class="font-extrabold text-lg text-slate-900 dark:text-white" data-i18n="landsatCardTitle">Landsat 8 ও
-                9 (NDVI)</h3>
+              <h3 class="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white"
+                data-i18n="landsatCardTitle">Landsat 8 ও 9 (NDVI)</h3>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium"
                 data-i18n="landsatCardDesc">
                 ৩০-মিটার রেজোলিউশনের রঙিন ছবি যা ফসলের পাতার ঘনত্ব ও স্বাস্থ্য সূচক প্রদর্শন করে।
               </p>
             </div>
-            <a href="https://landsat.gsfc.nasa.gov/" target="_blank"
+            <a href="https://landsat.gsfc.nasa.gov/" target="_blank" rel="noopener noreferrer"
               class="w-full py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white text-xs font-black transition flex items-center justify-center gap-2 touch-target">
               <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="btnVisitLandsat">ল্যান্ডস্যাট
                 পোর্টাল</span>
@@ -1242,21 +1217,21 @@
           </div>
 
           <div
-            class="bg-white dark:bg-earth-900 p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-3 flex flex-col justify-between">
+            class="bg-white dark:bg-earth-900 p-5 sm:p-6 rounded-3xl border-2 border-earth-200 dark:border-earth-700 space-y-3 flex flex-col justify-between">
             <div class="space-y-2">
               <div
-                class="w-12 h-12 rounded-2xl bg-harvest-100 text-harvest-600 flex items-center justify-center text-xl">
+                class="w-12 h-12 rounded-2xl bg-harvest-100 text-harvest-600 flex items-center justify-center text-xl shrink-0">
                 <i class="fa-solid fa-sun-plant-wilt"></i>
               </div>
               <span class="text-[10px] font-black uppercase text-harvest-600">ISS Space Experiment</span>
-              <h3 class="font-extrabold text-lg text-slate-900 dark:text-white" data-i18n="ecostressCardTitle">ECOSTRESS
-                থার্মাল</h3>
+              <h3 class="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white"
+                data-i18n="ecostressCardTitle">ECOSTRESS থার্মাল</h3>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium"
                 data-i18n="ecostressCardDesc">
                 মহাকাশ স্টেশন থেকে থার্মাল ইনফ্রারেড পরিমাপে গাছের পানিশূন্যতা ও বাষ্পীভবন পর্যবেক্ষণ করে।
               </p>
             </div>
-            <a href="https://ecostress.jpl.nasa.gov/" target="_blank"
+            <a href="https://ecostress.jpl.nasa.gov/" target="_blank" rel="noopener noreferrer"
               class="w-full py-3 rounded-2xl bg-leaf-600 hover:bg-leaf-700 text-white text-xs font-black transition flex items-center justify-center gap-2 touch-target">
               <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="btnVisitEcostress">ইকোস্ট্রেস
                 পোর্টাল</span>
@@ -1266,10 +1241,10 @@
 
         <!-- Helpline -->
         <div
-          class="p-6 rounded-3xl bg-gradient-to-r from-leaf-700 to-emerald-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-4">
+          class="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-leaf-700 to-emerald-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5 sm:gap-4">
             <div
-              class="w-14 h-14 rounded-2xl bg-white text-leaf-700 flex items-center justify-center text-2xl shrink-0 shadow">
+              class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white text-leaf-700 flex items-center justify-center text-xl sm:text-2xl shrink-0 shadow">
               <i class="fa-solid fa-phone-volume"></i>
             </div>
             <div>
@@ -1279,11 +1254,10 @@
             </div>
           </div>
           <a href="tel:16123"
-            class="px-6 py-3.5 rounded-2xl bg-white text-leaf-800 font-black text-xs sm:text-sm shadow-md hover:bg-emerald-50 transition shrink-0 touch-target flex items-center gap-2">
+            class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white text-leaf-800 font-black text-xs sm:text-sm shadow-md hover:bg-emerald-50 transition shrink-0 touch-target flex items-center justify-center gap-2">
             <i class="fa-solid fa-phone"></i> <span data-i18n="btnCall">সরাসরি কল করুন (১৬১২৩)</span>
           </a>
         </div>
-
       </div>
     </section>
 
@@ -1298,28 +1272,25 @@
         <i class="fa-solid fa-house text-base"></i>
         <span class="text-[10px] font-black mt-0.5" data-i18n="navHome">প্রথম পাতা</span>
       </button>
-
       <button onclick="navigateTo('map-explorer')" data-mobile-nav="map-explorer"
         class="mobile-nav-btn flex flex-col items-center justify-center text-slate-600 dark:text-slate-400 hover:text-leaf-600 touch-target">
         <i class="fa-solid fa-map text-base"></i>
         <span class="text-[10px] font-black mt-0.5" data-i18n="navMap">জমির নকশা</span>
       </button>
-
       <!-- Center AgroBani Trigger -->
-      <button onclick="openVoiceModal()" class="flex flex-col items-center justify-center -mt-6 touch-target">
+      <button onclick="openVoiceModal()" aria-label="Voice Assistant"
+        class="flex flex-col items-center justify-center -mt-6 touch-target">
         <div
           class="w-14 h-14 rounded-full bg-gradient-to-tr from-leaf-600 to-harvest-500 text-white flex items-center justify-center shadow-glow-leaf pulse-mic border-4 border-white dark:border-earth-900">
           <i class="fa-solid fa-microphone text-2xl"></i>
         </div>
         <span class="text-[10px] font-black text-leaf-700 dark:text-leaf-400 mt-1" data-i18n="navVoice">মুখে বলুন</span>
       </button>
-
       <button onclick="navigateTo('crop-recommender')" data-mobile-nav="crop-recommender"
         class="mobile-nav-btn flex flex-col items-center justify-center text-slate-600 dark:text-slate-400 hover:text-leaf-600 touch-target">
         <i class="fa-solid fa-wheat-awn text-base"></i>
         <span class="text-[10px] font-black mt-0.5" data-i18n="navCrops">লাভজনক ফসল</span>
       </button>
-
       <button onclick="navigateTo('irrigation-alerts')" data-mobile-nav="irrigation-alerts"
         class="mobile-nav-btn flex flex-col items-center justify-center text-slate-600 dark:text-slate-400 hover:text-leaf-600 touch-target">
         <i class="fa-solid fa-gas-pump text-base"></i>
@@ -1328,37 +1299,35 @@
     </div>
   </nav>
 
-  <!-- AGROBANI VOICE ASSISTANT MODAL -->
+  <!-- AGROBANI VOICE ASSISTANT MODAL (Mobile Bottom-Sheet & Desktop Centered) -->
   <div id="voiceModal"
     class="fixed inset-0 z-50 bg-black/65 backdrop-blur-md hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
     <div
-      class="bg-white dark:bg-earth-900 w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl space-y-4 border border-earth-200 dark:border-earth-700 max-h-[92vh] overflow-y-auto pb-safe">
-
+      class="bg-white dark:bg-earth-900 w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl space-y-4 border border-earth-200 dark:border-earth-700 max-h-[85vh] overflow-y-auto pb-safe">
       <div class="flex items-center justify-between pb-3 border-b border-earth-100 dark:border-earth-800">
         <div class="flex items-center gap-3">
           <div
-            class="w-11 h-11 rounded-2xl bg-leaf-100 dark:bg-leaf-950 text-leaf-600 flex items-center justify-center text-xl shadow-sm">
+            class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-leaf-100 dark:bg-leaf-950 text-leaf-600 flex items-center justify-center text-xl shadow-sm shrink-0">
             <i class="fa-solid fa-robot"></i>
           </div>
           <div>
-            <h3 class="font-black text-slate-900 dark:text-white text-base" data-i18n="voiceAssistantTitle">এগ্রো-বাণী
-              (সহজ ভয়েস বন্ধু)</h3>
+            <h3 class="font-black text-slate-900 dark:text-white text-sm sm:text-base" data-i18n="voiceAssistantTitle">
+              এগ্রো-বাণী (সহজ ভয়েস বন্ধু)</h3>
             <p id="micStateIndicator" class="text-xs text-slate-500 font-bold" data-i18n="micReady">শুনতে প্রস্তুত...
               মাইকে চাপুন</p>
           </div>
         </div>
-        <button onclick="closeVoiceModal()"
-          class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 text-2xl touch-target">
+        <button onclick="closeVoiceModal()" aria-label="Close"
+          class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-2 text-2xl touch-target flex items-center justify-center">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <div class="flex flex-col items-center justify-center py-3 space-y-3">
-        <button id="micButton" onclick="toggleListening()"
-          class="w-24 h-24 rounded-full bg-leaf-600 hover:bg-leaf-700 text-white flex items-center justify-center text-3xl shadow-glow-leaf transition duration-300 transform active:scale-90 touch-target">
+      <div class="flex flex-col items-center justify-center py-2 sm:py-3 space-y-3">
+        <button id="micButton" onclick="toggleListening()" aria-label="Microphone"
+          class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-leaf-600 hover:bg-leaf-700 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-glow-leaf transition duration-300 transform active:scale-90 touch-target">
           <i id="micIcon" class="fa-solid fa-microphone"></i>
         </button>
-
         <div id="soundWave" class="hidden items-center gap-1.5 h-7">
           <div class="bar w-2 bg-leaf-500 rounded-full"></div>
           <div class="bar w-2 bg-harvest-500 rounded-full"></div>
@@ -1366,8 +1335,8 @@
           <div class="bar w-2 bg-terracotta-500 rounded-full"></div>
           <div class="bar w-2 bg-canal-500 rounded-full"></div>
         </div>
-
-        <span id="listeningFeedback" class="text-xs font-black text-leaf-700 dark:text-leaf-400" data-i18n="micHint">
+        <span id="listeningFeedback" class="text-xs font-black text-leaf-700 dark:text-leaf-400 text-center"
+          data-i18n="micHint">
           কথা বলতে উপরের গোল বোতামে চাপুন
         </span>
       </div>
@@ -1380,7 +1349,7 @@
             (bn-BD)</span>
         </div>
         <div id="spokenOutput"
-          class="p-3.5 bg-earth-50 dark:bg-earth-800 rounded-2xl text-sm min-h-[48px] text-slate-900 dark:text-slate-100 font-bold"
+          class="p-3 sm:p-3.5 bg-earth-50 dark:bg-earth-800 rounded-2xl text-xs sm:text-sm min-h-[44px] text-slate-900 dark:text-slate-100 font-bold"
           data-i18n="spokenPlaceholder">
           "মাইকে চাপ দিয়ে মুখে প্রশ্ন করুন..."
         </div>
@@ -1391,18 +1360,17 @@
           <span class="text-xs font-bold text-slate-500" data-i18n="aiReplyLbl">স্যাটেলাইট থেকে সহজ সমাধান:</span>
           <div class="flex items-center gap-2">
             <button id="replayVoiceBtn" onclick="readResponseAloud()"
-              class="text-xs text-leaf-600 hover:underline hidden font-black touch-target">
+              class="text-xs text-leaf-600 hover:underline hidden font-black touch-target min-h-0">
               <i class="fa-solid fa-volume-high"></i> <span data-i18n="btnReplay">আবার শুনুন</span>
             </button>
             <button id="stopVoiceBtn" onclick="stopSpeaking()"
-              class="text-xs text-rose-600 hover:underline hidden font-black touch-target">
+              class="text-xs text-rose-600 hover:underline hidden font-black touch-target min-h-0">
               <i class="fa-solid fa-volume-xmark"></i> <span data-i18n="btnStop">থামুন</span>
             </button>
           </div>
         </div>
         <div id="aiResponseOutput"
-          class="p-4 bg-emerald-50 dark:bg-earth-800/90 border-2 border-emerald-200 dark:border-earth-700 rounded-2xl text-sm text-emerald-950 dark:text-emerald-100 min-h-[75px] leading-relaxed font-semibold">
-          <!-- Populated dynamically via JS -->
+          class="p-3.5 sm:p-4 bg-emerald-50 dark:bg-earth-800/90 border-2 border-emerald-200 dark:border-earth-700 rounded-2xl text-xs sm:text-sm text-emerald-950 dark:text-emerald-100 min-h-[70px] leading-relaxed font-semibold">
         </div>
       </div>
 
@@ -1410,7 +1378,7 @@
         <input id="typedQuestionInput" type="text" data-i18n-placeholder="inputPlaceholder"
           placeholder="বাতাস বেশি থাকলে এখানে লিখে প্রশ্ন করুন..."
           class="flex-1 bg-earth-50 dark:bg-earth-800 border-2 border-earth-300 dark:border-earth-700 rounded-2xl px-3.5 py-3 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-leaf-600 touch-target" />
-        <button type="submit"
+        <button type="submit" aria-label="Send"
           class="bg-leaf-600 hover:bg-leaf-700 text-white px-4 py-3 rounded-2xl text-xs font-black shadow-sm touch-target">
           <i class="fa-solid fa-paper-plane"></i>
         </button>
@@ -1419,18 +1387,16 @@
       <div class="pt-2 border-t border-earth-100 dark:border-earth-800">
         <div class="text-[11px] text-slate-500 mb-2 font-black" data-i18n="quickAskTitle">এক চাপে জানতে নিচের প্রশ্নে
           চাপুন:</div>
-        <div class="flex flex-wrap gap-2" id="quickQuestionsContainer">
-          <!-- Rendered dynamically via JS for 100% strict isolation -->
-        </div>
+        <div class="flex flex-wrap gap-2" id="quickQuestionsContainer"></div>
       </div>
-
     </div>
   </div>
 
   <!-- FOOTER -->
-  <footer class="bg-white dark:bg-earth-950 border-t border-earth-200 dark:border-earth-800 py-10 mt-12 transition">
+  <footer
+    class="bg-white dark:bg-earth-950 border-t border-earth-200 dark:border-earth-800 py-8 sm:py-10 mt-12 transition">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8 mb-8">
         <div class="md:col-span-2 space-y-3">
           <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-2xl bg-leaf-600 flex items-center justify-center text-white text-base">
@@ -1472,7 +1438,7 @@
         </div>
       </div>
       <div
-        class="border-t border-earth-200 dark:border-earth-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-bold gap-2">
+        class="border-t border-earth-200 dark:border-earth-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-bold gap-2 text-center sm:text-left">
         <p>© 2026 AgroShift Nexus. Open Science for Global Agriculture.</p>
         <p>Built for Rural Farmers with Tailwind CSS & Web Speech API.</p>
       </div>
@@ -1481,26 +1447,17 @@
 
   <!-- SCRIPT ENGINE -->
   <script>
-    /* =========================================================================
-       1. ROUTING ENGINE
-       ========================================================================= */
+    /* 1. ROUTING ENGINE */
     const validPages = ['landing', 'map-explorer', 'crop-recommender', 'irrigation-alerts', 'dashboard', 'resources'];
-
     function navigateTo(pageId) {
       if (!validPages.includes(pageId)) pageId = 'landing';
       validPages.forEach(p => {
         const el = document.getElementById('page-' + p);
         if (el) {
-          if (p === pageId) {
-            el.classList.add('active-page');
-            el.style.display = 'block';
-          } else {
-            el.classList.remove('active-page');
-            el.style.display = 'none';
-          }
+          if (p === pageId) { el.classList.add('active-page'); el.style.display = 'block'; }
+          else { el.classList.remove('active-page'); el.style.display = 'none'; }
         }
       });
-
       document.querySelectorAll('.nav-btn').forEach(btn => {
         if (btn.getAttribute('data-nav') === pageId) {
           btn.className = 'nav-btn px-4 py-2.5 rounded-full text-xs font-black transition bg-leaf-600 text-white shadow-sm touch-target flex items-center gap-1.5';
@@ -1508,7 +1465,6 @@
           btn.className = 'nav-btn px-4 py-2.5 rounded-full text-xs font-bold transition text-slate-700 dark:text-slate-200 hover:text-leaf-600 touch-target flex items-center gap-1.5';
         }
       });
-
       document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         if (btn.getAttribute('data-mobile-nav') === pageId) {
           btn.classList.add('text-leaf-600', 'dark:text-leaf-400');
@@ -1518,347 +1474,123 @@
           btn.classList.add('text-slate-600', 'dark:text-slate-400');
         }
       });
-
-      try {
-        if (window.location.hash !== '#' + pageId) window.history.pushState(null, null, '#' + pageId);
-      } catch (e) { }
+      try { if (window.location.hash !== '#' + pageId) window.history.pushState(null, null, '#' + pageId); } catch (e) { }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    window.addEventListener('hashchange', () => {
-      navigateTo((window.location.hash || '').replace('#', '') || 'landing');
-    });
-
+    window.addEventListener('hashchange', () => { navigateTo((window.location.hash || '').replace('#', '') || 'landing'); });
     function toggleMobileDrawer() {
       const drawer = document.getElementById('mobileDrawer');
       if (drawer) drawer.classList.toggle('hidden');
     }
 
-    /* =========================================================================
-       2. STRICT BILINGUAL ISOLATION DICTIONARY
-       ========================================================================= */
+    /* 2. STRICT BILINGUAL ISOLATION DICTIONARY */
     let currentLang = 'bn';
-
     const t = {
       bn: {
         topMission: "নাসা স্পেস অ্যাপস ২০২৬:",
         topDesc: "কৃষক ভাইদের সহজ বন্ধু — নাসা স্যাটেলাইট দিয়ে নিরাপদ চাষাবাদ",
-        topWind: "মাঠের বাতাস",
-        topLiveRadar: "SMAP + GPM লাইভ",
-        navSub: "কৃষক ভাইদের সহজ ডিজিটাল বন্ধু",
-        navHome: "প্রথম পাতা",
-        navMap: "জমির নকশা",
-        navCrops: "লাভজনক ফসল",
-        navIrrig: "সেচ ও পাম্প খরচ",
-        navDash: "খামারের হালচাল",
-        navRes: "নাসা গাইড",
-        navVoice: "মুখে বলুন",
+        topWind: "মাঠের বাতাস", topLiveRadar: "SMAP + GPM লাইভ",
+        navSub: "কৃষক ভাইদের সহজ ডিজিটাল বন্ধু", navHome: "প্রথম পাতা", navMap: "জমির নকশা", navCrops: "লাভজনক ফসল",
+        navIrrig: "সেচ ও পাম্প খরচ", navDash: "খামারের হালচাল", navRes: "নাসা গাইড", navVoice: "মুখে বলুন",
         heroBadge: "নাসা উপগ্রহের সরাসরি তথ্য",
         heroTitle: "আপনার জমির খবর জানুন সহজেই — কোন ফসল বুনবেন, কখন সেচ দেবেন!",
         heroSub: "অতিরিক্ত রোদ বা অনাবৃষ্টিতেও ফসলের ক্ষতি হবে না। নাসা স্যাটেলাইটের মাটির রস ও তাপমাত্রার খবর নিয়ে তৈরি এই সহজ অ্যাপ। মুখে প্রশ্ন করলেই এগ্রো-বাণী সঙ্গে সঙ্গে মুখের ভাষায় সমাধান বলে দেবে।",
-        heroBtnVoice: "মুখে বলুন (এগ্রো-বাণী)",
-        heroBtnMap: "জমির নকশা",
-        heroBtnCrops: "লাভজনক ফসল",
-        stat1Lbl: "সুরক্ষিত জমি",
-        stat1Val: "১,৮৫০+ হেক্টর",
-        stat2Lbl: "সেচ সাশ্রয়",
-        stat2Val: "৩৮.৫%",
-        stat3Lbl: "ব্যবহার খরচ",
-        stat3Val: "১০০% ফ্রি",
-        heroCapTitle: "মাটির গভীরে কতটা রস আছে?",
-        heroCapSub: "নাসার এসএমএপি (SMAP) উপগ্রহ মাটির ১০০ সেমি গভীরের পানি পরীক্ষা করে।",
-        gpmHeaderBadge: "নাসা GPM স্যাটেলাইট রাডার",
-        gpmHeading: "আগামী ৩ দিনের বৃষ্টির পূর্বাভাস ও সেচ পরামর্শ",
-        gpmRadarTag: "রাডার সিগন্যাল লাইভ",
-        pillar1Badge: "মাটির রস",
-        pillar1Title: "মাটিতে কতটা পানি আছে?",
-        pillar1Desc: "নাসার SMAP স্যাটেলাইট বলে দেবে কোন জমিতে রস কমে গেছে আর কোথায় পানি দিতে হবে। খরায় গাছ শুকিয়ে যাওয়ার আগেই সতর্ক হোন।",
-        pillar1Action: "জমির অবস্থা দেখুন",
-        pillar2Badge: "কম পানির ফসল",
-        pillar2Title: "অনাবৃষ্টিতে কোন ফসল লাগাবেন?",
-        pillar2Desc: "বৃষ্টি কম হলে ধানের পেছনে অতিরিক্ত ডিজেল না পুড়িয়ে বাজরা, জোয়ার বা ডাল চাষ করুন। অল্প পানিতে কম খরচে বেশি লাভ পান।",
-        pillar2Action: "লাভজনক ফসল বাছুন",
-        pillar3Badge: "সেচ ও ডিজেল হিসাব",
-        pillar3Title: "কখন সেচ দিলে টাকা বাঁচবে?",
-        pillar3Desc: "দুপুরের কড়া রোদে সেচ দিলে পানি উবে নষ্ট হয়। রাত ৩টা থেকে ভোর ৬টায় সেচ দিলে পানি শিকড়ে থাকে এবং পাম্পের ডিজেল খরচ অনেক কমে।",
-        pillar3Action: "পাম্পের খরচ হিসাব করুন",
-        explorerHeading: "জমির মাটির রস ও স্যাটেলাইট মানচিত্র",
-        explorerSub: "যেকোনো জমির ওপর আঙুল দিয়ে চাপ দিন। মাটির গভীরের রস, গাছের সতেজতা ও সেচের পরামর্শ জেনে নিন।",
-        layerSmap: "মাটির রস (SMAP)",
-        layerNdvi: "গাছের স্বাস্থ্য (NDVI)",
-        layerEcostress: "রোদের তাপ (ECOSTRESS)",
-        layerGpm: "বৃষ্টির মেঘ (GPM)",
-        orbitPass: "পাস #৪১২০৯",
-        svgRiver: "প্রধান সেচ নদী ও ক্যানেল",
-        timeScrubber: "বিগত ৭ দিনের ছবি:",
-        specSmap: "মাটির ১০০ সেমি গভীরে রস",
-        specLandsat: "গাছের পাতার সবুজ সতেজতা",
-        specEcostress: "রোদে পানি উবে যাওয়া",
-        specGpm: "মেঘ ও বৃষ্টির পূর্বাভাস",
-        diagSelected: "নির্বাচিত জমি",
-        diagMoistLbl: "মাটির শিকড়ের রস",
-        diagNdviLbl: "গাছের সতেজতা ও পাতা",
-        diagHeatLbl: "রোদে পানি উবে যাওয়ার চাপ",
-        diagAdviceTitle: "কৃষক ভাইয়ের জন্য সহজ করণীয়",
-        btnTestCrops: "ফসল পরীক্ষা",
-        btnPlanIrrigation: "পাম্প খরচ হিসাব",
-        btnReadAdvice: "এই পরামর্শটি মুখে শুনুন",
-        cropsHeading: "খরায় কম পানিতে বেশি লাভজনক বিকল্প ফসল",
-        cropsSub: "অনাবৃষ্টি বা সেচের পানির সংকট থাকলে সনাতন বোরো ধান বা ভুট্টার পেছনে অতিরিক্ত ডিজেল না পুড়িয়ে বাজরা, জোয়ার বা ডাল চাষ করুন। অল্প খরচে বেশি ফলন ও নিশ্চিত লাভ মিলবে।",
-        compBadge: "এক নজরে তুলনা",
-        compHeading: "সনাতন ফসল বনাম খরা-সহনশীল স্মার্ট ফসল",
-        compWaterSavedTag: "💧 পানি সাশ্রয় ও খরচের হিসাব",
-        paramTitle: "আপনার জমির ধরন ও সমস্যা",
-        paramWeatherLbl: "আবহাওয়ার সমস্যা",
-        optDrought: "তীব্র খরা / বৃষ্টির অভাব",
-        optGroundwater: "ভূগর্ভস্থ পানির স্তর নেমে যাওয়া",
-        optHeat: "প্রচণ্ড গরম ও তাপপ্রবাহ (>৩৮°C)",
-        paramSoilLbl: "মাটির ধরন",
-        optSandyLoam: "বেলে দোআঁশ মাটি",
-        optClay: "এঁটেল ও কাদা মাটি",
-        optAlluvial: "পলি মাটি (চরের জমি)",
-        paramGoalLbl: "আপনার প্রধান উদ্দেশ্য",
-        goalWater: "পানি বাঁচানো",
-        goalProfit: "বেশি লাভ",
-        nasaRefTitle: "নাসার রেফারেন্স",
-        nasaRefDesc: "নাসা POWER সৌর বিকিরণ ও Landsat NDVI ফসলের বৃদ্ধি বিশ্লেষণ করে এই তালিকা বাছাই করা হয়েছে।",
+        heroBtnVoice: "মুখে বলুন (এগ্রো-বাণী)", heroBtnMap: "জমির নকশা", heroBtnCrops: "লাভজনক ফসল",
+        stat1Lbl: "সুরক্ষিত জমি", stat1Val: "১,৮৫০+ হেক্টর", stat2Lbl: "সেচ সাশ্রয়", stat2Val: "৩৮.৫%", stat3Lbl: "ব্যবহার খরচ", stat3Val: "১০০% ফ্রি",
+        heroCapTitle: "মাটির গভীরে কতটা রস আছে?", heroCapSub: "নাসার এসএমএপি (SMAP) উপগ্রহ মাটির ১০০ সেমি গভীরের পানি পরীক্ষা করে।",
+        gpmHeaderBadge: "নাসা GPM স্যাটেলাইট রাডার", gpmHeading: "আগামী ৩ দিনের বৃষ্টির পূর্বাভাস ও সেচ পরামর্শ", gpmRadarTag: "রাডার সিগন্যাল লাইভ",
+        pillar1Badge: "মাটির রস", pillar1Title: "মাটিতে কতটা পানি আছে?", pillar1Desc: "নাসার SMAP স্যাটেলাইট বলে দেবে কোন জমিতে রস কমে গেছে আর কোথায় পানি দিতে হবে। খরায় গাছ শুকিয়ে যাওয়ার আগেই সতর্ক হোন।", pillar1Action: "জমির অবস্থা দেখুন",
+        pillar2Badge: "কম পানির ফসল", pillar2Title: "অনাবৃষ্টিতে কোন ফসল লাগাবেন?", pillar2Desc: "বৃষ্টি কম হলে ধানের পেছনে অতিরিক্ত ডিজেল না পুড়িয়ে বাজরা, জোয়ার বা ডাল চাষ করুন। অল্প পানিতে কম খরচে বেশি লাভ পান।", pillar2Action: "লাভজনক ফসল বাছুন",
+        pillar3Badge: "সেচ ও ডিজেল হিসাব", pillar3Title: "কখন সেচ দিলে টাকা বাঁচবে?", pillar3Desc: "দুপুরের কড়া রোদে সেচ দিলে পানি উবে নষ্ট হয়। রাত ৩টা থেকে ভোর ৬টায় সেচ দিলে পানি শিকড়ে থাকে এবং পাম্পের ডিজেল খরচ অনেক কমে।", pillar3Action: "পাম্পের খরচ হিসাব করুন",
+        explorerHeading: "জমির মাটির রস ও স্যাটেলাইট মানচিত্র", explorerSub: "যেকোনো জমির ওপর আঙুল দিয়ে চাপ দিন। মাটির গভীরের রস, গাছের সতেজতা ও সেচের পরামর্শ জেনে নিন।",
+        layerSmap: "মাটির রস (SMAP)", layerNdvi: "গাছের স্বাস্থ্য (NDVI)", layerEcostress: "রোদের তাপ (ECOSTRESS)", layerGpm: "বৃষ্টির মেঘ (GPM)",
+        orbitPass: "পাস #৪১২০৯", svgRiver: "প্রধান সেচ নদী ও ক্যানেল", timeScrubber: "বিগত ৭ দিনের ছবি:",
+        specSmap: "মাটির ১০০ সেমি গভীরে রস", specLandsat: "গাছের পাতার সবুজ সতেজতা", specEcostress: "রোদে পানি উবে যাওয়া", specGpm: "মেঘ ও বৃষ্টির পূর্বাভাস",
+        diagSelected: "নির্বাচিত জমি", diagMoistLbl: "মাটির শিকড়ের রস", diagNdviLbl: "গাছের সতেজতা ও পাতা", diagHeatLbl: "রোদে পানি উবে যাওয়ার চাপ", diagAdviceTitle: "কৃষক ভাইয়ের জন্য সহজ করণীয়",
+        btnTestCrops: "ফসল পরীক্ষা", btnPlanIrrigation: "পাম্প খরচ হিসাব", btnReadAdvice: "এই পরামর্শটি মুখে শুনুন",
+        cropsHeading: "খরায় কম পানিতে বেশি লাভজনক বিকল্প ফসল", cropsSub: "অনাবৃষ্টি বা সেচের পানির সংকট থাকলে সনাতন বোরো ধান বা ভুট্টার পেছনে অতিরিক্ত ডিজেল না পুড়িয়ে বাজরা, জোয়ার বা ডাল চাষ করুন। অল্প খরচে বেশি ফলন ও নিশ্চিত লাভ মিলবে।",
+        compBadge: "এক নজরে তুলনা", compHeading: "সনাতন ফসল বনাম খরা-সহনশীল স্মার্ট ফসল", compWaterSavedTag: "💧 পানি সাশ্রয় ও খরচের হিসাব",
+        paramTitle: "আপনার জমির ধরন ও সমস্যা", paramWeatherLbl: "আবহাওয়ার সমস্যা", optDrought: "তীব্র খরা / বৃষ্টির অভাব", optGroundwater: "ভূগর্ভস্থ পানির স্তর নেমে যাওয়া", optHeat: "প্রচণ্ড গরম ও তাপপ্রবাহ (>৩৮°C)",
+        paramSoilLbl: "মাটির ধরন", optSandyLoam: "বেলে দোআঁশ মাটি", optClay: "এঁটেল ও কাদা মাটি", optAlluvial: "পলি মাটি (চরের জমি)",
+        paramGoalLbl: "আপনার প্রধান উদ্দেশ্য", goalWater: "পানি বাঁচানো", goalProfit: "বেশি লাভ",
+        nasaRefTitle: "নাসার রেফারেন্স", nasaRefDesc: "নাসা POWER সৌর বিকিরণ ও Landsat NDVI ফসলের বৃদ্ধি বিশ্লেষণ করে এই তালিকা বাছাই করা হয়েছে।",
         cropSortBadge: "খরা সহনশীলতায় সাজানো",
-        irrigHeading: "সেচ হিসাব, পাম্প চালানোর সময় ও তেলের খরচ ক্যালকুলেটর",
-        irrigSub: "আপনার জমির বিঘা ও পাম্পের ক্ষমতা (HP) বসালেই ঠিক কত সময় পাম্প চালাতে হবে এবং ডিজেল বা বিদ্যুতে কত টাকা খরচ হবে তা সঙ্গে সঙ্গে সহজ ভাষায় পেয়ে যাবেন।",
-        alertUrgentTag: "জরুরি সতর্কবার্তা",
-        alertUrgentTime: "আগামী ৭২ ঘণ্টার পূর্বাভাস",
-        alertUrgentTitle: "পূর্ব উঁচু জমির ভুট্টা ক্ষেতে পানি সংকট!",
-        alertUrgentDesc: "ইকোস্ট্রেস স্যাটেলাইটে দেখা যাচ্ছে মাটিতে আর্দ্রতা মাত্র ১৪%। আজ রাত অথবা কাল ভোরে জমিতে হালকা সেচ দেওয়া অত্যন্ত জরুরি।",
-        btnDismiss: "বুঝতে পেরেছি",
-        calcTitleBadge: "সহজ কৃষি ক্যালকুলেটর",
-        calcHeading: "পাম্পের সময় ও তেলের খরচ হিসাব",
-        calcLandLbl: "১. আপনার জমির পরিমাণ",
-        unitBighaShort: "বিঘা",
-        optBigha: "বিঘা",
-        optAcre: "একর",
-        optKatha: "কাঠা",
-        calcHpLbl: "২. পাম্পের ক্ষমতা (HP)",
-        calcFuelLbl: "৩. জ্বালানি / বিদ্যুৎ",
-        optDiesel: "⛽ ডিজেল শ্যালো পাম্প",
-        optElectric: "⚡ বিদ্যুৎচালিত মোটর",
-        calcCropLbl: "৪. ফসল বাছাই",
-        optCropRice: "বোরো ধান (প্রচুর পানি)",
-        optCropCorn: "ভুট্টা ক্ষেত (মাঝারি পানি)",
-        optCropSorghum: "দানা জোয়ার (কম পানি)",
-        optCropMillet: "বাজরা (খুবই কম পানি)",
-        optCropPulses: "ছোলা ও ডাল (কম পানি)",
-        calcWeatherLbl: "৫. রোদের অবস্থা",
-        optWeatherMild: "মেঘলা আকাশ / শীতল",
-        optWeatherNormal: "স্বাভাবিক রোদ",
-        optWeatherHot: "প্রচণ্ড তাপদাহ (>৩৫°C)",
-        resRuntimeLbl: "⏱️ পাম্প চালানোর সময়:",
-        resCostLbl: "💰 আনুমানিক খরচ:",
-        resTotalWaterLbl: "মোট পানির পরিমাণ:",
-        resBreakdownLbl: "জ্বালানি / পাওয়ার খরচ:",
-        resBestTimeLbl: "পানি দেওয়ার সেরা সময়:",
-        resBestTimeVal: "রাত ৩:৩০ – ভোর ৬:০০ (পানি বাঁচে)",
-        btnReadPump: "এই হিসাব মুখে শুনুন",
-        schedBadge: "৭ দিনের সেচ দিনপঞ্জি",
-        schedHeading: "কখন কখন পাম্প চালাবেন?",
-        btnPrint: "প্রিন্ট",
-        dashHeading: "খামারের মহাকাশ তথ্য ও সার্বিক হালচাল",
-        dashSub: "বিগত কয়েক মাসের ফসল সতেজতার গ্রাফ এবং করণীয় কাজের সহজ তালিকা।",
-        btnPdf: "রিপোর্ট ডাউনলোড / প্রিন্ট",
-        chartTitle: "গত ৬ মাসে ফসলের সবুজ সতেজতার তুলনামূলক চিত্র",
-        chartSub: "সনাতন ভুট্টা বনাম খরা-সহনশীল বাজরা শিফট",
-        chartLeg1: "বাজরা শিফট",
-        chartLeg2: "সনাতন ভুট্টা",
+        irrigHeading: "সেচ হিসাব, পাম্প চালানোর সময় ও তেলের খরচ ক্যালকুলেটর", irrigSub: "আপনার জমির বিঘা ও পাম্পের ক্ষমতা (HP) বসালেই ঠিক কত সময় পাম্প চালাতে হবে এবং ডিজেল বা বিদ্যুতে কত টাকা খরচ হবে তা সঙ্গে সঙ্গে সহজ ভাষায় পেয়ে যাবেন।",
+        alertUrgentTag: "জরুরি সতর্কবার্তা", alertUrgentTime: "আগামী ৭২ ঘণ্টার পূর্বাভাস", alertUrgentTitle: "পূর্ব উঁচু জমির ভুট্টা ক্ষেতে পানি সংকট!",
+        alertUrgentDesc: "ইকোস্ট্রেস স্যাটেলাইটে দেখা যাচ্ছে মাটিতে আর্দ্রতা মাত্র ১৪%। আজ রাত অথবা কাল ভোরে জমিতে হালকা সেচ দেওয়া অত্যন্ত জরুরি।", btnDismiss: "বুঝতে পেরেছি",
+        calcTitleBadge: "সহজ কৃষি ক্যালকুলেটর", calcHeading: "পাম্পের সময় ও তেলের খরচ হিসাব", calcLandLbl: "১. আপনার জমির পরিমাণ", unitBighaShort: "বিঘা", optBigha: "বিঘা", optAcre: "একর", optKatha: "কাঠা",
+        calcHpLbl: "২. পাম্পের ক্ষমতা (HP)", calcFuelLbl: "৩. জ্বালানি / বিদ্যুৎ", optDiesel: "⛽ ডিজেল শ্যালো পাম্প", optElectric: "⚡ বিদ্যুৎচালিত মোটর",
+        calcCropLbl: "৪. ফসল বাছাই", optCropRice: "বোরো ধান (প্রচুর পানি)", optCropCorn: "ভুট্টা ক্ষেত (মাঝারি পানি)", optCropSorghum: "দানা জোয়ার (কম পানি)", optCropMillet: "বাজরা (খুবই কম পানি)", optCropPulses: "ছোলা ও ডাল (কম পানি)",
+        calcWeatherLbl: "৫. রোদের অবস্থা", optWeatherMild: "মেঘলা আকাশ / শীতল", optWeatherNormal: "স্বাভাবিক রোদ", optWeatherHot: "প্রচণ্ড তাপদাহ (>৩৫°C)",
+        resRuntimeLbl: "⏱️ পাম্প চালানোর সময়:", resCostLbl: "💰 আনুমানিক খরচ:", resTotalWaterLbl: "মোট পানির পরিমাণ:", resBreakdownLbl: "জ্বালানি / পাওয়ার খরচ:", resBestTimeLbl: "পানি দেওয়ার সেরা সময়:", resBestTimeVal: "রাত ৩:৩০ – ভোর ৬:০০ (পানি বাঁচে)",
+        btnReadPump: "এই হিসাব মুখে শুনুন", schedBadge: "৭ দিনের সেচ দিনপঞ্জি", schedHeading: "কখন কখন পাম্প চালাবেন?", btnPrint: "প্রিন্ট",
+        dashHeading: "খামারের মহাকাশ তথ্য ও সার্বিক হালচাল", dashSub: "বিগত কয়েক মাসের ফসল সতেজতার গ্রাফ এবং করণীয় কাজের সহজ তালিকা।", btnPdf: "রিপোর্ট ডাউনলোড / প্রিন্ট",
+        chartTitle: "গত ৬ মাসে ফসলের সবুজ সতেজতার তুলনামূলক চিত্র", chartSub: "সনাতন ভুট্টা বনাম খরা-সহনশীল বাজরা শিফট", chartLeg1: "বাজরা শিফট", chartLeg2: "সনাতন ভুট্টা",
         chartProof: "স্যাটেলাইট প্রমাণ: আগস্ট মাসের তীব্র তাপদাহে সাধারণ ভুট্টা শুকিয়ে গেলেও নতুন রোপণ করা বাজরা ক্ষেত শতকরা ৪২ ভাগ কম পানিতেও ভরপুর সবুজ সতেজ ছিল।",
-        resHeading: "নাসা উন্মুক্ত বিজ্ঞান ভান্ডার ও কৃষক নির্দেশিকা",
-        resSub: "নাসার সকল উপগ্রহ তথ্য জনসাধারণের জন্য সম্পূর্ণ বিনামূল্যে উন্মুক্ত। এখান থেকে প্রয়োজনীয় গাইড ও কৃষিতত্ত্ব বই দেখে নিন।",
-        smapCardTitle: "NASA SMAP স্যাটেলাইট",
-        smapCardDesc: "মাটির ১০০ সেমি গভীরে উদ্ভিদের মূলের পানির পরিমাণ পরিমাপকারী গ্লোবাল মাইক্রোওয়েভ রেডিওমিটার।",
-        btnVisitSmap: "নাসা SMAP ওয়েবসাইট",
-        landsatCardTitle: "Landsat 8 ও 9 (NDVI)",
-        landsatCardDesc: "৩০-মিটার রেজোলিউশনের রঙিন ছবি যা ফসলের পাতার ঘনত্ব ও স্বাস্থ্য সূচক প্রদর্শন করে।",
-        btnVisitLandsat: "ল্যান্ডস্যাট পোর্টাল",
-        ecostressCardTitle: "ECOSTRESS থার্মাল",
-        ecostressCardDesc: "মহাকাশ স্টেশন থেকে থার্মাল ইনফ্রারেড পরিমাপে গাছের পানিশূন্যতা ও বাষ্পীভবন পর্যবেক্ষণ করে।",
-        btnVisitEcostress: "ইকোস্ট্রেস পোর্টাল",
-        helpTitle: "কৃষি সহায়তায় সরকারি জরুরি হটলাইন",
-        helpSub: "যেকোনো ফসল বা পোকামাকড়ের সমস্যায় কৃষি কর্মকর্তার পরামর্শ নিন: ১৬১২৩",
-        btnCall: "সরাসরি কল করুন (১৬১২৩)",
-        voiceAssistantTitle: "এগ্রো-বাণী (সহজ ভয়েস বন্ধু)",
-        micReady: "শুনতে প্রস্তুত... মাইকে চাপুন",
-        micListening: "শুনছি... আপনার প্রশ্নটি মুখে বলুন",
-        micHint: "কথা বলতে উপরের গোল বোতামে চাপুন",
-        yourSpeechLbl: "আপনার কথা:",
-        spokenPlaceholder: '"মাইকে চাপ দিয়ে মুখে প্রশ্ন করুন..."',
-        aiReplyLbl: "স্যাটেলাইট থেকে সহজ সমাধান:",
-        btnReplay: "আবার শুনুন",
-        btnStop: "থামুন",
-        inputPlaceholder: "বাতাস বেশি থাকলে এখানে লিখে প্রশ্ন করুন...",
-        quickAskTitle: "এক চাপে জানতে নিচের প্রশ্নে চাপুন:",
+        resHeading: "নাসা উন্মুক্ত বিজ্ঞান ভান্ডার ও কৃষক নির্দেশিকা", resSub: "নাসার সকল উপগ্রহ তথ্য জনসাধারণের জন্য সম্পূর্ণ বিনামূল্যে উন্মুক্ত। এখান থেকে প্রয়োজনীয় গাইড ও কৃষিতত্ত্ব বই দেখে নিন।",
+        smapCardTitle: "NASA SMAP স্যাটেলাইট", smapCardDesc: "মাটির ১০০ সেমি গভীরে উদ্ভিদের মূলের পানির পরিমাণ পরিমাপকারী গ্লোবাল মাইক্রোওয়েভ রেডিওমিটার।", btnVisitSmap: "নাসা SMAP ওয়েবসাইট",
+        landsatCardTitle: "Landsat 8 ও 9 (NDVI)", landsatCardDesc: "৩০-মিটার রেজোলিউশনের রঙিন ছবি যা ফসলের পাতার ঘনত্ব ও স্বাস্থ্য সূচক প্রদর্শন করে।", btnVisitLandsat: "ল্যান্ডস্যাট পোর্টাল",
+        ecostressCardTitle: "ECOSTRESS থার্মাল", ecostressCardDesc: "মহাকাশ স্টেশন থেকে থার্মাল ইনফ্রারেড পরিমাপে গাছের পানিশূন্যতা ও বাষ্পীভবন পর্যবেক্ষণ করে।", btnVisitEcostress: "ইকোস্ট্রেস পোর্টাল",
+        helpTitle: "কৃষি সহায়তায় সরকারি জরুরি হটলাইন", helpSub: "যেকোনো ফসল বা পোকামাকড়ের সমস্যায় কৃষি কর্মকর্তার পরামর্শ নিন: ১৬১২৩", btnCall: "সরাসরি কল করুন (১৬১২৩)",
+        voiceAssistantTitle: "এগ্রো-বাণী (সহজ ভয়েস বন্ধু)", micReady: "শুনতে প্রস্তুত... মাইকে চাপুন", micListening: "শুনছি... আপনার প্রশ্নটি মুখে বলুন", micHint: "কথা বলতে উপরের গোল বোতামে চাপুন",
+        yourSpeechLbl: "আপনার কথা:", spokenPlaceholder: '"মাইকে চাপ দিয়ে মুখে প্রশ্ন করুন..."', aiReplyLbl: "স্যাটেলাইট থেকে সহজ সমাধান:", btnReplay: "আবার শুনুন", btnStop: "থামুন",
+        inputPlaceholder: "বাতাস বেশি থাকলে এখানে লিখে প্রশ্ন করুন...", quickAskTitle: "এক চাপে জানতে নিচের প্রশ্নে চাপুন:",
         footerDesc: "নাসা আর্থ সায়েন্স উপগ্রহের মুক্ত ডাটা ব্যবহার করে দেশের কৃষক ভাইদের জন্য খরা মোকাবেলা, তেলের খরচ কমানো ও নিরাপদ কৃষির উন্মুক্ত প্রযুক্তি।",
-        footerNavTitle: "নেভিগেশন",
-        missionTitle: "মিশন তথ্য",
-        helplineFooter: "কৃষি কল সেন্টার: ১৬১২৩",
+        footerNavTitle: "নেভিগেশন", missionTitle: "মিশন তথ্য", helplineFooter: "কৃষি কল সেন্টার: ১৬১২৩",
         months: ["জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর"],
         assistantGreeting: "নমস্কার কৃষক ভাই! আমি এগ্রো-বাণী। আপনি মুখে যেকোনো প্রশ্ন করতে পারেন — যেমন: 'মাটিতে কি রস আছে?', 'খরায় কোন ফসল লাগাব?', বা 'পাম্প কতক্ষণ চালাতে হবে?'।"
       },
       en: {
         topMission: "NASA Space Apps 2026:",
         topDesc: "Farmer's Digital Ally — Satellite intelligence for resilient, low-cost agriculture",
-        topWind: "Field Breeze",
-        topLiveRadar: "SMAP + GPM Live",
-        navSub: "Farmer's Digital Agricultural Companion",
-        navHome: "Home",
-        navMap: "Satellite Map",
-        navCrops: "Crop Shift",
-        navIrrig: "Pump & Irrigation",
-        navDash: "Farm Health",
-        navRes: "NASA Guides",
-        navVoice: "Speak Now",
+        topWind: "Field Breeze", topLiveRadar: "SMAP + GPM Live",
+        navSub: "Farmer's Digital Agricultural Companion", navHome: "Home", navMap: "Satellite Map", navCrops: "Crop Shift",
+        navIrrig: "Pump & Irrigation", navDash: "Farm Health", navRes: "NASA Guides", navVoice: "Speak Now",
         heroBadge: "Direct NASA Satellite Intelligence",
         heroTitle: "Know Your Field Easily — What to Plant, When to Water!",
         heroSub: "Extreme heat or flash drought won't harm your harvest. Using NASA subsoil moisture and thermal telemetry, AgroBani gives you instant voice-guided farm solutions in simple conversational language.",
-        heroBtnVoice: "Speak Now (AgroBani)",
-        heroBtnMap: "Satellite Map",
-        heroBtnCrops: "Explore Crops",
-        stat1Lbl: "Hectares Guarded",
-        stat1Val: "1,850+ Ha",
-        stat2Lbl: "Water Conserved",
-        stat2Val: "38.5%",
-        stat3Lbl: "Farmer Cost",
-        stat3Val: "100% Free",
-        heroCapTitle: "How Deep Is the Soil Moisture?",
-        heroCapSub: "NASA SMAP measures root-zone water content down to 100cm depth.",
-        gpmHeaderBadge: "NASA GPM Satellite Radar",
-        gpmHeading: "3-Day Rainfall Forecast & Irrigation Advice",
-        gpmRadarTag: "Radar Active Live",
-        pillar1Badge: "Soil Moisture",
-        pillar1Title: "How Much Water Is in the Soil?",
-        pillar1Desc: "NASA SMAP warns you when subsoil moisture drops, preventing crop wilting days before visual damage occurs.",
-        pillar1Action: "Inspect Field Soil",
-        pillar2Badge: "Low-Water Crops",
-        pillar2Title: "What to Plant in Low Rainfall?",
-        pillar2Desc: "Shift thirsty paddy to Pearl Millet, Sorghum, or Pulses. High profit with half the water requirement.",
-        pillar2Action: "Choose Profitable Crops",
-        pillar3Badge: "Fuel & Pump Calc",
-        pillar3Title: "When to Water to Save Money?",
-        pillar3Desc: "Midday sun evaporates 40% of applied water. Water between 3:30 AM and 6:00 AM to keep moisture at the roots and slash fuel costs.",
-        pillar3Action: "Calculate Pump Cost",
-        explorerHeading: "Satellite Parcel Soil & Vegetation Map",
-        explorerSub: "Tap any parcel to view sub-surface moisture, plant health, and irrigation instructions.",
-        layerSmap: "Soil Moisture (SMAP)",
-        layerNdvi: "Plant Health (NDVI)",
-        layerEcostress: "Thermal Heat (ECOSTRESS)",
-        layerGpm: "Rainfall Radar (GPM)",
-        orbitPass: "Pass #41209",
-        svgRiver: "Main Irrigation River & Canal",
-        timeScrubber: "Past 7-Day Timeline:",
-        specSmap: "Subsoil Moisture at 100cm",
-        specLandsat: "Canopy Greenness & Health",
-        specEcostress: "Evapotranspiration Stress",
-        specGpm: "Precipitation & Rain Radar",
-        diagSelected: "Selected Parcel",
-        diagMoistLbl: "Root-Zone Soil Moisture",
-        diagNdviLbl: "Canopy Vigour (NDVI)",
-        diagHeatLbl: "Evaporative Heat Pressure",
-        diagAdviceTitle: "Action Recommendation for Farmers",
-        btnTestCrops: "Test Crops",
-        btnPlanIrrigation: "Calculate Pump Cost",
-        btnReadAdvice: "Listen to Advice",
-        cropsHeading: "High-Yield Drought-Resilient Alternative Crops",
-        cropsSub: "When facing low rain or falling water tables, avoid burning expensive diesel on paddy or corn. Cultivate millet, sorghum, or pulses for secure yields.",
-        compBadge: "At a Glance",
-        compHeading: "Traditional Crops vs NASA Climate-Smart Shifts",
-        compWaterSavedTag: "💧 Water Conserved & Financial Metrics",
-        paramTitle: "Field Parameters & Hazards",
-        paramWeatherLbl: "Weather Hazard",
-        optDrought: "Severe Drought / Low Rainfall",
-        optGroundwater: "Depleting Groundwater Table",
-        optHeat: "Intense Heatwave (>38°C)",
-        paramSoilLbl: "Soil Texture",
-        optSandyLoam: "Sandy Loam Soil",
-        optClay: "Clay Soil",
-        optAlluvial: "Alluvial Riverbank Soil",
-        paramGoalLbl: "Primary Objective",
-        goalWater: "Save Water",
-        goalProfit: "Maximize Profit",
-        nasaRefTitle: "NASA Reference",
-        nasaRefDesc: "Calibrated with NASA POWER solar irradiance and Landsat NDVI growth curves.",
+        heroBtnVoice: "Speak Now (AgroBani)", heroBtnMap: "Satellite Map", heroBtnCrops: "Explore Crops",
+        stat1Lbl: "Hectares Guarded", stat1Val: "1,850+ Ha", stat2Lbl: "Water Conserved", stat2Val: "38.5%", stat3Lbl: "Farmer Cost", stat3Val: "100% Free",
+        heroCapTitle: "How Deep Is the Soil Moisture?", heroCapSub: "NASA SMAP measures root-zone water content down to 100cm depth.",
+        gpmHeaderBadge: "NASA GPM Satellite Radar", gpmHeading: "3-Day Rainfall Forecast & Irrigation Advice", gpmRadarTag: "Radar Active Live",
+        pillar1Badge: "Soil Moisture", pillar1Title: "How Much Water Is in the Soil?", pillar1Desc: "NASA SMAP warns you when subsoil moisture drops, preventing crop wilting days before visual damage occurs.", pillar1Action: "Inspect Field Soil",
+        pillar2Badge: "Low-Water Crops", pillar2Title: "What to Plant in Low Rainfall?", pillar2Desc: "Shift thirsty paddy to Pearl Millet, Sorghum, or Pulses. High profit with half the water requirement.", pillar2Action: "Choose Profitable Crops",
+        pillar3Badge: "Fuel & Pump Calc", pillar3Title: "When to Water to Save Money?", pillar3Desc: "Midday sun evaporates 40% of applied water. Water between 3:30 AM and 6:00 AM to keep moisture at the roots and slash fuel costs.", pillar3Action: "Calculate Pump Cost",
+        explorerHeading: "Satellite Parcel Soil & Vegetation Map", explorerSub: "Tap any parcel to view sub-surface moisture, plant health, and irrigation instructions.",
+        layerSmap: "Soil Moisture (SMAP)", layerNdvi: "Plant Health (NDVI)", layerEcostress: "Thermal Heat (ECOSTRESS)", layerGpm: "Rainfall Radar (GPM)",
+        orbitPass: "Pass #41209", svgRiver: "Main Irrigation River & Canal", timeScrubber: "Past 7-Day Timeline:",
+        specSmap: "Subsoil Moisture at 100cm", specLandsat: "Canopy Greenness & Health", specEcostress: "Evapotranspiration Stress", specGpm: "Precipitation & Rain Radar",
+        diagSelected: "Selected Parcel", diagMoistLbl: "Root-Zone Soil Moisture", diagNdviLbl: "Canopy Vigour (NDVI)", diagHeatLbl: "Evaporative Heat Pressure", diagAdviceTitle: "Action Recommendation for Farmers",
+        btnTestCrops: "Test Crops", btnPlanIrrigation: "Calculate Pump Cost", btnReadAdvice: "Listen to Advice",
+        cropsHeading: "High-Yield Drought-Resilient Alternative Crops", cropsSub: "When facing low rain or falling water tables, avoid burning expensive diesel on paddy or corn. Cultivate millet, sorghum, or pulses for secure yields.",
+        compBadge: "At a Glance", compHeading: "Traditional Crops vs NASA Climate-Smart Shifts", compWaterSavedTag: "💧 Water Conserved & Financial Metrics",
+        paramTitle: "Field Parameters & Hazards", paramWeatherLbl: "Weather Hazard", optDrought: "Severe Drought / Low Rainfall", optGroundwater: "Depleting Groundwater Table", optHeat: "Intense Heatwave (>38°C)",
+        paramSoilLbl: "Soil Texture", optSandyLoam: "Sandy Loam Soil", optClay: "Clay Soil", optAlluvial: "Alluvial Riverbank Soil",
+        paramGoalLbl: "Primary Objective", goalWater: "Save Water", goalProfit: "Maximize Profit",
+        nasaRefTitle: "NASA Reference", nasaRefDesc: "Calibrated with NASA POWER solar irradiance and Landsat NDVI growth curves.",
         cropSortBadge: "Sorted by Resilience",
-        irrigHeading: "Precision Irrigation & Pump Fuel Cost Calculator",
-        irrigSub: "Enter your field size and pump horsepower to instantly calculate exact runtime and estimated diesel or electricity expenses.",
-        alertUrgentTag: "Urgent Warning",
-        alertUrgentTime: "Next 72-Hour Outlook",
-        alertUrgentTitle: "Water Deficit on East Ridge Cornfield!",
-        alertUrgentDesc: "ECOSTRESS thermal data indicates moisture is down to 14%. Apply light night-time irrigation tonight or early morning.",
-        btnDismiss: "Understood",
-        calcTitleBadge: "Field Cost Calculator",
-        calcHeading: "Pump Runtime & Fuel/Power Cost",
-        calcLandLbl: "1. Land Area",
-        unitBighaShort: "Bigha",
-        optBigha: "Bigha",
-        optAcre: "Acre",
-        optKatha: "Katha",
-        calcHpLbl: "2. Pump Capacity (HP)",
-        calcFuelLbl: "3. Power Source",
-        optDiesel: "⛽ Diesel Shallow Pump",
-        optElectric: "⚡ Electric Motor",
-        calcCropLbl: "4. Target Crop",
-        optCropRice: "Boro Paddy (Heavy Water)",
-        optCropCorn: "Corn / Maize (Moderate)",
-        optCropSorghum: "Grain Sorghum (Low Water)",
-        optCropMillet: "Pearl Millet (Very Low)",
-        optCropPulses: "Chickpea & Pulses (Low)",
-        calcWeatherLbl: "5. Solar & Heat Condition",
-        optWeatherMild: "Overcast / Cool",
-        optWeatherNormal: "Normal Sunlight",
-        optWeatherHot: "Extreme Heatwave (>35°C)",
-        resRuntimeLbl: "⏱️ Required Pump Runtime:",
-        resCostLbl: "💰 Estimated Cost:",
-        resTotalWaterLbl: "Total Water Needed:",
-        resBreakdownLbl: "Fuel / Electricity Breakdown:",
-        resBestTimeLbl: "Optimal Watering Window:",
-        resBestTimeVal: "3:30 AM – 6:00 AM (Min Evaporation)",
-        btnReadPump: "Listen to Calculation",
-        schedBadge: "7-Day Irrigation Schedule",
-        schedHeading: "When Should You Water?",
-        btnPrint: "Print",
-        dashHeading: "Farm Space Telemetry & Health Overview",
-        dashSub: "Multi-month vegetative health curves and operational farm checklists.",
-        btnPdf: "Download Report / Print",
-        chartTitle: "6-Month Canopy Greenness Comparison Curve",
-        chartSub: "Traditional Corn vs Climate-Smart Millet Shift",
-        chartLeg1: "Millet Shift",
-        chartLeg2: "Traditional Corn",
+        irrigHeading: "Precision Irrigation & Pump Fuel Cost Calculator", irrigSub: "Enter your field size and pump horsepower to instantly calculate exact runtime and estimated diesel or electricity expenses.",
+        alertUrgentTag: "Urgent Warning", alertUrgentTime: "Next 72-Hour Outlook", alertUrgentTitle: "Water Deficit on East Ridge Cornfield!",
+        alertUrgentDesc: "ECOSTRESS thermal data indicates moisture is down to 14%. Apply light night-time irrigation tonight or early morning.", btnDismiss: "Understood",
+        calcTitleBadge: "Field Cost Calculator", calcHeading: "Pump Runtime & Fuel/Power Cost", calcLandLbl: "1. Land Area", unitBighaShort: "Bigha", optBigha: "Bigha", optAcre: "Acre", optKatha: "Katha",
+        calcHpLbl: "2. Pump Capacity (HP)", calcFuelLbl: "3. Power Source", optDiesel: "⛽ Diesel Shallow Pump", optElectric: "⚡ Electric Motor",
+        calcCropLbl: "4. Target Crop", optCropRice: "Boro Paddy (Heavy Water)", optCropCorn: "Corn / Maize (Moderate)", optCropSorghum: "Grain Sorghum (Low Water)", optCropMillet: "Pearl Millet (Very Low)", optCropPulses: "Chickpea & Pulses (Low)",
+        calcWeatherLbl: "5. Solar & Heat Condition", optWeatherMild: "Overcast / Cool", optWeatherNormal: "Normal Sunlight", optWeatherHot: "Extreme Heatwave (>35°C)",
+        resRuntimeLbl: "⏱️ Required Pump Runtime:", resCostLbl: "💰 Estimated Cost:", resTotalWaterLbl: "Total Water Needed:", resBreakdownLbl: "Fuel / Electricity Breakdown:", resBestTimeLbl: "Optimal Watering Window:", resBestTimeVal: "3:30 AM – 6:00 AM (Min Evaporation)",
+        btnReadPump: "Listen to Calculation", schedBadge: "7-Day Irrigation Schedule", schedHeading: "When Should You Water?", btnPrint: "Print",
+        dashHeading: "Farm Space Telemetry & Health Overview", dashSub: "Multi-month vegetative health curves and operational farm checklists.", btnPdf: "Download Report / Print",
+        chartTitle: "6-Month Canopy Greenness Comparison Curve", chartSub: "Traditional Corn vs Climate-Smart Millet Shift", chartLeg1: "Millet Shift", chartLeg2: "Traditional Corn",
         chartProof: "Satellite Evidence: During August peak heatwaves, traditional corn wilted while newly adapted millet retained vibrant health with 42% less water.",
-        resHeading: "NASA Open Science Data & Agronomy Guides",
-        resSub: "Free, unrestricted access to NASA SMAP, Landsat, ECOSTRESS, and GPM mission archives.",
-        smapCardTitle: "NASA SMAP Satellite",
-        smapCardDesc: "Global microwave radiometer measuring root-zone soil moisture at 100cm depth.",
-        btnVisitSmap: "Visit NASA SMAP Portal",
-        landsatCardTitle: "Landsat 8 & 9 (NDVI)",
-        landsatCardDesc: "30-meter optical imagery depicting chlorophyll density and plant vigour.",
-        btnVisitLandsat: "Visit Landsat Portal",
-        ecostressCardTitle: "ECOSTRESS Thermal",
-        ecostressCardDesc: "Thermal infrared measurements from the ISS tracking plant water stress and transpiration.",
-        btnVisitEcostress: "Visit ECOSTRESS Portal",
-        helpTitle: "Government Agricultural Emergency Helpline",
-        helpSub: "For expert advice on pests, diseases, or crop failure call: 16123",
-        btnCall: "Call Helpline (16123)",
-        voiceAssistantTitle: "AgroBani (Farmer's Voice Companion)",
-        micReady: "Ready to listen... Tap microphone",
-        micListening: "Listening... Speak your query clearly",
-        micHint: "Tap the circular button to speak",
-        yourSpeechLbl: "Your Speech:",
-        spokenPlaceholder: '"Tap mic and speak your question..."',
-        aiReplyLbl: "Satellite Answer:",
-        btnReplay: "Listen Again",
-        btnStop: "Stop",
-        inputPlaceholder: "If windy, type your question here...",
-        quickAskTitle: "Tap for Quick Answers:",
+        resHeading: "NASA Open Science Data & Agronomy Guides", resSub: "Free, unrestricted access to NASA SMAP, Landsat, ECOSTRESS, and GPM mission archives.",
+        smapCardTitle: "NASA SMAP Satellite", smapCardDesc: "Global microwave radiometer measuring root-zone soil moisture at 100cm depth.", btnVisitSmap: "Visit NASA SMAP Portal",
+        landsatCardTitle: "Landsat 8 & 9 (NDVI)", landsatCardDesc: "30-meter optical imagery depicting chlorophyll density and plant vigour.", btnVisitLandsat: "Visit Landsat Portal",
+        ecostressCardTitle: "ECOSTRESS Thermal", ecostressCardDesc: "Thermal infrared measurements from the ISS tracking plant water stress and transpiration.", btnVisitEcostress: "Visit ECOSTRESS Portal",
+        helpTitle: "Government Agricultural Emergency Helpline", helpSub: "For expert advice on pests, diseases, or crop failure call: 16123", btnCall: "Call Helpline (16123)",
+        voiceAssistantTitle: "AgroBani (Farmer's Voice Companion)", micReady: "Ready to listen... Tap microphone", micListening: "Listening... Speak your query clearly", micHint: "Tap the circular button to speak",
+        yourSpeechLbl: "Your Speech:", spokenPlaceholder: '"Tap mic and speak your question..."', aiReplyLbl: "Satellite Answer:", btnReplay: "Listen Again", btnStop: "Stop",
+        inputPlaceholder: "If windy, type your question here...", quickAskTitle: "Tap for Quick Answers:",
         footerDesc: "Empowering rural farmers with NASA Earth science observation assets to combat drought, reduce fuel costs, and ensure sustainable food security.",
-        footerNavTitle: "Navigation",
-        missionTitle: "Mission Details",
-        helplineFooter: "Agri Call Center: 16123",
+        footerNavTitle: "Navigation", missionTitle: "Mission Details", helplineFooter: "Agri Call Center: 16123",
         months: ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov"],
         assistantGreeting: "Hello! I am AgroBani. Ask me anything about your field — e.g. 'Is there moisture in the soil?', 'What crop to plant in drought?', or 'How long to run the pump?'."
       }
@@ -1873,26 +1605,18 @@
 
     function applyTranslations() {
       const dict = t[currentLang];
-
-      // Update text nodes
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict[key]) el.textContent = dict[key];
       });
-
-      // Update placeholders
       document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         if (dict[key]) el.placeholder = dict[key];
       });
-
-      // Update months in chart
       dict.months.forEach((m, idx) => {
         const el = document.getElementById('m' + (idx + 1));
         if (el) el.textContent = m;
       });
-
-      // Re-render dynamic modules
       renderRainForecast();
       renderCropComparison();
       renderCropCards();
@@ -1902,14 +1626,10 @@
       updateInspectorView(currentSelectedParcel);
       setMapLayer(activeMapLayer);
       runPumpCostCalculation();
-
-      // Reset AI Greeting
       document.getElementById('aiResponseOutput').textContent = dict.assistantGreeting;
     }
 
-    /* =========================================================================
-       3. DARK / LIGHT THEME
-       ========================================================================= */
+    /* 3. DARK / LIGHT THEME */
     function toggleDarkMode() {
       const html = document.documentElement;
       const icon = document.getElementById('themeIcon');
@@ -1922,9 +1642,7 @@
       }
     }
 
-    /* =========================================================================
-       4. SATELLITE MAP ENGINE & PARCELS (STRICTLY BILINGUAL)
-       ========================================================================= */
+    /* 4. SATELLITE MAP ENGINE & PARCELS */
     const parcelsData = {
       'parcel-1': {
         name: { bn: '১ নম্বর জমি: উত্তর বাগান', en: 'Parcel 1: North Orchard' },
@@ -2000,12 +1718,10 @@
     function setMapLayer(layer) {
       activeMapLayer = layer;
       document.querySelectorAll('.layer-pill').forEach(btn => {
-        btn.className = 'layer-pill px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target';
+        btn.className = 'layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-earth-200 dark:hover:bg-earth-700 transition touch-target text-center';
       });
       const activeBtn = document.getElementById('layer-btn-' + layer);
-      if (activeBtn) {
-        activeBtn.className = 'layer-pill px-3.5 py-2.5 rounded-xl text-xs font-black bg-leaf-600 text-white shadow-sm transition touch-target';
-      }
+      if (activeBtn) activeBtn.className = 'layer-pill flex-1 sm:flex-initial px-3 sm:px-3.5 py-2.5 rounded-xl text-xs font-black bg-leaf-600 text-white shadow-sm transition touch-target text-center';
 
       const layerTitle = document.getElementById('activeLayerIndicator');
       const legendTitle = document.getElementById('mapLegendTitle');
@@ -2013,35 +1729,32 @@
       const isBn = currentLang === 'bn';
 
       if (layer === 'smap') {
-        layerTitle.textContent = isBn ? "নাসা SMAP স্যাটেলাইট: মাটির ১০০ সেমি গভীরে রস পরীক্ষা" : "NASA SMAP Satellite: Root-Zone Moisture (100cm)";
+        layerTitle.textContent = isBn ? "নাসা SMAP: মাটির ১০০ সেমি গভীরে রস" : "NASA SMAP: Root-Zone Moisture (100cm)";
         legendTitle.textContent = isBn ? "মাটির রস নির্দেশক স্কেল" : "Soil Moisture Scale";
-        legendLabels.innerHTML = isBn ? '<span>🔴 শুকনো (<১৫%)</span><span>🟡 মাঝারি (২৫%)</span><span>🟢 ভরপুর (>৩৫%)</span>' : '<span>🔴 Dry (<15%)</span><span>🟡 Moderate (25%)</span><span>🟢 Optimal (>35%)</span>';
+        legendLabels.innerHTML = isBn ? '<span>🔴 শুকনো (<১৫%)</span><span>🟡 মাঝারি (২৫%)</span><span>🟢 ভরপুর (>৩৫%)</span>' : '<span>🔴 Dry (<15%)</span><span>🟡 Moderate</span><span>🟢 Optimal (>35%)</span>';
       } else if (layer === 'ndvi') {
-        layerTitle.textContent = isBn ? "Landsat 8/9 স্যাটেলাইট: গাছের সবুজ সতেজতা ও বৃদ্ধি" : "Landsat 8/9: Canopy Greenness & Vigour (NDVI)";
+        layerTitle.textContent = isBn ? "Landsat 8/9: গাছের সবুজ সতেজতা (NDVI)" : "Landsat 8/9: Canopy Greenness (NDVI)";
         legendTitle.textContent = isBn ? "গাছের পাতার সবুজ ঘনত্ব (NDVI)" : "Canopy Greenness (NDVI)";
-        legendLabels.innerHTML = isBn ? '<span>🟡 হলদেটে (০.২)</span><span>🟢 স্বাভাবিক (০.৫)</span><span>🟢 গাঢ় সবুজ (০.৮৫)</span>' : '<span>🟡 Sparse (0.2)</span><span>🟢 Normal (0.5)</span><span>🟢 Dense (0.85)</span>';
+        legendLabels.innerHTML = isBn ? '<span>🟡 হলদেটে (০.২)</span><span>🟢 স্বাভাবিক (০.৫)</span><span>🟢 গাঢ় সবুজ (০.৮৫)</span>' : '<span>🟡 Sparse</span><span>🟢 Normal</span><span>🟢 Dense</span>';
       } else if (layer === 'ecostress') {
-        layerTitle.textContent = isBn ? "নাসা ECOSTRESS: কড়া রোদে গাছের তাপমাত্রা ও বাষ্প" : "NASA ECOSTRESS: Evapotranspiration Heat Stress";
+        layerTitle.textContent = isBn ? "নাসা ECOSTRESS: গাছের তাপমাত্রা ও বাষ্প" : "NASA ECOSTRESS: Heat & Evapotranspiration";
         legendTitle.textContent = isBn ? "গাছের তাপমাত্রা ও বাষ্পীভবন চাপ" : "Thermal Heat Stress";
-        legendLabels.innerHTML = isBn ? '<span>🟢 স্বাভাবিক</span><span>🟡 উষ্ণ</span><span>🔴 তীব্র তাপদাহ</span>' : '<span>🟢 Normal</span><span>🟡 Warm</span><span>🔴 Extreme Heat</span>';
+        legendLabels.innerHTML = isBn ? '<span>🟢 স্বাভাবিক</span><span>🟡 উষ্ণ</span><span>🔴 তীব্র তাপদাহ</span>' : '<span>🟢 Normal</span><span>🟡 Warm</span><span>🔴 High Heat</span>';
       } else if (layer === 'gpm') {
-        layerTitle.textContent = isBn ? "নাসা GPM রেইন রাডার: মেঘ ও বৃষ্টির পরিমাণ" : "NASA GPM Precipitation Radar: Cloud & Rain";
+        layerTitle.textContent = isBn ? "নাসা GPM রেইন রাডার: মেঘ ও বৃষ্টির পরিমাণ" : "NASA GPM Radar: Rain & Clouds";
         legendTitle.textContent = isBn ? "বৃষ্টির পানির পরিমাণ (মিমি)" : "Rainfall Depth (mm)";
-        legendLabels.innerHTML = isBn ? '<span>🔴 অনাবৃষ্টি (<১০ মিমি)</span><span>🟢 মাঝারি (৩০ মিমি)</span><span>🔵 ভারী বৃষ্টি (>৬০ মিমি)</span>' : '<span>🔴 Low (<10mm)</span><span>🟢 Moderate (30mm)</span><span>🔵 Heavy (>60mm)</span>';
+        legendLabels.innerHTML = isBn ? '<span>🔴 অনাবৃষ্টি (<১০ মিমি)</span><span>🟢 মাঝারি (৩০ মিমি)</span><span>🔵 ভারী বৃষ্টি (>৬০ মিমি)</span>' : '<span>🔴 Low</span><span>🟢 Moderate</span><span>🔵 Heavy</span>';
       }
-
       updateSvgParcels();
       updateInspectorView(currentSelectedParcel);
     }
 
     function updateSvgParcels() {
-      const isBn = currentLang === 'bn';
       Object.keys(parcelsData).forEach(id => {
         const poly = document.getElementById('poly-' + id);
         const textTitle = document.getElementById('svg-text-' + id.replace('parcel-', 'p'));
         const textSub = document.getElementById('svg-sub-' + id.replace('parcel-', 'p'));
         const p = parcelsData[id];
-
         if (poly) poly.setAttribute('fill', p.color);
         if (textTitle) textTitle.textContent = p.name[currentLang];
         if (textSub) textSub.textContent = p.crop[currentLang];
@@ -2067,7 +1780,6 @@
     function updateInspectorView(parcelId) {
       const data = parcelsData[parcelId];
       if (!data) return;
-
       document.getElementById('inspectorParcelName').textContent = data.name[currentLang];
       document.getElementById('inspectorMoistVal').textContent = data.smap[currentLang];
       document.getElementById('inspectorMoistBar').style.width = data.barMoist;
@@ -2076,10 +1788,9 @@
       document.getElementById('inspectorEtVal').textContent = data.ecostress[currentLang];
       document.getElementById('inspectorEtBar').style.width = data.barEt;
       document.getElementById('inspectorAdvice').textContent = data.advice[currentLang];
-
       const badge = document.getElementById('inspectorStatusBadge');
       badge.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${data.status[currentLang]}`;
-      badge.className = `px-3 py-1 rounded-full text-xs font-black border flex items-center gap-1 ${data.statusClass}`;
+      badge.className = `px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-black border flex items-center gap-1 ${data.statusClass}`;
     }
 
     function zoomMap(factor) {
@@ -2131,9 +1842,7 @@
       if (data) speakResponseText(data.advice[currentLang], currentLang === 'bn' ? 'bn-BD' : 'en-US');
     }
 
-    /* =========================================================================
-       5. 3-DAY RAIN FORECAST BADGE (DYNAMIC INJECTION)
-       ========================================================================= */
+    /* 5. 3-DAY RAIN FORECAST (NASA GPM RADAR) */
     const rainForecastData = [
       {
         day: { bn: "আজ (১ম দিন)", en: "Today (Day 1)" },
@@ -2164,7 +1873,7 @@
         badge: { bn: "ভারী বৃষ্টি সতর্কতা", en: "Heavy Rain Warning" },
         badgeClass: "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border-rose-300",
         icon: "🌧️",
-        title: { bn: "বৃষ্টির পূর্বাভাস", en: "Heavy Precipitation Coming" },
+        title: { bn: "বৃষ্টির পূর্বাভাস", en: "Heavy Rain Coming" },
         rain: { bn: "বৃষ্টি: ৩৫ - ৪৫ মিমি (সম্ভাবনা ৮৫%)", en: "Rain: 35 - 45 mm (85% prob.)" },
         advice: {
           bn: "সেচ একদম বন্ধ রাখুন! প্রাকৃতিক বৃষ্টিতে জমি ভিজবে, আপনার ডিজেল খরচ বাঁচবে।",
@@ -2196,16 +1905,14 @@
       `).join('');
     }
 
-    /* =========================================================================
-       6. CROP COMPARISON & FEED (STRICTLY BILINGUAL)
-       ========================================================================= */
+    /* 6. CROP COMPARISON & FEED */
     const cropComparisons = [
       {
         title: { bn: "ধান বনাম বাজরা", en: "Paddy vs Pearl Millet" },
         badge: { bn: "সেরা লাভজনক", en: "Top Resilient" },
         water: { bn: "৬০% পানি বাঁচে (মাত্র ২ বার সেচ)", en: "60% Water Saved (Only 2 Irrigations)" },
         cost: { bn: "বীজ ও সার: ৳ ৭৫০ (ধান: ৳ ৫,৫০০+)", en: "Seed & Fert: ৳ 750 (Paddy: ৳ 5,500+)" },
-        days: { bn: "ফসল ওঠার সময়: ৭৫ - ৮৫ দিন (ধান: ১৪০ দিন)", en: "Harvest: 75 - 85 Days (Paddy: 140 Days)" },
+        days: { bn: "ফসল তোলার সময়: ৭৫ - ৮৫ দিন (ধান: ১৪০ দিন)", en: "Harvest: 75 - 85 Days (Paddy: 140 Days)" },
         note: { bn: "✓ ধানে যেখানে ২০-২৫ বার সেচ লাগে, বাজরায় মাত্র ২ বারেই নিশ্চিত ফলন!", en: "✓ Paddy demands 20+ soakings; Millet yields reliably in just 2 light waterings!" }
       },
       {
@@ -2213,7 +1920,7 @@
         badge: { bn: "উঁচু জমির জন্য", en: "Ideal for High Land" },
         water: { bn: "৪৫% পানি বাঁচে", en: "45% Water Conserved" },
         cost: { bn: "বীজ ও সার: ৳ ৯৫০ (ভুট্টা: ৳ ৩,৮০০)", en: "Seed & Fert: ৳ 950 (Corn: ৳ 3,800)" },
-        days: { bn: "ফসল ওঠার সময়: ৯৫ - ১০৫ দিন", en: "Harvest: 95 - 105 Days" },
+        days: { bn: "ফসল তোলার সময়: ৯৫ - ১০৫ দিন", en: "Harvest: 95 - 105 Days" },
         note: { bn: "✓ ৩৮°C কড়া রোদেও গাছ মরে না, পাশাপাশি এর শুকনা খড় দামি পশুখাদ্য।", en: "✓ Thrives under 38°C heat; dry stalk also sells as high-value livestock fodder." }
       },
       {
@@ -2221,7 +1928,7 @@
         badge: { bn: "মাটি উর্বরকারী", en: "Soil Enriching" },
         water: { bn: "৭০% পানি বাঁচে", en: "70% Water Saved" },
         cost: { bn: "সার খরচ: ৫০% কম (ইউরিয়া লাগে না)", en: "Fertilizer: 50% Cheaper (Zero Urea)" },
-        days: { bn: "ফসল ওঠার সময়: ৬৫ - ৮০ দিন", en: "Harvest: 65 - 80 Days" },
+        days: { bn: "ফসল তোলার সময়: ৬৫ - ৮০ দিন", en: "Harvest: 65 - 80 Days" },
         note: { bn: "✓ ডালের মূল বাতাস থেকে নাইট্রোজেন টেনে জমিকে পরবর্তী ফসলের জন্য প্রস্তুত করে।", en: "✓ Root nodules fix atmospheric nitrogen, replenishing field fertility naturally." }
       }
     ];
@@ -2260,8 +1967,7 @@
         profit: { bn: "+৩৫% নিশ্চিত লাভ", en: "+35% Higher Margin" },
         feature: { bn: "বেলে দোআঁশ মাটিতে চমৎকার ফলন", en: "Flourishes in sandy loam soils" },
         query: { bn: "বাজরা চাষের সহজ নিয়ম বলুন", en: "Tell me how to cultivate pearl millet" },
-        hazard: "drought",
-        goal: "water"
+        hazard: "drought", goal: "water"
       },
       {
         id: "sorghum",
@@ -2277,8 +1983,7 @@
         profit: { bn: "উচ্চ বাজার দর", en: "High Market Demand" },
         feature: { bn: "কড়া রোদেও কোনো ক্ষতি হয় না", en: "Heat-resistant leaf canopy" },
         query: { bn: "জোয়ার চাষের নিয়ম ও লাভ বলুন", en: "Tell me how to grow grain sorghum" },
-        hazard: "heat",
-        goal: "profit"
+        hazard: "heat", goal: "profit"
       },
       {
         id: "pulses",
@@ -2294,8 +1999,7 @@
         profit: { bn: "৫০% সার খরচ সাশ্রয়", en: "50% Fertilizer Saved" },
         feature: { bn: "পরবর্তী ফসলের জন্যও জমি উর্বর থাকে", en: "Restores soil fertility for next crop" },
         query: { bn: "ডাল চাষের সুবিধা ও খরচ বলুন", en: "What are the benefits of pulses?" },
-        hazard: "groundwater",
-        goal: "profit"
+        hazard: "groundwater", goal: "profit"
       }
     ];
 
@@ -2304,31 +2008,31 @@
       if (!container) return;
       const isBn = currentLang === 'bn';
       container.innerHTML = cropCardsData.map(c => `
-        <div class="crop-item-card bg-white dark:bg-earth-900 p-5 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-leaf-500 transition space-y-4" data-hazard="${c.hazard}" data-goal="${c.goal}">
+        <div class="crop-item-card bg-white dark:bg-earth-900 p-4 sm:p-5 rounded-3xl border-2 border-earth-200 dark:border-earth-700 shadow-sm hover:border-leaf-500 transition space-y-4" data-hazard="${c.hazard}" data-goal="${c.goal}">
           <div class="flex flex-col sm:flex-row gap-4">
             <img src="${c.img}" alt="${c.title[currentLang]}" class="w-full sm:w-44 h-36 object-cover rounded-2xl shrink-0" />
             <div class="space-y-1.5 flex-1">
               <div class="flex flex-wrap items-center justify-between gap-1">
-                <h3 class="text-lg font-black text-slate-900 dark:text-white">${c.title[currentLang]}</h3>
-                <span class="px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300">${c.badge[currentLang]}</span>
+                <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">${c.title[currentLang]}</h3>
+                <span class="px-2.5 sm:px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300">${c.badge[currentLang]}</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">${c.desc[currentLang]}</p>
-              <div class="grid grid-cols-3 gap-2 pt-2 text-[11px] font-bold">
-                <div class="p-2.5 rounded-xl bg-earth-50 dark:bg-earth-800 text-slate-700 dark:text-slate-300">
-                  <span class="text-slate-400 block text-[10px]">${isBn ? 'ফসল ওঠার সময়:' : 'Harvest Time:'}</span> ${c.time[currentLang]}
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 text-[11px] font-bold">
+                <div class="p-2 sm:p-2.5 rounded-xl bg-earth-50 dark:bg-earth-800 text-slate-700 dark:text-slate-300">
+                  <span class="text-slate-400 block text-[10px]">${isBn ? 'ফসল তোলার সময়:' : 'Harvest Time:'}</span> ${c.time[currentLang]}
                 </div>
-                <div class="p-2.5 rounded-xl bg-earth-50 dark:bg-earth-800 text-slate-700 dark:text-slate-300">
+                <div class="p-2 sm:p-2.5 rounded-xl bg-earth-50 dark:bg-earth-800 text-slate-700 dark:text-slate-300">
                   <span class="text-slate-400 block text-[10px]">${isBn ? 'সেচ প্রয়োজন:' : 'Irrigation:'}</span> ${c.irrig[currentLang]}
                 </div>
-                <div class="p-2.5 rounded-xl bg-earth-50 dark:bg-earth-800 text-slate-700 dark:text-slate-300">
+                <div class="p-2 sm:p-2.5 rounded-xl bg-earth-50 dark:bg-earth-800 text-slate-700 dark:text-slate-300">
                   <span class="text-slate-400 block text-[10px]">${isBn ? 'লাভের সুযোগ:' : 'Advantage:'}</span> ${c.profit[currentLang]}
                 </div>
               </div>
             </div>
           </div>
-          <div class="pt-3 border-t border-earth-100 dark:border-earth-800 flex items-center justify-between">
+          <div class="pt-3 border-t border-earth-100 dark:border-earth-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <span class="text-xs text-slate-500 font-bold"><i class="fa-solid fa-check-circle text-leaf-600 mr-1"></i> ${c.feature[currentLang]}</span>
-            <button onclick="handleQuickAsk('${c.query[currentLang]}')" class="px-4 py-2 rounded-xl bg-leaf-50 dark:bg-earth-800 hover:bg-leaf-100 dark:hover:bg-earth-700 text-leaf-700 dark:text-leaf-300 font-black text-xs flex items-center gap-1.5 touch-target">
+            <button onclick="handleQuickAsk('${c.query[currentLang]}')" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-leaf-50 dark:bg-earth-800 hover:bg-leaf-100 dark:hover:bg-earth-700 text-leaf-700 dark:text-leaf-300 font-black text-xs flex items-center justify-center gap-1.5 touch-target">
               <i class="fa-solid fa-volume-high"></i> ${isBn ? 'চাষের নিয়ম শুনুন' : 'Listen Guidance'}
             </button>
           </div>
@@ -2359,17 +2063,14 @@
       btn.className = 'crop-goal-btn active p-3 rounded-2xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-center touch-target';
     }
 
-    /* =========================================================================
-       7. PUMP & FUEL CALCULATOR ENGINE (STRICTLY BILINGUAL)
-       ========================================================================= */
+    /* 7. PUMP & FUEL CALCULATOR ENGINE */
     let lastPumpCalcSpeech = "";
-
     function setBighaPreset(val) {
       document.querySelectorAll('.bigha-preset-btn').forEach(btn => {
         btn.className = 'bigha-preset-btn p-2 rounded-xl border-2 border-earth-200 dark:border-earth-700 bg-earth-50 dark:bg-earth-800 font-black text-xs text-center touch-target';
       });
-      if (event && event.currentTarget) {
-        event.currentTarget.className = 'bigha-preset-btn active p-2 rounded-xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-xs text-center touch-target';
+      if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.className = 'bigha-preset-btn active p-2 rounded-xl border-2 border-leaf-600 bg-leaf-600 text-white font-black text-xs text-center touch-target';
       }
       const bighaInput = document.getElementById('pumpLandBigha');
       if (bighaInput) {
@@ -2436,9 +2137,7 @@
       if (btn && btn.closest('.p-4, .p-5')) btn.closest('.p-4, .p-5').style.display = 'none';
     }
 
-    /* =========================================================================
-       8. CALENDAR DAYS & DASHBOARD KPIS (STRICTLY BILINGUAL)
-       ========================================================================= */
+    /* 8. CALENDAR DAYS & DASHBOARD KPIS */
     const calendarDays = [
       {
         day: { bn: "আজ সোম", en: "Today Mon" },
@@ -2474,9 +2173,9 @@
       const container = document.getElementById('calendarDaysContainer');
       if (!container) return;
       container.innerHTML = calendarDays.map(item => `
-        <div class="flex items-center justify-between p-3.5 rounded-2xl ${item.cls}">
+        <div class="flex items-center justify-between p-3 sm:p-3.5 rounded-2xl ${item.cls}">
           <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-2xl bg-leaf-600 text-white flex items-center justify-center text-xs font-black shrink-0 text-center px-1">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-leaf-600 text-white flex items-center justify-center text-xs font-black shrink-0 text-center px-1">
               ${item.day[currentLang]}
             </div>
             <div>
@@ -2484,7 +2183,7 @@
               <p class="text-[11px] text-slate-600 dark:text-slate-400 font-medium">${item.sub[currentLang]}</p>
             </div>
           </div>
-          <span class="px-3 py-1 rounded-full text-xs font-black bg-white dark:bg-earth-900 shadow-sm border border-earth-200 dark:border-earth-700">${item.status[currentLang]}</span>
+          <span class="px-2.5 sm:px-3 py-1 rounded-full text-xs font-black bg-white dark:bg-earth-900 shadow-sm border border-earth-200 dark:border-earth-700 shrink-0">${item.status[currentLang]}</span>
         </div>
       `).join('');
     }
@@ -2494,29 +2193,25 @@
         title: { bn: "গাছের স্বাস্থ্য (NDVI)", en: "Canopy Vigour (NDVI)" },
         status: { bn: "🟢 ভালো", en: "🟢 Good" },
         statusClass: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
-        val: "০.৬৮",
-        sub: { bn: "গত সপ্তাহের চেয়ে সবুজ হয়েছে", en: "Greener than previous week" }
+        val: "০.৬৮", sub: { bn: "গত সপ্তাহের চেয়ে সবুজ হয়েছে", en: "Greener than previous week" }
       },
       {
         title: { bn: "সেচের পানি সাশ্রয়", en: "Irrigation Conserved" },
         status: { bn: "💧 তেল সাশ্রয়", en: "💧 Fuel Saved" },
         statusClass: "bg-canal-100 text-canal-800 dark:bg-canal-950 dark:text-canal-300 border-canal-300",
-        val: "৩৮.৫%",
-        sub: { bn: "ডিজেল খরচ অনেক কমেছে", en: "Diesel consumption reduced" }
+        val: "৩৮.৫%", sub: { bn: "ডিজেল খরচ অনেক কমেছে", en: "Diesel consumption reduced" }
       },
       {
         title: { bn: "মাটির গড় রস", en: "Mean Soil Moisture" },
         status: { bn: "🟡 মাঝারি", en: "🟡 Moderate" },
         statusClass: "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border-amber-300",
-        val: "২২.৪%",
-        sub: { bn: "পূর্ব অংশে রাতে পানি দিন", en: "Water East parcel at night" }
+        val: "২২.৪%", sub: { bn: "পূর্ব অংশে রাতে পানি দিন", en: "Water East parcel at night" }
       },
       {
         title: { bn: "খরা সহনশীলতা স্কোর", en: "Drought Resilience" },
         status: { bn: "🟢 চমৎকার", en: "🟢 Excellent" },
         statusClass: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border-emerald-300",
-        val: "৮৮ / ১০০",
-        sub: { bn: "বাজরা ফসল সুরক্ষিত রয়েছে", en: "Millet parcel fully guarded" }
+        val: "৮৮ / ১০০", sub: { bn: "বাজরা ফসল সুরক্ষিত রয়েছে", en: "Millet parcel fully guarded" }
       }
     ];
 
@@ -2524,12 +2219,12 @@
       const container = document.getElementById('dashKpiCards');
       if (!container) return;
       container.innerHTML = dashboardKpiData.map(k => `
-        <div class="p-5 rounded-3xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700 space-y-2">
+        <div class="p-4 sm:p-5 rounded-3xl bg-white dark:bg-earth-900 border-2 border-earth-200 dark:border-earth-700 space-y-2">
           <div class="flex items-center justify-between">
             <span class="text-xs font-black text-slate-500 uppercase">${k.title[currentLang]}</span>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black border ${k.statusClass}">${k.status[currentLang]}</span>
           </div>
-          <div class="text-3xl font-black text-slate-900 dark:text-white">${k.val}</div>
+          <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">${k.val}</div>
           <div class="text-xs font-black text-leaf-600 flex items-center gap-1">
             <i class="fa-solid fa-arrow-trend-up"></i> ${k.sub[currentLang]}
           </div>
@@ -2548,15 +2243,13 @@
       const container = document.getElementById('quickQuestionsContainer');
       if (!container) return;
       container.innerHTML = quickQuestions.map(item => `
-        <button type="button" onclick="handleQuickAsk('${item.q[currentLang]}')" class="text-xs bg-earth-100 dark:bg-earth-800 hover:bg-leaf-100 dark:hover:bg-earth-700 px-3.5 py-2.5 rounded-2xl font-black border-2 border-earth-200 dark:border-earth-700 transition touch-target">
+        <button type="button" onclick="handleQuickAsk('${item.q[currentLang]}')" class="text-xs bg-earth-100 dark:bg-earth-800 hover:bg-leaf-100 dark:hover:bg-earth-700 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-2xl font-black border-2 border-earth-200 dark:border-earth-700 transition touch-target">
           ${item.text[currentLang]}
         </button>
       `).join('');
     }
 
-    /* =========================================================================
-       9. AGROBANI VOICE ASSISTANT (WEB SPEECH RECOGNITION + SYNTHESIS)
-       ========================================================================= */
+    /* 9. AGROBANI VOICE ASSISTANT (SPEECH RECOGNITION + SYNTHESIS) */
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     let recognition = null;
     let isListening = false;
@@ -2723,9 +2416,7 @@
       window.speechSynthesis.speak(utterance);
     }
 
-    /* =========================================================================
-       10. FIELD WIND AMBIENCE SYNTH
-       ========================================================================= */
+    /* 10. FIELD WIND AMBIENCE SYNTH */
     let isAmbiencePlaying = false;
     let ambienceAudioCtx = null;
     let windGain = null;
@@ -2734,7 +2425,6 @@
       const icon = document.getElementById('soundIcon');
       const text = document.getElementById('soundText');
       const isBn = currentLang === 'bn';
-
       if (isAmbiencePlaying) {
         if (windGain) windGain.gain.exponentialRampToValueAtTime(0.0001, ambienceAudioCtx.currentTime + 0.5);
         isAmbiencePlaying = false;
@@ -2753,23 +2443,18 @@
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         if (!AudioContext) return;
         if (!ambienceAudioCtx) ambienceAudioCtx = new AudioContext();
-
         const bufferSize = ambienceAudioCtx.sampleRate * 2;
         const noiseBuffer = ambienceAudioCtx.createBuffer(1, bufferSize, ambienceAudioCtx.sampleRate);
         const output = noiseBuffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
-
         const whiteNoise = ambienceAudioCtx.createBufferSource();
         whiteNoise.buffer = noiseBuffer;
         whiteNoise.loop = true;
-
         const filter = ambienceAudioCtx.createBiquadFilter();
         filter.type = 'lowpass';
         filter.frequency.setValueAtTime(320, ambienceAudioCtx.currentTime);
-
         windGain = ambienceAudioCtx.createGain();
         windGain.gain.setValueAtTime(0.04, ambienceAudioCtx.currentTime);
-
         whiteNoise.connect(filter);
         filter.connect(windGain);
         windGain.connect(ambienceAudioCtx.destination);
@@ -2777,13 +2462,9 @@
       } catch (e) { }
     }
 
-    function downloadReportPdf() {
-      window.print();
-    }
+    function downloadReportPdf() { window.print(); }
 
-    /* =========================================================================
-       11. INITIALIZATION
-       ========================================================================= */
+    /* 11. INITIALIZATION */
     window.addEventListener('DOMContentLoaded', () => {
       applyTranslations();
       navigateTo((window.location.hash || '').replace('#', '') || 'landing');
